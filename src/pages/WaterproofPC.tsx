@@ -15,6 +15,9 @@ import MiniNavbar from "@/components/MiniNavbar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import waterproofChickenImg from "@/assets/ads/waterproof-ad-2-chicken.jpg";
 import waterproofKitchenImg from "@/assets/ads/waterproof-ad-3-kitchen.jpg";
+import waterproofFoodFactoryImg from "@/assets/ads/waterproof-ad-1-foodfactory.jpg";
+import waterproofPainpointImg from "@/assets/ads/waterproof-ad-5-painpoint.jpg";
+import waterproofLineupImg from "@/assets/ads/waterproof-ad-4-lineup.jpg";
 
 const models = [
   {
@@ -283,7 +286,8 @@ const WaterproofPC = () => {
               ทนน้ำ ทนไอมัน ทนการล้างทำความสะอาดทุกกะ — ออกแบบมาเพื่อสภาพแวดล้อมที่คอมทั่วไปอยู่ไม่ได้
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Row 1: 2 ใหญ่ — Hero use cases */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="card-surface overflow-hidden group">
               <div className="relative aspect-[5/4] overflow-hidden">
                 <img
@@ -313,6 +317,58 @@ const WaterproofPC = () => {
                 <h3 className="font-display font-bold text-foreground mb-1">ครัวมืออาชีพ / Cloud Kitchen / POS</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   ทัชสกรีนใช้ได้แม้มือเปียก ใส่ถุงมือยาง — ทนไอน้ำ ไอมัน ความร้อน เช็ดล้างน้ำยาฆ่าเชื้อได้
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Row 2: 3 เล็ก — Supporting cases (สลับจังหวะ) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="card-surface overflow-hidden group">
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={waterproofFoodFactoryImg}
+                  alt="Waterproof PC สำหรับโรงงานผลิตอาหาร / นม / เครื่องดื่ม"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-display font-bold text-foreground text-sm mb-1">โรงงานผลิต / Batch Control HMI</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Sanitize ได้ ทน -20°C ถึง 60°C เหมาะกับ Dairy / Beverage / Pharma
+                </p>
+              </div>
+            </div>
+            <div className="card-surface overflow-hidden group">
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={waterproofPainpointImg}
+                  alt="เปรียบเทียบ PC ทั่วไป vs Waterproof Panel PC"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-display font-bold text-foreground text-sm mb-1">เปลี่ยนทีเดียว ใช้ยาว 5 ปี</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  เลิกซื้อ PC ใหม่ทุก 6 เดือน — คืนทุนใน 8 เดือน รับประกัน 2 ปี
+                </p>
+              </div>
+            </div>
+            <div className="card-surface overflow-hidden group">
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={waterproofLineupImg}
+                  alt="Waterproof Panel PC Series ครบทุกขนาด 10 - 21.5 นิ้ว"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-display font-bold text-foreground text-sm mb-1">ครบทุกขนาด 10″ – 21.5″</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  เลือกได้ตามไลน์ผลิต — Food / Pharma / Seafood / Clean Room
                 </p>
               </div>
             </div>
