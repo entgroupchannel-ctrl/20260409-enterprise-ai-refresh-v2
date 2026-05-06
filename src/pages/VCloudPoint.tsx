@@ -26,6 +26,10 @@ import usecaseFactory from "@/assets/vcloud/usecase-factory.jpg";
 import usecaseCallcenter from "@/assets/vcloud/usecase-callcenter.jpg";
 import usecaseRetail from "@/assets/vcloud/usecase-retail.jpg";
 import usecaseHospital from "@/assets/vcloud/usecase-hospital.jpg";
+import adEol2025 from "@/assets/vcloud/ad-eol2025.jpg";
+import adPower from "@/assets/vcloud/ad-power.jpg";
+import adClassroom from "@/assets/vcloud/ad-classroom.jpg";
+import adMaster from "@/assets/vcloud/ad-master.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 /* ═══════ Key Benefits ═══════ */
@@ -451,10 +455,10 @@ const VCloudPoint = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src="https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg" alt="Zero Client" className="rounded-xl w-full h-40 object-cover"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-2-C3vMfNlz.jpg" alt="Zero Client ติดจอ" className="rounded-xl w-full h-40 object-cover"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-3-Ct4JSYA7.jpg" alt="Zero Client กะทัดรัด" className="rounded-xl w-full h-40 object-cover"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-4-55rvfPYj.jpg" alt="Zero Client พอร์ต" className="rounded-xl w-full h-40 object-cover"/>
+              <img src={adPower} alt="ประหยัดค่าไฟ 90% Zero Client กินไฟแค่ 5W" loading="lazy" className="rounded-xl w-full h-40 object-cover shadow-md hover:scale-[1.02] transition-transform"/>
+              <img src={adClassroom} alt="เหมาะกับห้องคอมโรงเรียน 1 Server รองรับ 30+ จุด" loading="lazy" className="rounded-xl w-full h-40 object-cover shadow-md hover:scale-[1.02] transition-transform"/>
+              <img src={adMaster} alt="เปิดเทอมใหม่ คอมใหม่ ใช้ Zero Client ประหยัดกว่า 60%" loading="lazy" className="rounded-xl w-full h-40 object-cover shadow-md hover:scale-[1.02] transition-transform"/>
+              <img src={adEol2025} alt="Windows 10 หมดอายุ ต.ค. 2025 — 1 PC = 40 ผู้ใช้" loading="lazy" className="rounded-xl w-full h-40 object-cover shadow-md hover:scale-[1.02] transition-transform"/>
             </div>
           </div>
         </div>
