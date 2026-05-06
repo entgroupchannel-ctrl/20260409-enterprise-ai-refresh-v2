@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import heroMiniPC from "@/assets/hero-minipc-desk.jpg";
+import m4Master from "@/assets/ads/m4-avengers-master.jpg";
+import m4Captain from "@/assets/ads/m4-avengers-1-captain-gtg.jpg";
+import m4Defender from "@/assets/ads/m4-avengers-2-defender-gk.jpg";
+import m4Scout from "@/assets/ads/m4-avengers-3-scout-touchwork.jpg";
+import m4Guardian from "@/assets/ads/m4-avengers-4-guardian-outdoor.jpg";
+import m4Strategist from "@/assets/ads/m4-avengers-5-strategist-epc.jpg";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { ArrowLeft, ExternalLink, Cpu, Zap, Shield, Monitor, Wifi, ThermometerSun, HardDrive, Server, ChevronRight, FileText, CircleCheck, Filter, X, MessageSquare } from "lucide-react";
