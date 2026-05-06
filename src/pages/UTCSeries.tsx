@@ -250,7 +250,7 @@ const UTCSeries = () => {
 
               <div className="flex flex-wrap gap-3 mb-8">
                 {["Touch Screen 8\"–24\"", "Fanless Design", "Modular CPU", "IP65 Front"].map((tag) => (
-                  <span key={tag} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border">
+                  <span key={tag} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border bg-gray-400">
                     {tag}
                   </span>
                 ))}

@@ -844,7 +844,7 @@ const VCloudPoint = () => {
       {/* ── Flood Relief Program ── */}
       <section className="py-12 bg-secondary/30">
         <div className="container max-w-4xl mx-auto px-6">
-          <div className="card-surface rounded-2xl p-8 border-2 border-sky-500/20 bg-slate-200">
+          <div className="card-surface rounded-2xl p-8 border-2 bg-slate-200 border-zinc-500">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-sky-500/10 text-sky-400 border border-sky-500/30">
                 โครงการพิเศษ
@@ -867,7 +867,7 @@ const VCloudPoint = () => {
           <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-4">มาตรฐานและการรับรอง</p>
           <div className="flex flex-wrap justify-center gap-4">
             {["FCC Class A&B", "CE", "CCC", "RoHS", "BIS", "NOM", "ISO 9001:2015", "ISO 14001:2015"].map((cert) => (
-              <span key={cert} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border">
+              <span key={cert} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border bg-gray-400">
                 {cert}
               </span>
             ))}
