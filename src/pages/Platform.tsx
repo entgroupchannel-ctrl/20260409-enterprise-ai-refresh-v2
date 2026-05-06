@@ -106,7 +106,7 @@ const ADMIN_FEATURES = [
 ];
 
 const STATS = [
-  { value: "200+", label: "รุ่นสินค้า" },
+  { value: "< 4 ชม.", label: "รุ่นสินค้า" },
   { value: "8,000+", label: "รายชื่อลูกค้า" },
   { value: "< 4 ชม.", label: "ตอบกลับใบเสนอราคา" },
   { value: "10+ ปี", label: "ประสบการณ์" },
