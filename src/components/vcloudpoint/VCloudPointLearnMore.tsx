@@ -765,6 +765,112 @@ const VCloudPointLearnMore = () => {
                   </div>
                 </div>
               </TabsContent>
+
+              {/* Public Spaces sub-tab */}
+              <TabsContent value="pub" className="mt-0 space-y-6">
+                {/* Hero banner */}
+                <div className="relative overflow-hidden rounded-2xl card-surface bg-gradient-to-br from-primary/15 via-accent/10 to-transparent p-6 md:p-8">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="relative grid md:grid-cols-[1fr_auto] gap-4 items-center">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <Library className="w-3 h-3" /> Zero Client for Public Spaces
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-display font-black text-foreground mb-2">
+                        ห้องสมุด · โรงแรม · ศูนย์บริการประชาชน
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        เครื่องคอมสาธารณะถูกใช้งานหนัก ผู้ใช้หลากหลาย เปิด–ปิดทั้งวัน — vCloudPoint ออกแบบมาเพื่อจุดนี้:
+                        <strong className="text-foreground"> ไม่มีฮาร์ดดิสก์ให้พัง ไม่มีไวรัสตกค้าง</strong>
+                        {" "}ผู้ดูแล Reset Desktop กลับเป็นค่าเริ่มต้นได้ทุกครั้งที่ผู้ใช้ Logout
+                      </p>
+                    </div>
+                    <div className="hidden md:flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-background/60 border border-primary/30">
+                      <span className="text-3xl font-black text-primary">24/7</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Public availability</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4 challenges */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {[
+                    { icon: Settings2, t: "บำรุงรักษายาก", d: "เครื่อง PC ทุกตัวต้องลง OS, Patch, แอปแยกกัน — ใช้คนเยอะ ใช้เวลาเยอะ" },
+                    { icon: ShieldCheck, t: "ปลอดภัยข้อมูล", d: "ผู้ใช้สาธารณะอาจเผลอติดไวรัส หรือทิ้งไฟล์ส่วนตัวไว้ในเครื่อง" },
+                    { icon: DollarSign, t: "ต้นทุนสูง", d: "ค่าฮาร์ดแวร์ + ค่าไฟ + ค่าซ่อม รวมกันเยอะ เมื่อมีหลายสิบเครื่อง" },
+                    { icon: Zap, t: "เปลืองไฟทั้งวัน", d: "PC ทั่วไปกินไฟ 200W ต่อเครื่อง × เปิด 12 ชม./วัน × หลายสิบเครื่อง" },
+                  ].map((b) => (
+                    <div key={b.t} className="card-surface p-4 rounded-xl">
+                      <div className="w-9 h-9 rounded-lg bg-destructive/10 border border-destructive/30 flex items-center justify-center mb-2">
+                        <b.icon className="w-4 h-4 text-destructive" />
+                      </div>
+                      <div className="font-bold text-foreground text-sm mb-1">{b.t}</div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Featured case study */}
+                <div className="grid md:grid-cols-[1fr_1.2fr] gap-4 card-surface rounded-2xl overflow-hidden">
+                  <div className="relative aspect-video md:aspect-auto bg-secondary">
+                    <img
+                      src="https://www.vcloudpoint.com/wp-content/uploads/public-spaces-1.jpg"
+                      alt="JiuJiang Library — vCloudPoint Zero Client"
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold backdrop-blur">
+                      <Sparkles className="w-3 h-3" /> Featured Case
+                    </div>
+                  </div>
+                  <div className="p-6 md:p-7 flex flex-col justify-center">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                      <span className="text-base">🇨🇳</span>
+                      <MapPin className="w-3 h-3" />
+                      <span className="font-semibold">JiangXi, China</span>
+                    </div>
+                    <h4 className="font-display font-bold text-foreground text-lg md:text-xl mb-2">
+                      JiuJiang Library — ห้องสมุดสาธารณะระดับ National First Class
+                    </h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                      ห้องสมุดเก่าแก่ตั้งแต่ปี 1939 ติดตั้ง vCloudPoint ทดแทน PC เดิม
+                      สำหรับให้ผู้ใช้บริการเปิดเว็บห้องสมุด, ค้นหาหนังสือ และท่องอินเทอร์เน็ต — Desktop Reset
+                      อัตโนมัติทุกครั้งที่ผู้ใช้คนใหม่เริ่มใช้งาน ไม่มีไฟล์ตกค้าง ไม่มีไวรัส
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Auto-Reset Desktop", "Centralized Update", "ค่าไฟลด 80%", "ดูแลโดย IT 1 คน"].map((tag) => (
+                        <span key={tag} className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20">
+                          <Sparkles className="w-3 h-3" /> {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Why public spaces */}
+                <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+                  <h4 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    ทำไมห้องสมุด · โรงแรม · ศูนย์บริการเลือก vCloudPoint?
+                  </h4>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    {[
+                      { icon: ShieldCheck, t: "Reset Desktop ทุกครั้ง", d: "ผู้ใช้ใหม่ — ได้เครื่องสะอาดเหมือนใหม่ทุกครั้ง" },
+                      { icon: Settings2, t: "Update ครั้งเดียวทั้งระบบ", d: "ลง Patch บน Host ครั้งเดียว มีผลทุกที่นั่ง" },
+                      { icon: DollarSign, t: "ลดต้นทุนรวม 50%+", d: "ฮาร์ดแวร์ + ค่าไฟ + ค่าดูแลรวม ประหยัดมหาศาล" },
+                      { icon: Library, t: "ทนการใช้งาน 24/7", d: "ไม่มี HDD/พัดลม — รับมือผู้ใช้สาธารณะได้สบาย" },
+                    ].map((b) => (
+                      <div key={b.t} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+                          <b.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="font-bold text-foreground text-sm">{b.t}</div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
             </Tabs>
           </TabsContent>
 
