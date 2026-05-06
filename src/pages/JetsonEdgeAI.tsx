@@ -588,6 +588,96 @@ const JetsonEdgeAI = () => {
         </div>
       </section>
 
+      {/* ── PRIVATE AI SHOWCASE ── */}
+      <section className="py-20 bg-gradient-to-b from-background via-muted/20 to-background">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-4 border" style={{ borderColor: `${NV_GREEN}40`, background: `${NV_GREEN}15`, color: NV_GREEN }}>
+              <BrainCircuit size={14} /> PRIVATE AI SHOWCASE
+            </div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-3">Private AI บนเครื่องของคุณเอง</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              รัน LLM, Vision AI และ Generative AI แบบ on-premise ด้วย NVIDIA Jetson — ข้อมูลไม่ออกนอกองค์กร ค่าใช้จ่ายคงที่ ไม่มีค่า API รายเดือน
+            </p>
+          </div>
+
+          {/* Master banner */}
+          <div className="relative rounded-3xl overflow-hidden mb-8 shadow-2xl border border-border">
+            <img src={jetsonAdMaster} alt="NVIDIA Jetson Private AI Showcase" className="w-full h-auto" loading="lazy" />
+          </div>
+
+          {/* Showcase grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {[
+              { img: jetsonAdPrivateAi, tag: "PRIVATE AI", title: "ข้อมูลคุณ อยู่กับคุณ", desc: "รัน LLM และ AI Models ภายในองค์กร 100% ปลอดภัย ตอบโจทย์ PDPA และความลับทางธุรกิจ" },
+              { img: jetsonAdStartup, tag: "STARTUP READY", title: "เริ่มต้นได้เร็ว ลงทุนคุ้ม", desc: "ชุด Devkit + คำปรึกษาจากทีมวิศวกร เริ่มต้น Prototype ภายในไม่กี่วัน" },
+              { img: jetsonAdBundle, tag: "BUNDLE", title: "Hardware + Software ครบชุด", desc: "Jetson Module + Carrier Board + OS พร้อมใช้ ไม่ต้องเสียเวลาประกอบเอง" },
+              { img: jetsonAdEdge, tag: "EDGE AI", title: "AI ที่ปลายทาง ไม่พึ่ง Cloud", desc: "ประมวลผลที่หน้างานทันที Latency ต่ำ เหมาะกับโรงงาน, กล้อง CCTV, หุ่นยนต์" },
+            ].map((item) => (
+              <div key={item.title} className="group relative rounded-2xl overflow-hidden border border-border bg-card hover:shadow-2xl transition-all">
+                <div className="aspect-square overflow-hidden bg-muted">
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+                <div className="p-6">
+                  <div className="inline-block px-2.5 py-1 rounded text-[10px] font-bold mb-3 tracking-wider" style={{ background: `${NV_GREEN}15`, color: NV_GREEN }}>
+                    {item.tag}
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Lineup full-width */}
+          <div className="relative rounded-3xl overflow-hidden mb-8 shadow-xl border border-border">
+            <img src={jetsonAdLineup} alt="NVIDIA Jetson Lineup" className="w-full h-auto" loading="lazy" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 md:p-8">
+              <div className="text-white">
+                <div className="text-xs font-bold mb-1 tracking-wider" style={{ color: NV_GREEN }}>FULL LINEUP</div>
+                <h3 className="text-xl md:text-2xl font-bold">ครบทุกระดับ — Nano, Orin NX, Orin AGX</h3>
+                <p className="text-sm text-white/80 mt-1">เลือกประสิทธิภาพให้เหมาะกับ Workload ตั้งแต่ 40 TOPS ไปจนถึง 275 TOPS</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Case study */}
+          <div className="grid md:grid-cols-5 gap-6 items-center rounded-2xl overflow-hidden border border-border bg-card mb-10">
+            <div className="md:col-span-2 aspect-square md:aspect-auto md:h-full bg-muted">
+              <img src={jetsonAdCaseStudy} alt="Case Study" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="md:col-span-3 p-6 md:p-10">
+              <div className="inline-block px-2.5 py-1 rounded text-[10px] font-bold mb-3 tracking-wider" style={{ background: `${NV_GREEN}15`, color: NV_GREEN }}>
+                CASE STUDY
+              </div>
+              <h3 className="text-2xl font-bold mb-3">ลูกค้าจริง ใช้งานจริง</h3>
+              <p className="text-muted-foreground mb-4 leading-relaxed">
+                หน่วยงานราชการ, สถาบันการศึกษา และโรงงานอุตสาหกรรมเลือกใช้ NVIDIA Jetson จาก ENT Group สำหรับงาน Private AI, Computer Vision และ Edge Inference
+              </p>
+              <Link to="/nvidia-jetson/case-studies" className="inline-flex items-center gap-2 text-sm font-bold hover:gap-3 transition-all" style={{ color: NV_GREEN }}>
+                ดูเคสทั้งหมด <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center rounded-3xl p-8 md:p-12 border" style={{ background: `linear-gradient(135deg, ${NV_GREEN}10, transparent)`, borderColor: `${NV_GREEN}30` }}>
+            <h3 className="text-2xl md:text-3xl font-display font-bold mb-3">พร้อมเริ่ม Private AI ของคุณ?</h3>
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+              ปรึกษาทีมวิศวกร ENT Group ฟรี — เราช่วยเลือกรุ่น, ออกแบบระบบ และส่งมอบครบชุดพร้อมใช้
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-all shadow-[0_0_30px_-5px_rgba(118,185,0,0.5)] hover:shadow-[0_0_40px_-5px_rgba(118,185,0,0.8)]" style={{ background: NV_GREEN, color: "#0a0e27" }}>
+                <PhoneCall size={18} /> ติดต่อทีมขาย
+              </Link>
+              <Link to="/nvidia-jetson/products" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold border-2 transition-all hover:bg-muted" style={{ borderColor: NV_GREEN, color: NV_GREEN }}>
+                <ShoppingBag size={18} /> ดูสินค้าทั้งหมด
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <B2BWorkflowBanner showShopCta />
       <JetsonCTABar message="พร้อมเริ่มโปรเจกต์ NVIDIA Jetson หรือยัง?" />
       <Footer />
