@@ -17,7 +17,7 @@ const STEPS = [
   { n: "01", icon: UserPlus, title: "สมัครสมาชิก", desc: "ลงทะเบียนฟรี กรอกข้อมูลบริษัท" },
   { n: "02", icon: Search, title: "เลือกสินค้า", desc: "ค้นหา เปรียบเทียบ เก็บ Wishlist" },
   { n: "03", icon: FileText, title: "สร้างใบเสนอราคา", desc: "เลือกรุ่น จำนวน ส่ง Draft" },
-  { n: "04", icon: ShieldCheck, title: "ทีมขายตรวจสอบ", desc: "อนุมัติราคาภายใน 2 ชม." },
+  { n: "04", icon: ShieldCheck, title: "ทีมขายตรวจสอบ", desc: "อนุมัติราคาภายใน 4 ชม." },
   { n: "05", icon: ClipboardCheck, title: "ยืนยันสั่งซื้อ", desc: "อัปโหลด PO ยืนยันออเดอร์" },
   { n: "06", icon: Truck, title: "รับสินค้า", desc: "ติดตามจัดส่ง ตรวจรับ เสร็จสิ้น" },
 ];
@@ -64,7 +64,7 @@ const FEATURES = [
     icon: MessageSquare,
     title: "สนทนาและต่อรองกับทีมขาย",
     desc: "ช่องทางสื่อสารตรงในระบบ ถาม-ตอบเรื่องราคา สเปก เงื่อนไข โดยไม่ต้องออกจากหน้าเว็บ",
-    points: ["พิมพ์ข้อความตอบกลับได้ทันที", "ทีมขายตอบภายใน 2 ชั่วโมง (วันทำการ)", "ประวัติสนทนาเก็บไว้ตลอด"],
+    points: ["พิมพ์ข้อความตอบกลับได้ทันที", "ทีมขายตอบภายใน 4 ชั่วโมง (วันทำการ)", "ประวัติสนทนาเก็บไว้ตลอด"],
     href: "/my/quotes",
     image: "/images/platform/negotiation.png",
   },
@@ -96,7 +96,7 @@ const FEATURES = [
 
 const ADMIN_FEATURES = [
   { icon: Users, title: "จัดการรายชื่อลูกค้า", desc: "ระบบ CRM เก็บข้อมูลลูกค้า ประวัติติดต่อ Lead Score ติดตาม SLA ไม่พลาดทุกโอกาสขาย" },
-  { icon: FileCheck, title: "ตรวจสอบ & อนุมัติใบเสนอราคา", desc: "ทีมขายตรวจสอบราคา ปรับเงื่อนไข อนุมัติหรือส่งกลับพร้อมคอมเมนต์ ภายใน 2 ชั่วโมง" },
+  { icon: FileCheck, title: "ตรวจสอบ & อนุมัติใบเสนอราคา", desc: "ทีมขายตรวจสอบราคา ปรับเงื่อนไข อนุมัติหรือส่งกลับพร้อมคอมเมนต์ ภายใน 4 ชั่วโมง" },
   { icon: Receipt, title: "ออกเอกสาร Sales Order → Invoice", desc: "ออกใบสั่งซื้อ ใบวางบิล ใบแจ้งหนี้ ต่อเนื่องจากใบเสนอราคาที่อนุมัติ ลดงานซ้ำซ้อน" },
   { icon: Send, title: "ใบส่งสินค้า & ติดตามจัดส่ง", desc: "บันทึกเลขพัสดุ วันจัดส่ง Serial Number ลูกค้าตรวจสอบสถานะได้ทุกเวลา" },
   { icon: Wallet, title: "บันทึกการชำระเงิน", desc: "ยืนยันสลิปโอนเงิน บันทึกยอดชำระ ตรวจสอบยอดค้าง จัดการ Payment Records ครบถ้วน" },
@@ -108,7 +108,7 @@ const ADMIN_FEATURES = [
 const STATS = [
   { value: "200+", label: "รุ่นสินค้า" },
   { value: "8,000+", label: "รายชื่อลูกค้า" },
-  { value: "< 2 ชม.", label: "ตอบกลับใบเสนอราคา" },
+  { value: "< 4 ชม.", label: "ตอบกลับใบเสนอราคา" },
   { value: "10+ ปี", label: "ประสบการณ์" },
 ];
 
@@ -161,7 +161,7 @@ export default function Platform() {
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ลงทะเบียนฟรี</span>
                 <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ไม่มีค่าติดตั้ง</span>
-                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ทีมขายตอบใน 2 ชม.</span>
+                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ทีมขายตอบใน 4 ชม.</span>
               </div>
             </div>
 
@@ -193,7 +193,7 @@ export default function Platform() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">ตอบกลับใบเสนอราคา</div>
-                  <div className="text-lg font-bold">&lt; 2 ชั่วโมง</div>
+                  <div className="text-lg font-bold">&lt; 4 ชั่วโมง</div>
                 </div>
               </div>
             </div>

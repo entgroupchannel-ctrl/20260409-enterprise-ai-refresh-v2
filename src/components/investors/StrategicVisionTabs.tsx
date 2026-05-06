@@ -117,7 +117,7 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: Rocket, title: "ความเร็ว", desc: "ตอบกลับใบเสนอราคาภายใน 24 ชม. แก้ปัญหาเทคนิคใน 2 ชม. ไม่ใช่ 2 สัปดาห์" },
+              { icon: Rocket, title: "ความเร็ว", desc: "ตอบกลับใบเสนอราคาภายใน 24 ชม. แก้ปัญหาเทคนิคใน 4 ชม. ไม่ใช่ 2 สัปดาห์" },
               { icon: Shield, title: "ดูแลใกล้ชิดทุกบัญชี", desc: "ลูกค้าทุกรายมี Sales Account Manager เฉพาะ พร้อมทีมเทคนิคภาษาไทย รองรับเข้าหน้างานทั่วประเทศ" },
               { icon: TrendingUp, title: "ราคาที่จับต้องได้", desc: "ต้นทุนต่ำกว่าแบรนด์โกลบอล 30–40% ด้วยคุณภาพ Industrial-grade เทียบเท่า" },
             ].map((item) => (
@@ -144,7 +144,7 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
           <div className="space-y-4">
             {[
               { num: "01", title: "SME & โรงงานขนาดกลาง (100–500 คน)", desc: "ตลาด SME ไทยมีกว่า 3.2 ล้านกิจการ ต้องการ Industrial PC ที่ราคาคุ้มและบริการรวดเร็ว", stat: "3.2M+ SMEs" },
-              { num: "02", title: "Custom Solution + After-sales ใกล้ชิด", desc: "Sales Account Manager ดูแลโดยตรง ปัญหาเทคนิคแก้ใน 2 ชั่วโมง ไม่ต้องผ่านศูนย์ต่างประเทศ", stat: "2hr Response SLA" },
+              { num: "02", title: "Custom Solution + After-sales ใกล้ชิด", desc: "Sales Account Manager ดูแลโดยตรง ปัญหาเทคนิคแก้ใน 4 ชั่วโมง ไม่ต้องผ่านศูนย์ต่างประเทศ", stat: "4hr Response SLA" },
               { num: "03", title: "Mid-tier Pricing สำหรับงานคุ้มค่า", desc: "สำหรับโรงงาน ร้านค้าปลีก คลินิก ที่ต้องการ 'ของดีใช้ได้จริง' โดยไม่ต้องจ่าย brand premium", stat: "30–40% lower TCO" },
             ].map((b) => (
               <Card key={b.num} className="border-border/60">
