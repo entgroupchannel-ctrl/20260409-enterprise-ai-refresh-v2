@@ -277,7 +277,7 @@ const VCloudPoint = () => {
       <MiniNavbar />
 
       {/* ── Authorized Distributor Banner ── */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-sky-600 text-primary-foreground border-b border-primary/30">
+      <section className="sticky top-0 z-40 relative overflow-hidden bg-gradient-to-r from-primary via-primary to-sky-600 text-primary-foreground border-b border-primary/30 shadow-md">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute -top-10 -left-10 w-48 h-48 rounded-full bg-white/20 blur-3xl" />
           <div className="absolute -bottom-10 right-1/4 w-56 h-56 rounded-full bg-sky-300/30 blur-3xl" />
