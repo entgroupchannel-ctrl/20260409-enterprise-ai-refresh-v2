@@ -45,6 +45,9 @@ import firewallGT194LImg from "@/assets/ads/firewall-ad-2-gt194l.jpg";
 import firewallIPC068Img from "@/assets/ads/firewall-ad-3-ipc068.jpg";
 import firewallIPC090Img from "@/assets/ads/firewall-ad-4-ipc090.jpg";
 import firewallSecurityImg from "@/assets/ads/firewall-ad-5-security.jpg";
+import ipcAdRugged from "@/assets/ads/industrialpc-ad-2-rugged.jpg";
+import ipcAdIO from "@/assets/ads/industrialpc-ad-3-io.jpg";
+import IndustrialPCWarranty from "@/components/IndustrialPCWarranty";
 
 /* ═══════ Product Data ═══════ */
 const iboxModels = [
@@ -512,6 +515,30 @@ const IBoxSeries = () => {
               </div>
             </section>
 
+            {/* Rugged + I/O Showcase */}
+            <section className="grid md:grid-cols-2 gap-4">
+              <div className="relative rounded-2xl overflow-hidden border border-border shadow-xl group">
+                <img src={ipcAdRugged} alt="iBox Rugged Design" className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-700" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <div className="text-[10px] font-bold tracking-widest text-primary mb-1">RUGGED DESIGN</div>
+                  <h3 className="text-lg md:text-xl font-display font-bold">ทนหนัก ทนแรงสั่น ทนฝุ่น</h3>
+                  <p className="text-xs text-white/80 mt-1">โครงอลูมิเนียมหนา ระบายความร้อน Fanless 100% เหมาะกับโรงงาน 24/7</p>
+                </div>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden border border-border shadow-xl group">
+                <img src={ipcAdIO} alt="iBox I/O Ports" className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-700" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <div className="text-[10px] font-bold tracking-widest text-primary mb-1">RICH I/O</div>
+                  <h3 className="text-lg md:text-xl font-display font-bold">พอร์ตครบทุกการเชื่อมต่อ</h3>
+                  <p className="text-xs text-white/80 mt-1">USB, COM, LAN, HDMI, GPIO — รองรับงาน Automation ทุกประเภท</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Warranty */}
+            <IndustrialPCWarranty compact />
 
             {/* CTA */}
             <div className="card-surface p-8 text-center">

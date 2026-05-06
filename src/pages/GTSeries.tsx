@@ -23,6 +23,10 @@ import logo from "@/assets/logo-entgroup.avif";
 import gt4500CpuOptions from "@/assets/gt4500-cpu-options.png";
 import gtSeriesHero from "@/assets/gt-series-hero-lineup.jpg";
 import gtSeriesHeroBg from "@/assets/gt-series-hero-bg.jpg";
+import ipcAdMaster from "@/assets/ads/industrialpc-ad-master.jpg";
+import ipcAdLineup3 from "@/assets/ads/industrialpc-ad-3-lineup.jpg";
+import ipcAdLineup4 from "@/assets/ads/industrialpc-ad-4-lineup.jpg";
+import IndustrialPCWarranty from "@/components/IndustrialPCWarranty";
 import gt1000Banner from "@/assets/gt1000-banner.jpg";
 import gt2000Banner from "@/assets/gt2000-banner.jpg";
 import gt3000Banner from "@/assets/gt3000-banner.jpg";
@@ -813,6 +817,32 @@ const GTSeries = () => {
           </div>
         </div>
       </section>
+
+      {/* Industrial PC Showcase — Master + Lineup banners */}
+      <section className="py-10 bg-background">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <span className="text-xs font-bold tracking-widest uppercase text-primary">Industrial PC Showcase</span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2">ครบทุกรุ่น Industrial PC ในที่เดียว</h2>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-xl group">
+              <img src={ipcAdMaster} alt="Industrial PC Master" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+            </div>
+            <div className="grid grid-rows-2 gap-4">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
+                <img src={ipcAdLineup3} alt="Industrial PC Lineup" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+              </div>
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
+                <img src={ipcAdLineup4} alt="Industrial PC Lineup Extended" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Warranty block */}
+      <IndustrialPCWarranty />
 
       {/* Models Section with Tabs */}
       <section className="section-padding" id="models">
