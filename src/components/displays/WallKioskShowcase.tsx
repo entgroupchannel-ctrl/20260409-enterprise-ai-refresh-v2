@@ -93,11 +93,6 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
               className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
-            <div
-              className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
-              style={{ background: "linear-gradient(135deg, rgba(120,90,60,0.55), rgba(80,60,40,0.4))" }}
-              aria-hidden
-            />
           </div>
         </div>
 
