@@ -496,6 +496,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           </div>
         </section>
 
+        {/* Wall Mount Touch Kiosk Showcase — แสดงเฉพาะกลุ่ม Wall Kiosk */}
+        {(groupSize === 156 || groupSize === 215 || groupSize === 238 || groupSize === 32) && (
+          <WallKioskShowcase currentSize={groupSize as 156 | 215 | 238 | 32} />
+        )}
+
         {/* Highlights */}
         <section
           id="highlights"
