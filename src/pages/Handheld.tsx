@@ -153,10 +153,6 @@ const Handheld = () => {
           <div className="absolute inset-0 bg-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white transition-colors mb-4">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
-
           <Badge className="bg-primary/20 text-primary border-primary/30 mb-3">Rugged Handheld & PDA</Badge>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-3">
             Rugged <span className="text-gradient">Handheld & PDA</span>
@@ -191,10 +187,7 @@ const Handheld = () => {
       {/* Sticky Bar: Back + Quick Filters */}
       <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between py-1.5 border-b border-border/50">
-            <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
-            </Link>
+          <div className="flex items-center justify-end py-1.5 border-b border-border/50">
             <div className="flex items-center gap-3">
               <span className="text-[10px] text-muted-foreground">Handheld & PDA — {filtered.length} รุ่น</span>
               <CartBadge />
