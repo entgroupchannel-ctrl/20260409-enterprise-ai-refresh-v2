@@ -890,7 +890,7 @@ const MiniPC = () => {
             <div>
               <Badge className="bg-primary/10 text-primary border-primary/20 mb-2">M4 SERIES — AVENGERS LINEUP</Badge>
               <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">
-                5 ฮีโร่ Mini PC — เลือกตัวที่ใช่กับงานของคุณ
+                5 ฮีโร่ Panel PC — เลือกตัวที่ใช่กับงานของคุณ
               </h2>
               <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
                 Industrial Fanless · Panel PC · Touch Workstation · Outdoor Rugged · Edge PC
