@@ -249,51 +249,57 @@ const InteractiveDisplayBanner = () => {
             </Link>
           </div>
 
-          {/* Hero image — full lineup */}
-          <Link
-            to="/products/displays-21.5"
-            className="group relative block overflow-hidden rounded-xl border border-border bg-card hover:border-primary hover:shadow-xl transition-all mb-3"
-          >
-            <img
-              src={wallKioskHero}
-              alt="Wall Mount Touch Kiosk ครบทุกขนาด 15.6, 21.5, 23.8, 32 นิ้ว"
-              loading="lazy"
-              className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500"
-            />
-          </Link>
+          {/* Layout: ซ้ายภาพใหญ่ / ขวากลุ่มภาพรอง */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 md:gap-4">
+            {/* Hero image — full lineup (ซ้าย) */}
+            <Link
+              to="/products/displays-21.5"
+              className="group relative block overflow-hidden rounded-xl border border-border bg-card hover:border-primary hover:shadow-xl transition-all lg:col-span-3"
+            >
+              <div className="relative h-full min-h-[260px] overflow-hidden bg-muted">
+                <img
+                  src={wallKioskHero}
+                  alt="Wall Mount Touch Kiosk ครบทุกขนาด 15.6, 21.5, 23.8, 32 นิ้ว"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent p-4">
+                  <div className="text-sm md:text-base font-bold text-foreground">ครบทุกขนาด 15.6" – 32"</div>
+                  <div className="text-xs text-muted-foreground line-clamp-1">Self Check-in • POS / Queue • Brand Store • Banking</div>
+                </div>
+              </div>
+            </Link>
 
-          {/* Detail images grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { src: wallKiosk156, alt: 'Wall Kiosk 15.6" Compact & Smart', caption: '15.6" — Compact & Smart', sub: "เริ่มต้นง่าย ติดตั้งไว เหมาะ Self Check-in", href: "/products/displays-15.6" },
-              { src: wallKiosk215, alt: 'Wall Kiosk 21.5" GD215C Portrait', caption: '21.5" — ขนาดกระทัดรัด คุ้มค่า', sub: "GD215C Series — Portrait Touch Kiosk", href: "/products/displays-21.5" },
-              { src: wallKiosk238, alt: 'Wall Kiosk 23.8" Portrait 9:16', caption: '23.8" — Portrait 9:16', sub: "ขอบจอบาง 13mm สไตล์ iPad", href: "/products/displays-23.8" },
-              { src: wallKiosk32, alt: 'Wall Kiosk 32" Premium GD32C', caption: '32" — ระดับพรีเมียม', sub: "GD32C — Banking / Brand Store / Hotel", href: "/products/displays-21.5" },
-              { src: wallKioskAndroid, alt: "Wall Mount Touch Kiosk Android POS Ready", caption: "Android POS Ready", sub: "PCAP 10-touch • 24/7 Industrial", href: "/products/displays-21.5" },
-              { src: wallKioskHero, alt: "เลือกขนาดที่ใช่สำหรับธุรกิจคุณ", caption: "ครบทุกขนาด เลือกได้ตามงาน", sub: "Self Check-in • POS / Queue • Brand Store • Banking", href: "/products/displays-21.5" },
-            ].map((item, i) => (
-              <Link
-                key={i}
-                to={item.href}
-                className="group relative block overflow-hidden rounded-xl border border-border bg-card hover:border-primary hover:shadow-lg hover:-translate-y-0.5 transition-all"
-              >
-                <div className="relative aspect-[5/4] overflow-hidden bg-muted">
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-3">
-                  <div className="text-sm font-bold text-foreground leading-tight">{item.caption}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{item.sub}</div>
-                  <div className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary group-hover:gap-2 transition-all">
-                    ดูรายละเอียด <ArrowRight className="w-3 h-3" />
+            {/* กลุ่มภาพรอง (ขวา) */}
+            <div className="grid grid-cols-2 gap-2 md:gap-3 lg:col-span-2 content-start">
+              {[
+                { src: wallKiosk156, alt: 'Wall Kiosk 15.6"', caption: '15.6"', sub: "Compact & Smart", href: "/products/displays-15.6" },
+                { src: wallKiosk215, alt: 'Wall Kiosk 21.5" GD215C', caption: '21.5"', sub: "GD215C Portrait", href: "/products/displays-21.5" },
+                { src: wallKiosk238, alt: 'Wall Kiosk 23.8" Portrait', caption: '23.8"', sub: "Portrait 9:16", href: "/products/displays-23.8" },
+                { src: wallKiosk32, alt: 'Wall Kiosk 32" GD32C', caption: '32"', sub: "ระดับพรีเมียม", href: "/products/displays-21.5" },
+              ].map((item, i) => (
+                <Link
+                  key={i}
+                  to={item.href}
+                  className="group relative block overflow-hidden rounded-lg border border-border bg-card hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <span className="absolute top-1.5 left-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary text-primary-foreground shadow">
+                      {item.caption}
+                    </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="px-2 py-1.5">
+                    <div className="text-[11px] font-semibold text-foreground line-clamp-1">{item.sub}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
