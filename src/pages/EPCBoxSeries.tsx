@@ -1174,6 +1174,43 @@ const EPCBoxSeries = () => {
       {/* Partners */}
       <PartnerLogos />
 
+      {/* Application Showcase */}
+      <section className="py-12 bg-background">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-6 items-center">
+            <div className="rounded-3xl overflow-hidden border border-border shadow-2xl group">
+              <img src={ipcAdApplication} alt="EPC Box ใช้งานจริงในอุตสาหกรรม" className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-700" loading="lazy" />
+            </div>
+            <div>
+              <span className="text-xs font-bold tracking-widest uppercase text-primary">Real-World Applications</span>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2 mb-3">
+                ใช้งานจริงในทุกอุตสาหกรรม
+              </h2>
+              <p className="text-muted-foreground mb-5 leading-relaxed">
+                EPC Box Series ติดตั้งใช้งานจริงในโรงงานผลิต, ระบบควบคุมเครื่องจักร, สถานีตรวจวัด,
+                ป้ายโฆษณาดิจิทัล และระบบ Smart Building ทั่วประเทศ
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  "Smart Factory & Automation",
+                  "Machine Vision & AI",
+                  "Digital Signage & Kiosk",
+                  "Building Management",
+                ].map((u) => (
+                  <div key={u} className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border">
+                    <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
+                    <span className="text-sm font-medium text-foreground">{u}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Warranty */}
+      <IndustrialPCWarranty compact />
+
       {/* CTA */}
       <section className="section-padding bg-muted/30">
         <div className="container max-w-3xl mx-auto text-center">
