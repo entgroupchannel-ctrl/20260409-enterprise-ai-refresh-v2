@@ -19,6 +19,20 @@ import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import GBPriceList from "@/components/GBPriceList";
+import adHero from "@/assets/ads/gb-series/gb-series-hero.jpg";
+import adGb1000 from "@/assets/ads/gb-series/gb1000-ad.jpg";
+import adGb2000 from "@/assets/ads/gb-series/gb2000-ad.jpg";
+import adGb4000v1 from "@/assets/ads/gb-series/gb4000v1-ad.jpg";
+import adGb4000v2 from "@/assets/ads/gb-series/gb4000v2-ad.jpg";
+import adGb5000 from "@/assets/ads/gb-series/gb5000-ad.jpg";
+
+const adShowcase = [
+  { id: "gb1000", img: adGb1000, name: "GB1000", tagline: "Ultra-Compact Champion", desc: "เล็กที่สุดในซีรีส์ 21×18×5.2 cm — Fanless ไร้เสียง 6× COM, 2× LAN เหมาะสำหรับ POS, Kiosk, In-vehicle" },
+  { id: "gb2000", img: adGb2000, name: "GB2000", tagline: "Network Professional", desc: "เครือข่าย 2.5G LAN Intel i225V พร้อม Legacy I/O ครบ (PS/2, GPIO, LPT) รองรับ 3G/4G อัปเกรดระบบเก่า" },
+  { id: "gb4000v1", img: adGb4000v1, name: "GB4000 v1", tagline: "Versatile Workhorse", desc: "PCIe Expansion Slot, 6× COM, 4× USB 3.0, Wide Voltage 9-36V DC ทนทุกสภาพ -20~+60°C" },
+  { id: "gb4000v2", img: adGb4000v2, name: "GB4000 v2", tagline: "Enhanced Performance", desc: "อัปเกรด Intel 8th/9th Gen, DDR4, M.2 NVMe, Dual Display 4K สำหรับงาน Vision/AI Edge" },
+  { id: "gb5000", img: adGb5000, name: "GB5000", tagline: "Flagship Maximum Expansion", desc: "ตัวท็อปของซีรีส์ Core i7/i9, 64GB DDR4, Multiple PCIe, 8× COM, 6× USB, Dual SIM 4G" },
+];
 
 /* ───── Product Data ───── */
 const models = [
