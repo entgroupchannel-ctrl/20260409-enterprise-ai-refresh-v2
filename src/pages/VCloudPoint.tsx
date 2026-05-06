@@ -339,6 +339,57 @@ const VCloudPoint = () => {
         </div>
       </section>
 
+      {/* ── Win10 EOL Solution ── */}
+      <section id="eol-detail" className="py-14 bg-gradient-to-b from-destructive/5 to-transparent border-b border-border">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="order-2 md:order-1">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-4">
+                <Clock className="w-3.5 h-3.5" /> Deadline ตุลาคม 2025
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4 leading-tight">
+                Windows 10 หมดอายุแล้ว<br/>
+                <span className="text-destructive">PC เก่ากำลังจะใช้ไม่ได้</span>
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Microsoft หยุด Security Update — PC เก่าทั้งออฟฟิศเสี่ยงโดน Ransomware การซื้อเครื่องใหม่ทั้งบริษัทคือต้นทุนหลักล้าน
+              </p>
+              <div className="space-y-3 mb-6">
+                {[
+                  { icon: CheckCircle2, text: "ใช้ PC เก่า 1 เครื่อง รองรับได้ถึง 30 ผู้ใช้" },
+                  { icon: CheckCircle2, text: "ไม่ต้องซื้อ License Windows ทุกเครื่อง" },
+                  { icon: CheckCircle2, text: "ติดตั้งใน 1 วัน ใช้งานได้ทันที" },
+                  { icon: CheckCircle2, text: "ประหยัดงบประมาณ 60%+ เทียบกับซื้อ PC ใหม่ทั้งหมด" },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3">
+                    <item.icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm hover:bg-destructive/90 transition-colors">
+                  คำนวณค่าใช้จ่าย <ArrowRight size={14} />
+                </button>
+                <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
+                  ดูวิธีติดตั้ง
+                </a>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="card-surface overflow-hidden rounded-2xl">
+                <img
+                  src={vcloudEolImg}
+                  alt="Windows 10 EOL ตุลาคม 2025 — เปลี่ยนมาใช้ vCloudPoint"
+                  loading="lazy"
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── What is Zero Client ── */}
       <section className="py-16 bg-secondary/30">
         <div className="container max-w-7xl mx-auto px-6">
