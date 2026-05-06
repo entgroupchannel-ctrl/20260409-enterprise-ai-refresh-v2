@@ -643,15 +643,28 @@ const VCloudPoint = () => {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {useCases.map((uc) => (
-              <div key={uc.title} className="card-surface rounded-xl p-6 hover:border-primary/30 transition-all duration-300">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-                    <uc.icon className="text-primary" size={22} />
+              <div key={uc.title} className="card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 group">
+                <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                  <img
+                    src={uc.image}
+                    alt={uc.title}
+                    loading="lazy"
+                    width={800}
+                    height={500}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute top-3 left-3 w-10 h-10 rounded-lg bg-background/90 backdrop-blur border border-primary/30 flex items-center justify-center">
+                    <uc.icon className="text-primary" size={20} />
                   </div>
-                  <span className="text-xs font-bold text-primary">{uc.stat}</span>
+                  <span className="absolute top-3 right-3 text-xs font-bold text-white bg-primary/90 px-2 py-1 rounded-md backdrop-blur">
+                    {uc.stat}
+                  </span>
                 </div>
-                <h3 className="font-bold text-foreground mb-1">{uc.title}</h3>
-                <p className="text-sm text-muted-foreground">{uc.desc}</p>
+                <div className="p-5">
+                  <h3 className="font-bold text-foreground mb-1">{uc.title}</h3>
+                  <p className="text-sm text-muted-foreground">{uc.desc}</p>
+                </div>
               </div>
             ))}
           </div>
