@@ -257,6 +257,8 @@ const App = () => (
                     <Route path="/epc-box-series" element={<EPCBoxSeries />} />
                     <Route path="/gk-series" element={<GKSeries />} />
                     <Route path="/mini-pc" element={<MiniPC />} />
+                    <Route path="/m4-series" element={<MiniPC />} />
+                    <Route path="/m4-avengers" element={<MiniPC />} />
                     <Route path="/waterproof-pc" element={<WaterproofPC />} />
                     <Route path="/volktek" element={<Volktek />} />
                     <Route path="/partners/ipctech" element={<IPCTech />} />
