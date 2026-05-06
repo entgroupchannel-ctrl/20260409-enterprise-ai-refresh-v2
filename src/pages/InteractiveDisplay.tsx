@@ -968,6 +968,97 @@ export default function InteractiveDisplay() {
         </div>
       </section>
 
+      {/* Visual Showcase Gallery */}
+      <section className="border-t border-border bg-gradient-to-b from-background to-muted/20">
+        <div className="container max-w-7xl mx-auto px-6 py-16">
+          <div className="text-center mb-10">
+            <Badge variant="secondary" className="mb-3">Visual Showcase</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold">เห็นภาพจริงก่อนตัดสินใจ</h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+              ตัวอย่างการใช้งานจริง — KIOSK Self-Service สำหรับร้านอาหาร/ธนาคาร และ Touchwork Display สำหรับห้องประชุม/Showroom
+            </p>
+          </div>
+
+          {/* Row 1 — Featured: KIOSK Self-Service hero (2 cols) + 2 portrait kiosks */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+            <div className="md:col-span-2 group relative overflow-hidden rounded-xl border border-border">
+              <img src={adKioskSelfService} alt="KIOSK Self-Service สั่งอาหาร/รับคิว 24 ชม." loading="lazy"
+                className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent p-5">
+                <h3 className="font-semibold text-lg">KIOSK Self-Service 32"/43"</h3>
+                <p className="text-sm text-muted-foreground mt-1">ทดแทนพนักงานหน้าร้าน — ทำงาน 24 ชม. ไม่ลาออก</p>
+              </div>
+            </div>
+            <div className="group relative overflow-hidden rounded-xl border border-border">
+              <img src={adKiosk238} alt="Wall Mount Kiosk 23.8 นิ้ว" loading="lazy"
+                className="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 to-transparent p-4">
+                <h3 className="font-semibold text-sm">Wall Mount 23.8"</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">Portrait • Square POS Ready</p>
+              </div>
+            </div>
+            <div className="group relative overflow-hidden rounded-xl border border-border">
+              <img src={adKiosk32} alt="ตู้คีออสก์ 32 นิ้ว ระดับพรีเมียม" loading="lazy"
+                className="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 to-transparent p-4">
+                <h3 className="font-semibold text-sm">Premium Kiosk 32"</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">Banking • Hotel • Brand Store</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Row 2 — Touchwork Master (full width) */}
+          <div className="group relative overflow-hidden rounded-xl border border-border mb-4">
+            <img src={adTouchworkMaster} alt="Touchwork Interactive Display ครบทุกการใช้งาน" loading="lazy"
+              className="w-full aspect-[21/9] object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-transparent flex items-center">
+              <div className="p-6 md:p-10 max-w-md">
+                <Badge variant="outline" className="mb-3 bg-background/80">Touchwork Series</Badge>
+                <h3 className="text-2xl md:text-3xl font-bold">จอเดียว ตอบโจทย์ทุกธุรกิจ</h3>
+                <p className="text-sm text-muted-foreground mt-2">Showroom · ห้องประชุม · Retail · Hybrid Meeting</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Row 3 — 4 use case scenarios */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            {[
+              { src: adTwShowroom, title: "ยกระดับ Showroom", desc: "23.8\" 4K UHD ดึงดูดลูกค้า" },
+              { src: adTwMeeting, title: "ห้องประชุม Smart", desc: "Whiteboard + VC ในจอเดียว" },
+              { src: adTwRetail, title: "Digital Catalog", desc: "เพิ่มยอดขายด้วย Touch UX" },
+              { src: adTwHybrid, title: "Hybrid Meeting", desc: "ลื่นไหลทั้งในและนอกออฟฟิศ" },
+            ].map((item) => (
+              <div key={item.title} className="group relative overflow-hidden rounded-xl border border-border">
+                <img src={item.src} alt={item.title} loading="lazy"
+                  className="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/70 to-transparent p-3">
+                  <h3 className="font-semibold text-sm">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Row 4 — 3 KIOSK size variants */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { src: adKiosk156, title: "Wall Kiosk 15.6\"", desc: "Compact & Smart — Self Check-in" },
+              { src: adKiosk215, title: "Wall Kiosk 21.5\"", desc: "ขนาดกระทัดรัด คุ้มค่า" },
+              { src: adTwCompare, title: "เลือกขนาดที่ใช่", desc: "Touchwork Series — 4 ขนาด ครบทุกการใช้งาน" },
+            ].map((item) => (
+              <div key={item.title} className="group relative overflow-hidden rounded-xl border border-border">
+                <img src={item.src} alt={item.title} loading="lazy"
+                  className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 to-transparent p-4">
+                  <h3 className="font-semibold text-sm">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Use cases */}
       <section className="border-y border-border bg-muted/30">
         <div className="container max-w-7xl mx-auto px-6 py-16">
