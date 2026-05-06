@@ -22,6 +22,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import RuggedStorySection from "@/components/rugged-notebook/RuggedStorySection";
+import RuggedNotebookShowcase from "@/components/rugged-notebook/RuggedNotebookShowcase";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -181,6 +182,9 @@ const RuggedNotebookPage = () => {
           </div>
         </div>
       </section>
+
+      {/* ─── Rugged Notebook Visual Showcase (Ad Banners) ─── */}
+      <RuggedNotebookShowcase />
 
       {/* ─── Storytelling: Why Rugged Notebook ─── */}
       <RuggedStorySection />
