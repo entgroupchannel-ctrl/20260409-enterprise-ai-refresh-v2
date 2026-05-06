@@ -59,6 +59,7 @@ const Index = () => {
       <div className="bg-white dark:bg-background"><InteractiveDisplayBanner /></div>
       <div className="bg-white dark:bg-background"><ProductSections /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductLineup /></div>
+      <GBSeriesLineupBanner />
       <div className="bg-white dark:bg-background"><SoftwareSection /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><CaseStudiesSection /></div>
       <div className="bg-white dark:bg-background"><PromoBanners /></div>
