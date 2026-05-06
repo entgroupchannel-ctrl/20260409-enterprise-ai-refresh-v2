@@ -140,11 +140,12 @@ const ShopStorefront = () => {
   useEffect(() => {
     const params = new URLSearchParams();
     if (seriesFilter.length > 0) params.set('series', seriesFilter.join(','));
+    if (categoryFilter.length > 0) params.set('cats', categoryFilter.join(','));
     if (search.trim()) params.set('q', search.trim());
     if (sortBy && sortBy !== 'featured') params.set('sort', sortBy);
     setSearchParams(params, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seriesFilter, search, sortBy]);
+  }, [seriesFilter, categoryFilter, search, sortBy]);
 
   // Persist recent search terms (debounced) for the activity panel
   useEffect(() => {
