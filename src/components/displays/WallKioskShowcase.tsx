@@ -84,11 +84,6 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
               className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
-            <div
-              className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
-              style={{ background: "linear-gradient(135deg, rgba(180,180,180,0.55), rgba(140,140,140,0.35))" }}
-              aria-hidden
-            />
           </div>
 
           <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
@@ -97,11 +92,6 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
               alt='Wall Mount Touch Kiosk - PCAP 10-touch / Android POS Ready / Industrial 24/7'
               className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
-            />
-            <div
-              className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
-              style={{ background: "linear-gradient(135deg, rgba(120,90,60,0.55), rgba(80,60,40,0.4))" }}
-              aria-hidden
             />
           </div>
         </div>
@@ -122,11 +112,6 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
                     alt={`Wall Kiosk ${it.label} - ${it.caption}`}
                     className="w-full h-auto group-hover:scale-[1.05] transition-transform duration-700"
                     loading="lazy"
-                  />
-                  <div
-                    className="absolute bottom-[10%] right-[3%] w-[18%] h-[10%] rounded-md backdrop-blur-md"
-                    style={{ background: "linear-gradient(135deg, rgba(30,30,30,0.55), rgba(15,15,15,0.4))" }}
-                    aria-hidden
                   />
                 </div>
                 <div className="p-3 border-t border-border">
