@@ -241,11 +241,11 @@ const FPMSeries = () => {
           </div>
 
           {/* Master banner — จำกัดขนาดไม่ให้กินจอ + กลืน placeholder ในภาพ */}
-          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card max-w-4xl mx-auto">
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card max-w-3xl mx-auto">
             <img
               src={fpmAdMaster}
               alt="FPM Series เชื่อมต่อ Industrial PC ได้ทุกรุ่น"
-              className="w-full h-auto max-h-[480px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
             {/* กลืน placeholder ขาวมุมซ้ายล่างของภาพด้วยสีโทนเดียวกับฉาก */}
@@ -285,11 +285,11 @@ const FPMSeries = () => {
           </div>
 
           {/* Lineup banner — ขนาดพอดี + กลืน placeholder */}
-          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card max-w-4xl mx-auto">
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card max-w-3xl mx-auto">
             <img
               src={fpmAdLineup}
               alt='FPM Series เลือกได้ตั้งแต่ 8" ถึง 24" — HDMI / VGA / USB'
-              className="w-full h-auto max-h-[480px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
             {/* กลืน [LOGO PLACEHOLDER] มุมซ้ายล่างด้วยสีโทนโต๊ะ/พื้น */}
