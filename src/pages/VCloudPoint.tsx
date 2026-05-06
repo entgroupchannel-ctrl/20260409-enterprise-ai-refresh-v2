@@ -819,7 +819,7 @@ const VCloudPoint = () => {
           </div>
 
           {/* Global proof — vCloudPoint worldwide */}
-          <div className="mt-12 card-surface rounded-2xl p-6 md:p-8 text-center border border-primary/20 bg-slate-200">
+          <div className="mt-12 card-surface rounded-2xl p-6 md:p-8 text-center border border-primary/20 bg-slate-300">
             <div className="flex items-center justify-center gap-2 mb-3">
               <Award size={20} className="text-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Global Trust</span>
