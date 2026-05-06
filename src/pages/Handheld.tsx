@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
-import handheldHero from "@/assets/handheld-hero.jpg";
+import handheldHero from "@/assets/ads/handheld-ad-master.jpg";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
 import relatedNotebook from "@/assets/related-rugged-notebook.jpg";
 import relatedAio from "@/assets/related-aio-pc.jpg";
@@ -141,8 +141,9 @@ const Handheld = () => {
       {/* Hero */}
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
-          <img src={handheldHero} alt="Rugged Handheld ใช้งานในคลังสินค้า" className="w-full h-full object-cover" width={1920} height={768} />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
+          <img src={handheldHero} alt="Rugged Handheld Scanner ยกระดับคลังสินค้า & E-Commerce" className="w-full h-full object-cover" width={1920} height={1080} />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/70" />
+          <div className="absolute inset-0 bg-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white transition-colors mb-4">
