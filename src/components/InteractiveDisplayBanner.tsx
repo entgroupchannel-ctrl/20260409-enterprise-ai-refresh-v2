@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Monitor, Maximize2, ShoppingBag, Tag } from "lucide-react";
+import { ArrowRight, Monitor, Maximize2, ShoppingBag, Tag, Frame } from "lucide-react";
 import kioskBanner from "@/assets/banners/home-kiosk-banner.jpg";
 import largeDisplayBanner from "@/assets/banners/home-largedisplay-banner.jpg";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
@@ -210,6 +210,81 @@ const InteractiveDisplayBanner = () => {
                     </div>
                     <div className="text-xs md:text-sm font-bold text-primary leading-tight">
                       ฿{p.unit_price.toLocaleString("th-TH")}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Wall Mount Touch Kiosk Showcase — 15.6" – 32" */}
+        <div className="mt-10 relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-card to-accent/5 p-6 md:p-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-2">
+                <Frame className="h-3 w-3" /> Wall Mount Series
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                Wall Mount Touch Kiosk
+                <span className="block text-primary text-base md:text-lg mt-1 font-semibold">
+                  ตู้คีออสก์แขวนผนัง 15.6" – 32" เลือกขนาดที่ใช่
+                </span>
+              </h3>
+              <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+                ติดผนังประหยัดพื้นที่ — ร้านอาหาร / ธนาคาร / Reception / Wayfinding รองรับ Android & Windows พร้อมใช้งาน
+              </p>
+            </div>
+            <Link
+              to="/products/displays-21.5"
+              className="inline-flex items-center gap-1 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-all whitespace-nowrap"
+            >
+              ดูรายละเอียดซีรีส์ 21.5" <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { slug: "gd156e", size: '15.6"' },
+              { slug: "gd156",  size: '15.6"' },
+              { slug: "gd215c", size: '21.5"' },
+              { slug: "gd238c3", size: '23.8"' },
+              { slug: "gd27c",  size: '27"' },
+              { slug: "gd32c",  size: '32"' },
+            ].map(({ slug, size }) => {
+              const p = SHOP_STATIC_COMPARE_PRODUCTS.find((x) => x.slug === slug);
+              if (!p) return null;
+              return (
+                <Link
+                  key={p.id}
+                  to={`/shop/${p.slug}`}
+                  className="group relative flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="relative aspect-square bg-muted overflow-hidden">
+                    {p.thumbnail_url && (
+                      <img
+                        src={p.thumbnail_url}
+                        alt={p.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                      />
+                    )}
+                    <span className="absolute top-1.5 left-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary text-primary-foreground shadow">
+                      {size}
+                    </span>
+                    <span className="absolute bottom-1.5 left-1.5 text-[9px] font-mono px-1.5 py-0.5 rounded bg-background/90 border border-border">
+                      {p.model}
+                    </span>
+                  </div>
+                  <div className="p-2.5">
+                    <div className="text-[10px] text-muted-foreground line-clamp-1">
+                      Wall Mount Kiosk
+                    </div>
+                    <div className="text-xs md:text-sm font-bold text-primary leading-tight mt-0.5">
+                      ฿{p.unit_price.toLocaleString("th-TH")}
+                    </div>
+                    <div className="mt-1 inline-flex items-center gap-0.5 text-[10px] font-semibold text-foreground/70 group-hover:text-primary group-hover:gap-1 transition-all">
+                      ดูรุ่นนี้ <ArrowRight className="w-2.5 h-2.5" />
                     </div>
                   </div>
                 </Link>
