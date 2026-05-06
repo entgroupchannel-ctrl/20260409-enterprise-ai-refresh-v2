@@ -31,6 +31,13 @@ import catIpcImg from "@/assets/jetson-cat-ipc.jpg";
 import catDevSystemsImg from "@/assets/jetson-cat-devsystems.jpg";
 import catTaiwanImg from "@/assets/jetson-cat-taiwan.jpg";
 import catEdgeImg from "@/assets/jetson-cat-edge.jpg";
+import jetsonAdMaster from "@/assets/ads/jetson-ad-master.jpg";
+import jetsonAdPrivateAi from "@/assets/ads/jetson-ad-1-privateai.jpg";
+import jetsonAdStartup from "@/assets/ads/jetson-ad-1-startup.jpg";
+import jetsonAdBundle from "@/assets/ads/jetson-ad-2-bundle.jpg";
+import jetsonAdCaseStudy from "@/assets/ads/jetson-ad-3-casestudy.jpg";
+import jetsonAdLineup from "@/assets/ads/jetson-ad-4-lineup.jpg";
+import jetsonAdEdge from "@/assets/ads/jetson-ad-5-edge.jpg";
 
 const ICONS: Record<string, typeof Cpu> = { Cpu, Package, CircuitBoard, Server, Monitor, HardDrive };
 const CATEGORY_IMAGES: Record<JetsonCategory, string> = {
