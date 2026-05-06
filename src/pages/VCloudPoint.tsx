@@ -26,6 +26,10 @@ import usecaseFactory from "@/assets/vcloud/usecase-factory.jpg";
 import usecaseCallcenter from "@/assets/vcloud/usecase-callcenter.jpg";
 import usecaseRetail from "@/assets/vcloud/usecase-retail.jpg";
 import usecaseHospital from "@/assets/vcloud/usecase-hospital.jpg";
+import adEol2025 from "@/assets/vcloud/ad-eol2025.jpg";
+import adPower from "@/assets/vcloud/ad-power.jpg";
+import adClassroom from "@/assets/vcloud/ad-classroom.jpg";
+import adMaster from "@/assets/vcloud/ad-master.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 /* ═══════ Key Benefits ═══════ */
