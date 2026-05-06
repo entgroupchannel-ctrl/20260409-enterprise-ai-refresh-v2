@@ -17,6 +17,7 @@ import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import VCloudPointLearnMore from "@/components/vcloudpoint/VCloudPointLearnMore";
 import MiniNavbar from "@/components/MiniNavbar";
 import vcloudEolImg from "@/assets/ads/vcloud-ad-eol2025.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -816,6 +817,9 @@ const VCloudPoint = () => {
           </div>
         </div>
       </section>
+
+      {/* ── Learn More Tabs (เนื้อหาเสริมจาก vcloudpoint.com) ── */}
+      <VCloudPointLearnMore />
 
       {/* ── Final CTA ── */}
       <section className="py-16 bg-secondary/30">
