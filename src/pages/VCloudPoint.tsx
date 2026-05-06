@@ -911,7 +911,9 @@ const VCloudPoint = () => {
               productName={`vCloudPoint สำหรับ ${calcUsers} ผู้ใช้`}
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-colors w-full sm:w-auto"
             />
-            <LineQRButton className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors w-full sm:w-auto" />
+            <LineQRButton className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors w-full sm:w-auto">
+              <Phone size={14} /> ปรึกษาทาง LINE
+            </LineQRButton>
           </DialogFooter>
         </DialogContent>
       </Dialog>
