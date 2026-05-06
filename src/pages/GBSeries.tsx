@@ -19,6 +19,20 @@ import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import GBPriceList from "@/components/GBPriceList";
+import adHero from "@/assets/ads/gb-series/gb-series-hero.jpg";
+import adGb1000 from "@/assets/ads/gb-series/gb1000-ad.jpg";
+import adGb2000 from "@/assets/ads/gb-series/gb2000-ad.jpg";
+import adGb4000v1 from "@/assets/ads/gb-series/gb4000v1-ad.jpg";
+import adGb4000v2 from "@/assets/ads/gb-series/gb4000v2-ad.jpg";
+import adGb5000 from "@/assets/ads/gb-series/gb5000-ad.jpg";
+
+const adShowcase = [
+  { id: "gb1000", img: adGb1000, name: "GB1000", tagline: "Ultra-Compact Champion", desc: "เล็กที่สุดในซีรีส์ 21×18×5.2 cm — Fanless ไร้เสียง 6× COM, 2× LAN เหมาะสำหรับ POS, Kiosk, In-vehicle" },
+  { id: "gb2000", img: adGb2000, name: "GB2000", tagline: "Network Professional", desc: "เครือข่าย 2.5G LAN Intel i225V พร้อม Legacy I/O ครบ (PS/2, GPIO, LPT) รองรับ 3G/4G อัปเกรดระบบเก่า" },
+  { id: "gb4000v1", img: adGb4000v1, name: "GB4000 v1", tagline: "Versatile Workhorse", desc: "PCIe Expansion Slot, 6× COM, 4× USB 3.0, Wide Voltage 9-36V DC ทนทุกสภาพ -20~+60°C" },
+  { id: "gb4000v2", img: adGb4000v2, name: "GB4000 v2", tagline: "Enhanced Performance", desc: "อัปเกรด Intel 8th/9th Gen, DDR4, M.2 NVMe, Dual Display 4K สำหรับงาน Vision/AI Edge" },
+  { id: "gb5000", img: adGb5000, name: "GB5000", tagline: "Flagship Maximum Expansion", desc: "ตัวท็อปของซีรีส์ Core i7/i9, 64GB DDR4, Multiple PCIe, 8× COM, 6× USB, Dual SIM 4G" },
+];
 
 /* ───── Product Data ───── */
 const models = [
@@ -357,8 +371,60 @@ const GBSeries = () => {
         </div>
       </section>
 
+      {/* Ad Showcase — สื่อโฆษณาภาพจริงของแต่ละรุ่น */}
+      <section className="border-t border-border bg-secondary/20">
+        <div className="container max-w-7xl mx-auto px-6 py-14">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Product Showcase</span>
+            <h2 className="text-3xl md:text-4xl font-display font-black tracking-tight mb-3">รู้จัก GB Series ทั้ง 5 รุ่น</h2>
+            <p className="text-muted-foreground">เลือกรุ่นที่ใช่สำหรับงานของคุณ — จากรุ่นกะทัดรัดถึงเรือธงเต็มสเปก</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            {/* Hero ภาพรวม (1:1) */}
+            <button
+              type="button"
+              onClick={() => document.getElementById("model-detail")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-2xl border border-border bg-card hover:shadow-xl transition-all"
+            >
+              <img src={adHero} alt="GB Series Lineup — 5 รุ่น" className="w-full h-auto aspect-square object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+              <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-background via-background/70 to-transparent text-left">
+                <div className="text-[10px] font-semibold uppercase tracking-widest text-primary mb-1">Lineup Overview</div>
+                <div className="text-lg font-black text-foreground">GB Series · 5 Models</div>
+                <div className="text-xs text-muted-foreground">Industrial Computing · Fanless · Made for Thailand</div>
+              </div>
+            </button>
+
+            {/* Ads แต่ละรุ่น (1332×1200) */}
+            {adShowcase.map((ad, idx) => (
+              <button
+                key={ad.id}
+                type="button"
+                onClick={() => {
+                  setActiveModel(idx);
+                  document.getElementById("model-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex flex-col"
+              >
+                <div className="relative overflow-hidden bg-secondary/30" style={{ aspectRatio: "1332/1200" }}>
+                  <img src={ad.img} alt={`${ad.name} — ${ad.tagline}`} className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500" loading="lazy" />
+                </div>
+                <div className="p-3.5 flex-1 flex flex-col">
+                  <div className="flex items-baseline gap-2 mb-1 flex-wrap">
+                    <h3 className="text-sm font-black text-foreground">{ad.name}</h3>
+                    <span className="text-[10px] text-primary font-semibold uppercase tracking-wider">{ad.tagline}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{ad.desc}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Active Model Detail */}
-      <section className="border-t border-border">
+      <section id="model-detail" className="border-t border-border">
+
         <div className="container max-w-7xl mx-auto px-6 py-12">
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
             <div>
