@@ -884,71 +884,85 @@ const MiniPC = () => {
       </section>
 
       {/* ── M4 Avengers Showcase ── */}
-      <section className="relative bg-gradient-to-b from-background via-secondary/20 to-background py-16 border-y border-border">
+      <section className="relative bg-gradient-to-b from-background via-secondary/20 to-background py-10 border-y border-border">
         <div className="container max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">M4 SERIES — AVENGERS LINEUP</Badge>
-            <h2 className="text-2xl md:text-4xl font-display font-bold text-foreground mb-3">
-              5 ฮีโร่ Mini PC — เลือกตัวที่ใช่กับงานของคุณ
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              ซีรีส์ M4 Avengers รวมพลัง Mini PC 5 บุคลิก ครอบคลุมทุก Use Case
-              ตั้งแต่งาน Industrial Fanless, Panel PC, Touch Workstation, Outdoor Rugged ไปจนถึง Edge PC ขนาดจิ๋ว
-            </p>
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <Badge className="bg-primary/10 text-primary border-primary/20 mb-2">M4 SERIES — AVENGERS LINEUP</Badge>
+              <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">
+                5 ฮีโร่ Mini PC — เลือกตัวที่ใช่กับงานของคุณ
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
+                Industrial Fanless · Panel PC · Touch Workstation · Outdoor Rugged · Edge PC
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <QuoteRequestButton productModel="M4 Avengers Mini PC" productName="M4 Avengers Series" />
+              <Button size="sm" variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
+                <FileText className="w-4 h-4 mr-1" /> ตารางราคา
+              </Button>
+              <LineQRButton className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#06C755] text-[#06C755] font-medium text-xs hover:bg-[#06C755]/10 transition-colors">
+                <MessageSquare className="w-3.5 h-3.5" /> LINE
+              </LineQRButton>
+            </div>
           </div>
 
-          {/* Master banner */}
-          <div className="relative rounded-3xl overflow-hidden mb-8 shadow-2xl border border-border group">
-            <img src={m4Master} alt="M4 Avengers Mini PC Lineup" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
-          </div>
-
-          {/* 5 Heroes Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-            {[
-              { img: m4Captain, hero: "Captain", code: "GTG Series", title: "Industrial Fanless", desc: "ทนหนัก ทนนาน 24/7", anchor: "#entry", accent: "from-blue-500/20 to-blue-700/10" },
-              { img: m4Defender, hero: "Defender", code: "GK Series", title: "Panel PC", desc: "หน้าจอ + คอมในตัว", anchor: "#high", accent: "from-emerald-500/20 to-emerald-700/10" },
-              { img: m4Scout, hero: "Scout", code: "TouchWork", title: "Touch Workstation", desc: "ทัชสกรีน คล่องตัว", anchor: "#education", accent: "from-amber-500/20 to-amber-700/10" },
-              { img: m4Guardian, hero: "Guardian", code: "Outdoor", title: "Rugged Outdoor", desc: "ทนแดด ทนฝน IP65", anchor: "#nano", accent: "from-orange-500/20 to-red-700/10" },
-              { img: m4Strategist, hero: "Strategist", code: "EPC", title: "Edge PC", desc: "จิ๋ว ประหยัด ฉลาด", anchor: "#legacy", accent: "from-violet-500/20 to-violet-700/10" },
-            ].map((h) => (
-              <a
-                key={h.hero}
-                href={h.anchor}
-                className="group relative rounded-2xl overflow-hidden border border-border bg-card hover:shadow-2xl hover:-translate-y-1 transition-all"
-              >
-                <div className="aspect-square overflow-hidden bg-muted relative">
-                  <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${h.accent} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                </div>
-                <div className="p-4">
-                  <div className="text-[10px] font-bold tracking-widest text-primary mb-1">{h.code}</div>
-                  <div className="font-display font-bold text-foreground text-base">{h.hero}</div>
-                  <div className="text-sm text-foreground/80 mt-0.5">{h.title}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{h.desc}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:gap-2 transition-all">
-                    ดูรุ่นในหมวดนี้ <ChevronRight size={12} />
+          {/* 2-col layout: master banner (left) + hero grid (right) */}
+          <div className="grid lg:grid-cols-12 gap-5">
+            {/* Master banner — compact 16:9, left side */}
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-border shadow-xl group h-full bg-card">
+                <img src={m4Master} alt="M4 Avengers Mini PC Lineup" className="w-full h-full object-cover aspect-[16/10] lg:aspect-auto lg:min-h-[420px] group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="text-[10px] font-bold tracking-widest text-primary mb-1">MANUFACTURING 4.0</div>
+                  <div className="text-base md:text-lg font-display font-bold text-foreground leading-tight">
+                    รวมพลังฮีโร่อุตสาหกรรม สู่โรงงานอัจฉริยะ
                   </div>
                 </div>
-              </a>
-            ))}
-          </div>
+              </div>
+            </div>
 
-          {/* CTA Bar */}
-          <div className="card-surface rounded-2xl p-6 md:p-8 text-center border border-primary/20 bg-gradient-to-r from-primary/5 via-background to-primary/5">
-            <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-2">
-              ไม่แน่ใจว่าฮีโร่ตัวไหนเหมาะกับธุรกิจคุณ?
-            </h3>
-            <p className="text-muted-foreground mb-5 max-w-xl mx-auto text-sm">
-              ทีมวิศวกร ENT Group ช่วยเลือกรุ่นที่ตรงงาน — ให้คำปรึกษาฟรี พร้อมใบเสนอราคาภายใน 24 ชั่วโมง
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <QuoteRequestButton productModel="M4 Avengers Mini PC" productName="M4 Avengers Series" />
-              <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
-                <FileText className="w-4 h-4 mr-1" /> ดูตารางราคา
-              </Button>
-              <LineQRButton className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-[#06C755] text-[#06C755] font-medium text-sm hover:bg-[#06C755]/10 transition-colors">
-                <MessageSquare className="w-4 h-4" /> ปรึกษาทาง LINE
-              </LineQRButton>
+            {/* 5 Heroes — compact horizontal cards on right */}
+            <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+              {[
+                { img: m4Captain, hero: "Captain", code: "GTG Series", title: "Industrial Fanless", desc: "ทนหนัก 24/7", anchor: "#entry" },
+                { img: m4Defender, hero: "Defender", code: "GK Series", title: "Panel PC", desc: "หน้าจอ + คอม", anchor: "#high" },
+                { img: m4Scout, hero: "Scout", code: "TouchWork", title: "Touch Workstation", desc: "ทัชสกรีน", anchor: "#education" },
+                { img: m4Guardian, hero: "Guardian", code: "Outdoor", title: "Rugged Outdoor", desc: "IP65 ทนแดดฝน", anchor: "#nano" },
+                { img: m4Strategist, hero: "Strategist", code: "EPC", title: "Edge PC", desc: "จิ๋ว ประหยัด", anchor: "#legacy" },
+                { type: "cta", anchor: "#pricelist" },
+              ].map((h: any, idx) => {
+                if (h.type === "cta") {
+                  return (
+                    <a key="cta" href={h.anchor} className="group rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 p-4 flex flex-col justify-center items-center text-center transition-all">
+                      <FileText className="w-6 h-6 text-primary mb-2" />
+                      <div className="font-display font-bold text-foreground text-sm">ดูตารางราคา 50+ รุ่น</div>
+                      <div className="text-xs text-muted-foreground mt-1">เริ่มต้น 8,190.-</div>
+                      <div className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-primary">
+                        เลือกเลย <ChevronRight size={12} />
+                      </div>
+                    </a>
+                  );
+                }
+                return (
+                  <a
+                    key={h.hero}
+                    href={h.anchor}
+                    className="group relative rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col"
+                  >
+                    <div className="w-20 sm:w-full sm:aspect-[4/3] shrink-0 overflow-hidden bg-muted">
+                      <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                    </div>
+                    <div className="p-3 flex-1 min-w-0">
+                      <div className="text-[9px] font-bold tracking-widest text-primary mb-0.5 truncate">{h.code}</div>
+                      <div className="font-display font-bold text-foreground text-sm leading-tight">{h.hero}</div>
+                      <div className="text-xs text-foreground/80 truncate">{h.title}</div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5 truncate">{h.desc}</div>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
