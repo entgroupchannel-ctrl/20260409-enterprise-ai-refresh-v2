@@ -15,6 +15,9 @@ import MiniNavbar from "@/components/MiniNavbar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import waterproofChickenImg from "@/assets/ads/waterproof-ad-2-chicken.jpg";
 import waterproofKitchenImg from "@/assets/ads/waterproof-ad-3-kitchen.jpg";
+import waterproofFoodFactoryImg from "@/assets/ads/waterproof-ad-1-foodfactory.jpg";
+import waterproofPainpointImg from "@/assets/ads/waterproof-ad-5-painpoint.jpg";
+import waterproofLineupImg from "@/assets/ads/waterproof-ad-4-lineup.jpg";
 
 const models = [
   {
