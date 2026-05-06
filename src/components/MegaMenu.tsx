@@ -37,6 +37,8 @@ const menuCategories = [
       {
         heading: "Mini PC — Fanless",
         links: [
+          { label: "M4 Avengers — Mini PC 5 รุ่น", href: "/m4-series", hot: true, new2026: true },
+          { label: "Mini PC — Office & SME", href: "/mini-pc", hot: true },
           { label: "GT Series — 12 รุ่น", href: "/gt-series", hot: true },
           { label: "GB Series — Compact", href: "/gb-series" },
           { label: "iBox Series", href: "/ibox-series" },
