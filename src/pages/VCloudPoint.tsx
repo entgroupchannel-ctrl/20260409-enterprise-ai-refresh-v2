@@ -492,6 +492,9 @@ const VCloudPoint = () => {
       </section>
 
 
+      {/* ── Learn More Tabs (เนื้อหาเสริมจาก vcloudpoint.com) ── */}
+      <VCloudPointLearnMore />
+
       <section className="py-16 md:py-24">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
