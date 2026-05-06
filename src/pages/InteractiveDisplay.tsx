@@ -549,7 +549,8 @@ export default function InteractiveDisplay() {
             width={1920}
             height={1080}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/20" />
+          <div className="absolute inset-0 bg-background/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/50" />
         </div>
         <div className="relative z-10 container max-w-7xl mx-auto px-6 py-12 md:py-16">
           <Badge variant="secondary" className="mb-4">B2B • Enterprise Grade</Badge>
