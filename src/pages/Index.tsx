@@ -12,6 +12,7 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import PopularProductsSidebar from "@/components/PopularProductsSidebar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import Footer from "@/components/Footer";
+import IndustrialAvengersBanner from "@/components/IndustrialAvengersBanner";
 import SEOHead from "@/components/SEOHead";
 import GEOMeta from "@/components/GEOMeta";
 
@@ -43,6 +44,7 @@ const Index = () => {
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
         <B2BWorkflowBanner variant="full" showShopCta />
       </div>
+      <IndustrialAvengersBanner />
       <div className="bg-white dark:bg-background">
         <EdgeAISection />
       </div>
