@@ -18,7 +18,19 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import { DatasheetButton, hasDatasheet } from "@/components/datasheet/DatasheetButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import heroImg from "@/assets/interactive-display-hero.jpg";
+import heroImg from "@/assets/ads/kiosk-ad-master.jpg";
+// Showcase ad images
+import adKioskSelfService from "@/assets/ads/kiosk-selfservice-ad.jpg";
+import adKiosk156 from "@/assets/ads/kiosk-ad-3-gd156.jpg";
+import adKiosk215 from "@/assets/ads/kiosk-ad-2-gd215c.jpg";
+import adKiosk238 from "@/assets/ads/kiosk-ad-1-gd238c.jpg";
+import adKiosk32 from "@/assets/ads/kiosk-ad-4-gd32c.jpg";
+import adTouchworkMaster from "@/assets/ads/touchwork-ad-master.jpg";
+import adTwShowroom from "@/assets/ads/touchwork-ad-1-showroom.jpg";
+import adTwMeeting from "@/assets/ads/touchwork-ad-2-meeting.jpg";
+import adTwCompare from "@/assets/ads/touchwork-ad-3-compare.jpg";
+import adTwRetail from "@/assets/ads/touchwork-ad-4-retail.jpg";
+import adTwHybrid from "@/assets/ads/touchwork-ad-5-hybrid.jpg";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 
 // Use case images by screen size (small → large)
