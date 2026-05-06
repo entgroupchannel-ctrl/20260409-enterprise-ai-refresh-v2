@@ -547,7 +547,7 @@ const VCloudPoint = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {benefits.map((b) => (
-              <div key={b.title} className="card-surface rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5 text-center">
+              <div key={b.title} className="card-surface rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5 text-center bg-red-100">
                 <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3">
                   <b.icon className="text-primary" size={24} />
                 </div>
