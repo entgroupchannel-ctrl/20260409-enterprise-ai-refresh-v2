@@ -120,21 +120,33 @@ const IndustrialAvengersBanner = () => {
               <Link
                 key={h.code}
                 to={h.href}
-                className={`group relative rounded-2xl p-5 bg-white/[0.04] backdrop-blur-md border ${h.border} hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300 ${h.glow} hover:shadow-[0_0_50px_-4px_rgba(255,255,255,0.15)]`}
+                className={`group relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-md border ${h.border} hover:bg-white/[0.08] hover:-translate-y-1 transition-all duration-300 ${h.glow} hover:shadow-[0_0_50px_-4px_rgba(255,255,255,0.15)]`}
               >
-                <div className={`inline-flex items-center justify-center w-11 h-11 rounded-xl border ${h.border} ${h.badge} mb-3`}>
-                  <Icon size={20} />
+                {/* Stone image — แทนตำแหน่ง infinity stone */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#05080f]">
+                  <img
+                    src={h.img}
+                    alt={`${h.name} — ${h.title}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/30 to-transparent" />
+                  <div className={`absolute top-2 left-2 inline-flex items-center justify-center w-9 h-9 rounded-xl border ${h.border} ${h.badge} backdrop-blur-md`}>
+                    <Icon size={16} />
+                  </div>
                 </div>
-                <div className="text-[10px] font-bold tracking-widest text-white/50 mb-1">
-                  {h.code} STONE
-                </div>
-                <h3 className="font-display font-bold text-white text-base leading-tight mb-1">
-                  {h.name}
-                </h3>
-                <p className="text-xs text-white/70 mb-1 leading-snug">{h.title}</p>
-                <p className="text-[11px] text-white/50 leading-snug">{h.desc}</p>
-                <div className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/90 group-hover:gap-2 group-hover:text-white transition-all">
-                  ดูรายละเอียด <ArrowRight size={12} />
+                <div className="p-4">
+                  <div className="text-[10px] font-bold tracking-widest text-white/50 mb-1">
+                    {h.code} STONE
+                  </div>
+                  <h3 className="font-display font-bold text-white text-base leading-tight mb-1">
+                    {h.name}
+                  </h3>
+                  <p className="text-xs text-white/70 mb-1 leading-snug">{h.title}</p>
+                  <p className="text-[11px] text-white/50 leading-snug">{h.desc}</p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/90 group-hover:gap-2 group-hover:text-white transition-all">
+                    ดูรายละเอียด <ArrowRight size={12} />
+                  </div>
                 </div>
               </Link>
             );
