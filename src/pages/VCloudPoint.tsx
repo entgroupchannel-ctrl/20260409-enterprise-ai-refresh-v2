@@ -824,6 +824,97 @@ const VCloudPoint = () => {
         </div>
       </section>
       <FooterCompact />
+
+      {/* ── ROI Calculator Dialog ── */}
+      <Dialog open={calcOpen} onOpenChange={setCalcOpen}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-primary" />
+              คำนวณค่าใช้จ่าย vCloudPoint
+            </DialogTitle>
+            <DialogDescription>
+              เปรียบเทียบ "ซื้อ PC ใหม่ทุกเครื่อง" กับ "ใช้ vCloudPoint" — ปรับค่าให้ตรงกับองค์กรของคุณ
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div>
+              <label className="text-sm font-semibold text-foreground flex justify-between mb-2">
+                <span>จำนวนผู้ใช้งาน</span>
+                <span className="text-primary">{calcUsers} คน</span>
+              </label>
+              <input
+                type="range" min={5} max={200} step={1}
+                value={calcUsers}
+                onChange={(e) => setCalcUsers(Number(e.target.value))}
+                className="w-full accent-primary"
+              />
+              <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                <span>5</span><span>200</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground block mb-1">ราคา PC ใหม่/เครื่อง (บาท)</label>
+                <input
+                  type="number" min={0} step={500}
+                  value={calcPcPrice}
+                  onChange={(e) => setCalcPcPrice(Number(e.target.value) || 0)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground block mb-1">ค่า License Windows/เครื่อง</label>
+                <input
+                  type="number" min={0} step={500}
+                  value={calcLicense}
+                  onChange={(e) => setCalcLicense(Number(e.target.value) || 0)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Result */}
+            <div className="rounded-xl border border-border bg-secondary/40 p-4 space-y-3">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">แนวเดิม (ซื้อ PC + License ใหม่)</span>
+                <span className="font-bold text-foreground">฿{fmt(calc.traditional)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">vCloudPoint (Host + V-series)</span>
+                <span className="font-bold text-primary">฿{fmt(calc.vcloud)}</span>
+              </div>
+              <div className="border-t border-border pt-3 flex justify-between items-center">
+                <span className="text-sm font-semibold text-foreground">ประหยัดทันที</span>
+                <div className="text-right">
+                  <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400">฿{fmt(calc.save)}</div>
+                  <div className="text-xs text-muted-foreground">ลดลง {calc.savePct}% จากแนวเดิม</div>
+                </div>
+              </div>
+              <div className="border-t border-border pt-3 flex justify-between items-center text-sm">
+                <span className="text-muted-foreground flex items-center gap-1.5"><Zap className="w-3.5 h-3.5" /> ประหยัดค่าไฟ/ปี</span>
+                <span className="font-bold text-foreground">฿{fmt(calc.elecSave)}</span>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              * ตัวเลขเป็นการประมาณการเบื้องต้น — ราคาจริงขึ้นกับสเปก Host PC, จำนวน License, และส่วนลดโครงการ
+              ค่าไฟคำนวณจาก 8 ชม./วัน × 250 วัน × 4.5 บ./kWh
+            </p>
+          </div>
+
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <QuoteRequestButton
+              productModel="vCloudPoint"
+              productName={`vCloudPoint สำหรับ ${calcUsers} ผู้ใช้`}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-colors w-full sm:w-auto"
+            />
+            <LineQRButton className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors w-full sm:w-auto" />
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
