@@ -32,6 +32,7 @@ import { DISPLAYS_98, DISPLAY_98_ORDER } from "@/data/displays-98";
 import { DISPLAYS_156, DISPLAY_156_ORDER } from "@/data/displays-156";
 import { DISPLAYS_215, DISPLAY_215_ORDER } from "@/data/displays-215";
 import YouMayAlsoLike, { type SuggestedDisplay } from "@/components/displays/YouMayAlsoLike";
+import WallKioskShowcase from "@/components/displays/WallKioskShowcase";
 
 type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65 | 75 | 85 | 86 | 98 | 156 | 215;
 const GROUPS: Record<GroupSize, {
@@ -494,6 +495,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             </div>
           </div>
         </section>
+
+        {/* Wall Mount Touch Kiosk Showcase — แสดงเฉพาะกลุ่ม Wall Kiosk */}
+        {(groupSize === 156 || groupSize === 215 || groupSize === 238 || groupSize === 32) && (
+          <WallKioskShowcase currentSize={groupSize as 156 | 215 | 238 | 32} />
+        )}
 
         {/* Highlights */}
         <section
