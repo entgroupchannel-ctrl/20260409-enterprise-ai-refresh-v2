@@ -523,6 +523,59 @@ const IBoxSeries = () => {
         </div>
       </div>
 
+      {/* Firewall Showcase */}
+      <section className="max-w-7xl mx-auto px-4 pb-10">
+        <div className="text-center mb-6">
+          <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">Mini PC Firewall Showcase</Badge>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
+            ใช้ภาพให้ครบ — <span className="text-gradient">จาก Entry Tier ถึง Enterprise</span>
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
+            สำหรับลูกค้าที่กำลังเทียบรุ่น เราโชว์ทั้ง pain point, รุ่นเริ่มต้น, รุ่นยอดนิยม, รุ่นแรงพิเศษ และระดับ datacenter ให้เห็นภาพตั้งแต่ “ทำไมต้องมี” ไปจนถึง “ควรเลือกรุ่นไหน”
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="md:col-span-2 card-surface overflow-hidden group">
+            <div className="relative aspect-[16/9] overflow-hidden">
+              <img src={firewallSecurityImg} alt="SME ไทยโดนแฮก 70% ในปี 2025" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div className="p-5">
+              <h3 className="font-display font-bold text-foreground mb-1">เริ่มจาก Pain Point ที่ลูกค้าเข้าใจทันที</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">วางภาพนี้ก่อน เพื่อทำให้ลูกค้าเห็นต้นทุนของการ “ยังไม่มี Firewall” แล้วค่อยพาไปดูรุ่นที่เหมาะกับงบ</p>
+            </div>
+          </div>
+          <div className="card-surface overflow-hidden group">
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <img src={firewallMiniPcImg} alt="Mini PC Firewall ประหยัดกว่า Fortinet 80%" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div className="p-5">
+              <h3 className="font-display font-bold text-foreground mb-1">Hero รุ่นขายง่าย</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">เหมาะกับลูกค้า SME ที่อยากได้ pfSense / OPNsense พร้อมใช้ งบคุมง่าย</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { src: firewallGT196LImg, title: "GT196L", desc: "6 LAN ใส่ pfSense ได้ทันที เหมาะ Office / Branch" },
+            { src: firewallGT194LImg, title: "GT194L", desc: "2.5Gbps x4 พอร์ต เร็วกว่ากิกะบิต 2.5 เท่า" },
+            { src: firewallIPC068Img, title: "IPC068", desc: "Alder Lake N100 + DDR5 สำหรับงานแรงขึ้นอีกระดับ" },
+            { src: firewallIPC090Img, title: "IPC090", desc: "10Gbps SFP+ x10 พอร์ต ระดับ Enterprise / Datacenter" },
+          ].map((item) => (
+            <div key={item.title} className="card-surface overflow-hidden group">
+              <div className="relative aspect-square overflow-hidden">
+                <img src={item.src} alt={item.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-4">
+                <h3 className="font-display font-bold text-foreground text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ─── YouTube Section ─── */}
       <section className="max-w-7xl mx-auto px-4 py-10">
         <div className="flex items-center justify-between mb-6">
