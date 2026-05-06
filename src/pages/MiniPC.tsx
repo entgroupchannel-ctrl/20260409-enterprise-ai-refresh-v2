@@ -912,7 +912,7 @@ const MiniPC = () => {
             {/* Master banner — compact 16:9, left side */}
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-border shadow-xl group h-full bg-card">
-                <img src={m4Master} alt="M4 Avengers Mini PC Lineup" className="w-full h-full object-cover aspect-[16/10] lg:aspect-auto lg:min-h-[420px] group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+                <img src={m4Master} alt="M4 Avengers Mini PC Lineup" className="w-full h-auto object-contain group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="text-[10px] font-bold tracking-widest text-primary mb-1">MANUFACTURING 4.0</div>
@@ -951,8 +951,8 @@ const MiniPC = () => {
                     href={h.anchor}
                     className="group relative rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col"
                   >
-                    <div className="w-20 sm:w-full sm:aspect-[4/3] shrink-0 overflow-hidden bg-muted">
-                      <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                    <div className="w-20 sm:w-full sm:aspect-[4/3] shrink-0 overflow-hidden bg-muted flex items-center justify-center">
+                      <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
                     <div className="p-3 flex-1 min-w-0">
                       <div className="text-[9px] font-bold tracking-widest text-primary mb-0.5 truncate">{h.code}</div>
