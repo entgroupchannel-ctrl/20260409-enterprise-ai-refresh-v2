@@ -52,35 +52,36 @@ const RuggedNotebookShowcase = () => {
           </p>
         </div>
 
-        {/* Bento Layout: 3 ภาพ 2 แถว — ประหยัดพื้นที่แต่ดูพรีเมียม */}
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto mb-6">
-          {/* Row 1: Master ใหญ่ 2/3 + Drop 1/3 */}
-          <div className="md:col-span-2 relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+        {/* Bento Asymmetric: Master ซ้ายเต็มสูง + Drop / Lineup ขวาซ้อน 2 แถว */}
+        <div className="grid md:grid-cols-5 md:grid-rows-2 gap-4 mb-6 max-w-5xl mx-auto md:h-[460px]">
+          {/* ซ้าย: Master ใหญ่ ครอบ 2 แถว */}
+          <div className="md:col-span-3 md:row-span-2 relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
             <img
               src={nbMaster}
               alt="Rugged Notebook โน้ตบุ๊กเกรดทหาร MIL-STD-810H IP65 Drop 1.5m"
-              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
               loading="lazy"
             />
-            <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-background/95 via-background/50 to-transparent">
+            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 bg-gradient-to-t from-background/95 via-background/60 to-transparent">
               <div className="text-[10px] font-bold tracking-widest text-primary">FLAGSHIP LINEUP</div>
-              <div className="text-base md:text-xl font-display font-bold text-foreground">
+              <div className="text-base md:text-2xl font-display font-black text-foreground leading-tight">
                 Intel Core i7 · ROI 5 ปีขึ้นไป
               </div>
-              <p className="text-xs text-muted-foreground mt-1 hidden md:block">
-                ออกแบบมาเพื่อภาคสนาม โรงงาน และวิศวกรที่ต้องการเครื่องคู่ใจในทุกสภาพแวดล้อม
+              <p className="text-xs md:text-sm text-muted-foreground mt-1.5">
+                เครื่องคู่ใจวิศวกรภาคสนาม โรงงาน และทีม Service ในทุกสภาพแวดล้อม
               </p>
             </div>
           </div>
 
-          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+          {/* ขวาบน: Drop */}
+          <div className="md:col-span-2 md:row-span-1 relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
             <img
               src={nbDrop}
               alt="Drop Test 1.5m, MIL-STD-810H, IP65"
-              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700"
               loading="lazy"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/50 to-transparent">
+            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/40 to-transparent">
               <div className="text-[10px] font-bold tracking-widest text-primary">DROP 1.5M</div>
               <div className="text-sm font-display font-bold text-foreground leading-tight">
                 ตกได้ ตกแล้วยังใช้ได้
@@ -88,18 +89,18 @@ const RuggedNotebookShowcase = () => {
             </div>
           </div>
 
-          {/* Row 2: Lineup เต็มความกว้าง */}
-          <div className="md:col-span-3 relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+          {/* ขวาล่าง: Lineup */}
+          <div className="md:col-span-2 md:row-span-1 relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
             <img
               src={nbLineup}
               alt="เลือกรุ่นที่ใช่ — Rugged Notebook 3 รุ่นเด่น EM-X14A, EM-X14M, EM-X15A"
-              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700"
               loading="lazy"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 md:p-4 bg-gradient-to-t from-background/90 via-background/30 to-transparent">
+            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/40 to-transparent">
               <div className="text-[10px] font-bold tracking-widest text-primary">CHOOSE YOUR FIT</div>
-              <div className="text-sm md:text-base font-display font-bold text-foreground">
-                3 รุ่นเด่น — เลือกตัวที่ใช่สำหรับงานของคุณ
+              <div className="text-sm font-display font-bold text-foreground leading-tight">
+                3 รุ่นเด่น — เลือกตัวที่ใช่
               </div>
             </div>
           </div>
