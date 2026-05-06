@@ -280,28 +280,247 @@ const VCloudPointLearnMore = () => {
             </div>
           </TabsContent>
 
-          {/* ── Tab: Industries ── */}
+          {/* ── Tab: Industries (มี sub-tabs) ── */}
           <TabsContent value="industries" className="mt-0">
             <p className="text-sm text-muted-foreground text-center mb-6">
-              vCloudPoint ให้บริการลูกค้าทั่วโลกในหลากหลายอุตสาหกรรม
-              ตั้งแต่องค์กรขนาดเล็กไปจนถึงองค์กรขนาดใหญ่
+              vCloudPoint ให้บริการลูกค้าทั่วโลกในหลากหลายอุตสาหกรรม — เลือกหมวดเพื่อดูรายละเอียด
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { icon: GraduationCap, title: "Education", desc: "Quick provisioning, desktop broadcasting, remote support, file sharing — รองรับการเรียนการสอน" },
-                { icon: Building2, title: "Office", desc: "ประสบการณ์ใช้งานดี จัดการ Desktop และข้อมูลง่าย เพิ่ม Productivity ของออฟฟิศ" },
-                { icon: Factory, title: "Manufacturing", desc: "ดีไซน์กะทัดรัด ทนสภาพแวดล้อมโรงงาน เก็บข้อมูลรวมศูนย์ปลอดภัย" },
-                { icon: HeadphonesIcon, title: "Call Center", desc: "Workspace มาตรฐานเดียวกัน เพิ่มประสิทธิภาพ IT และความปลอดภัยข้อมูล" },
-              ].map((c) => (
-                <div key={c.title} className="card-surface p-5 rounded-xl text-center">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center mb-3 mx-auto">
-                    <c.icon className="w-6 h-6 text-primary" />
+            <Tabs defaultValue="edu" className="w-full">
+              <TabsList className="h-auto flex-wrap gap-2 bg-card/60 backdrop-blur p-1.5 mb-6 justify-center w-full border border-primary/20 rounded-xl">
+                {[
+                  { v: "edu", icon: GraduationCap, label: "Education" },
+                  { v: "office", icon: Building2, label: "Office" },
+                  { v: "mfg", icon: Factory, label: "Manufacturing" },
+                  { v: "cc", icon: HeadphonesIcon, label: "Call Center" },
+                ].map((t) => (
+                  <TabsTrigger
+                    key={t.v}
+                    value={t.v}
+                    className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-3 py-2 font-semibold"
+                  >
+                    <t.icon className="w-4 h-4" /> {t.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {/* Education sub-tab — ดึงเรื่องเล่าจาก vcloudpoint.com/work-category/zero-client-for-computer-lab */}
+              <TabsContent value="edu" className="mt-0 space-y-6">
+                {/* Hero banner */}
+                <div className="relative overflow-hidden rounded-2xl card-surface bg-gradient-to-br from-primary/15 via-accent/10 to-transparent p-6 md:p-8">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="relative grid md:grid-cols-[1fr_auto] gap-4 items-center">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <GraduationCap className="w-3 h-3" /> Zero Client for Computer Lab
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-display font-black text-foreground mb-2">
+                        ห้องคอมพิวเตอร์โรงเรียน — งบครึ่งเดียว ดูแลคนเดียว
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        จากโรงเรียนอนุบาลในชนบทถึงมหาวิทยาลัยเทคโนโลยีระดับประเทศ —
+                        vCloudPoint ถูกเลือกใช้เพราะ <strong className="text-foreground">1 Host PC รองรับได้ 30+ ที่นั่ง</strong>
+                        {" "}ครู IT คนเดียวดูแลทั้งห้อง อัปเดตซอฟต์แวร์ครั้งเดียวมีผลทุกเครื่อง ไม่มีฮาร์ดดิสก์ให้พัง
+                      </p>
+                    </div>
+                    <div className="hidden md:flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-background/60 border border-primary/30">
+                      <span className="text-3xl font-black text-primary">12+</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Schools in Poland alone</span>
+                    </div>
                   </div>
-                  <div className="font-bold text-foreground mb-2">{c.title}</div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{c.desc}</p>
                 </div>
-              ))}
-            </div>
+
+                {/* Education case studies grid with images */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/nsp.zaglebie.lubin-3-320x180.jpg",
+                      title: "MKS Zagłębie Lubin",
+                      type: "ห้อง Lab ภาษา · โรงเรียนแฮนด์บอล",
+                      flag: "🇵🇱",
+                      story: "นักกีฬาเยาวชนเรียนภาษาต่างประเทศระหว่างฝึก — Host เดียวรองรับทั้งห้อง ครูควบคุมจอนักเรียนได้",
+                      tag: "Language Lab",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Karol-Szymanowski-State-School-of-Music-3-320x180.jpg",
+                      title: "Karol Szymanowski School of Music",
+                      type: "โรงเรียนดนตรีรัฐ · Płock",
+                      flag: "🇵🇱",
+                      story: "เครื่องเงียบสนิท ไม่มีพัดลม ไม่รบกวนการอัดเสียง — เหมาะกับการสอน Music Production",
+                      tag: "Silent · Fanless",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Czestochowa-University-of-Technology-2-320x180.jpg",
+                      title: "Częstochowa University of Technology",
+                      type: "มหาวิทยาลัยเทคโนโลยี",
+                      flag: "🇵🇱",
+                      story: "หลายห้อง Lab สำหรับ Programming, CAD เบื้องต้น — ทีม IT บริหารจัดการรวมศูนย์",
+                      tag: "Multi-Lab",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/School-kindergarten-in-Goluchow-web-1-320x180.jpg",
+                      title: "Gołuchów School & Kindergarten",
+                      type: "อนุบาล–ประถม ชนบท",
+                      flag: "🇵🇱",
+                      story: "20 ที่นั่งด้วยงบเท่ากับซื้อ PC ใหม่เพียง 5–6 เครื่อง — โรงเรียนเล็กก็มี Lab มาตรฐานได้",
+                      tag: "Tight Budget",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Primary-School-No.-27-United-Europe-Children-web-1-320x180.jpg",
+                      title: "Primary School No. 27 — United European Children",
+                      type: "โรงเรียนประถม",
+                      flag: "🇵🇱",
+                      story: "ห้อง Lab สำหรับเด็กประถม — ทนทานต่อการใช้งานหนัก ไม่กลัวเด็กถอด-เสียบสาย",
+                      tag: "Kid-Proof",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Primary-School-No-2-in-Marki-web-3-320x180.jpg",
+                      title: "Home Army Soldiers No.2 Primary School",
+                      type: "โรงเรียนประถม · Marki",
+                      flag: "🇵🇱",
+                      story: "ไม่มีฮาร์ดดิสก์ ไม่มีอะไรให้พัง — ครูไม่ต้อง Reset เครื่องทุกวัน",
+                      tag: "Zero Maintenance",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Primary-School-in-Lenartowice-web-1-320x180.jpg",
+                      title: "Maria Konopnicka Primary School",
+                      type: "โรงเรียนประถมในชุมชน",
+                      flag: "🇵🇱",
+                      story: "1 Host รองรับ 24 ที่นั่ง — ครูภาษาโปแลนด์ดูแลเองได้ ไม่ต้องจ้าง IT เพิ่ม",
+                      tag: "1 Host = 24 Seats",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Primary-School-in-G%C5%82uchow-web-1-320x180.jpg",
+                      title: "Głuchowo Primary School",
+                      type: "โรงเรียนประถม",
+                      flag: "🇵🇱",
+                      story: "เปลี่ยนห้องคอมเก่าให้เป็นห้องใหม่ — ใช้ Host PC เครื่องเดียว ลงทุนน้อย ใช้งานยาว",
+                      tag: "Lab Refresh",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Primary-School-Bohaterow-Westerplatte-in-Czempin-web-1-320x180.jpg",
+                      title: "Bohaterów Westerplatte Primary School",
+                      type: "โรงเรียนประถม · Czempin",
+                      flag: "🇵🇱",
+                      story: "Lab พร้อมใช้สอนทั้งวิชาคอมพิวเตอร์และการค้นคว้าออนไลน์ — เปิดเครื่องพร้อมใช้ใน 5 วินาที",
+                      tag: "5-sec Boot",
+                    },
+                  ].map((c) => (
+                    <a
+                      key={c.title}
+                      href="https://www.vcloudpoint.com/work-category/zero-client-for-computer-lab/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group card-surface rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex flex-col"
+                    >
+                      <div className="relative aspect-video overflow-hidden bg-secondary">
+                        <img
+                          src={c.img}
+                          alt={c.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                        <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold backdrop-blur">
+                          <Sparkles className="w-3 h-3" /> {c.tag}
+                        </div>
+                        <div className="absolute bottom-2 left-3 right-3 flex items-center gap-1.5 text-xs text-foreground">
+                          <span className="text-base">{c.flag}</span>
+                          <MapPin className="w-3 h-3 text-primary" />
+                          <span className="font-semibold truncate">{c.type}</span>
+                        </div>
+                      </div>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h4 className="font-display font-bold text-foreground text-sm mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                          {c.title}
+                        </h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{c.story}</p>
+                        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-primary group-hover:gap-2 transition-all">
+                          อ่านเรื่องเต็ม <ArrowRight className="w-3 h-3" />
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Why education chooses vCloudPoint */}
+                <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+                  <h4 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    ทำไมโรงเรียนทั่วโลกเลือก vCloudPoint?
+                  </h4>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    {[
+                      { icon: DollarSign, t: "งบครึ่งเดียวของ PC", d: "Zero Client เครื่องละเศษเสี้ยวของ Desktop ทั่วไป" },
+                      { icon: Smile, t: "ครู IT คนเดียวก็ได้", d: "Management Console ใช้ง่าย ไม่ต้องเชี่ยวชาญ" },
+                      { icon: Zap, t: "ประหยัดไฟ 80%+", d: "5W ต่อเครื่อง vs 200W ของ PC ทั่วไป" },
+                      { icon: ShieldCheck, t: "ทนเด็ก ใช้ได้ 5–10 ปี", d: "ไม่มี HDD/พัดลม ไม่มีอะไรให้พัง" },
+                    ].map((b) => (
+                      <div key={b.t} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+                          <b.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="font-bold text-foreground text-sm">{b.t}</div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Office sub-tab */}
+              <TabsContent value="office" className="mt-0">
+                <div className="card-surface p-6 md:p-8 rounded-2xl">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                      <Building2 className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Office Workspace</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Workspace มาตรฐานเดียวกันทุกโต๊ะ — IT ดูแลรวมศูนย์ ลดค่าไฟลง 80% เพิ่ม Productivity ของพนักงาน
+                        ข้อมูลทั้งหมดอยู่บน Host ปลอดภัย ไม่กลัวพนักงานก๊อปไฟล์ออกไปกับเครื่องส่วนตัว
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Manufacturing sub-tab */}
+              <TabsContent value="mfg" className="mt-0">
+                <div className="card-surface p-6 md:p-8 rounded-2xl">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                      <Factory className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Manufacturing</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        ดีไซน์กะทัดรัด ติดหลังจอได้ ทนสภาพแวดล้อมโรงงาน — ฝุ่น ความชื้น ความร้อน
+                        ข้อมูลการผลิตเก็บรวมศูนย์ปลอดภัย ไม่กระจายอยู่ที่เครื่องของพนักงาน
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Call Center sub-tab */}
+              <TabsContent value="cc" className="mt-0">
+                <div className="card-surface p-6 md:p-8 rounded-2xl">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                      <HeadphonesIcon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Call Center</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Workspace มาตรฐานเดียวกันทุก Agent — Audio คุณภาพสูงรองรับ VoIP
+                        IT จัดเตรียมเครื่องใหม่ใน 5 นาที (vs 1 ชั่วโมงสำหรับ PC ทั่วไป) ลด Downtime ของ Agent
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
           {/* ── Tab: Why vCloudPoint ── */}
