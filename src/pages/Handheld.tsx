@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
-import handheldHero from "@/assets/handheld-hero.jpg";
+import handheldHero from "@/assets/ads/handheld-ad-master.jpg";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
 import relatedNotebook from "@/assets/related-rugged-notebook.jpg";
 import relatedAio from "@/assets/related-aio-pc.jpg";
