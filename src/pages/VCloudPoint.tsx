@@ -392,7 +392,10 @@ const VCloudPoint = () => {
                 ))}
               </div>
               <div className="flex flex-wrap gap-3">
-                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm hover:bg-destructive/90 transition-colors">
+                <button
+                  onClick={() => setCalcOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm hover:bg-destructive/90 transition-colors"
+                >
                   คำนวณค่าใช้จ่าย <ArrowRight size={14} />
                 </button>
                 <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
