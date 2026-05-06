@@ -240,22 +240,24 @@ const FPMSeries = () => {
             </p>
           </div>
 
-          {/* Master banner */}
-          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card">
+          {/* Master banner — จำกัดขนาดไม่ให้กินจอ + กลืน placeholder ในภาพ */}
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card max-w-4xl mx-auto">
             <img
               src={fpmAdMaster}
               alt="FPM Series เชื่อมต่อ Industrial PC ได้ทุกรุ่น"
-              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              className="w-full h-auto max-h-[480px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
-            {/* Logo overlay — แทนที่ placeholder ในภาพ มุมซ้ายล่าง */}
-            <div className="absolute bottom-3 md:bottom-5 left-3 md:left-5 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 md:px-4 md:py-2.5 shadow-lg border border-white/60">
-              <img src={entLogo} alt="ENT Group" className="h-6 md:h-8 w-auto" />
-            </div>
+            {/* กลืน placeholder ขาวมุมซ้ายล่างของภาพด้วยสีโทนเดียวกับฉาก */}
+            <div
+              className="absolute bottom-[3%] left-[2%] w-[22%] h-[14%] rounded-md backdrop-blur-md"
+              style={{ background: "linear-gradient(135deg, rgba(20,40,55,0.55), rgba(15,30,45,0.35))" }}
+              aria-hidden
+            />
           </div>
 
           {/* 3 Bundle types */}
-          <div className="grid md:grid-cols-3 gap-4 mb-6">
+          <div className="grid md:grid-cols-3 gap-4 mb-6 max-w-5xl mx-auto">
             {[
               { src: fpmAdGT, alt: "FPM + GT Series — HMI สายการผลิต Fanless 24/7", to: "/gt-series", label: "FPM + GT Series", tag: "BEST MATCH" },
               { src: fpmAdEPC, alt: "FPM + EPC Box — Edge AI / Machine Vision", to: "/epc-box-series", label: "FPM + EPC Box", tag: "HIGH PERFORMANCE" },
@@ -282,18 +284,20 @@ const FPMSeries = () => {
             ))}
           </div>
 
-          {/* Lineup banner */}
-          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+          {/* Lineup banner — ขนาดพอดี + กลืน placeholder */}
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card max-w-4xl mx-auto">
             <img
               src={fpmAdLineup}
               alt='FPM Series เลือกได้ตั้งแต่ 8" ถึง 24" — HDMI / VGA / USB'
-              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              className="w-full h-auto max-h-[480px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
               loading="lazy"
             />
-            {/* Logo overlay — มุมซ้ายล่างทับ [LOGO PLACEHOLDER] ในภาพ */}
-            <div className="absolute bottom-[6%] left-[3%] md:bottom-[7%] md:left-[4%] bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 md:px-4 md:py-2.5 shadow-xl border border-white/60">
-              <img src={entLogo} alt="ENT Group" className="h-6 md:h-9 w-auto" />
-            </div>
+            {/* กลืน [LOGO PLACEHOLDER] มุมซ้ายล่างด้วยสีโทนโต๊ะ/พื้น */}
+            <div
+              className="absolute bottom-[5%] left-[3%] w-[24%] h-[18%] rounded-md backdrop-blur-md"
+              style={{ background: "linear-gradient(135deg, rgba(20,45,55,0.6), rgba(10,25,35,0.45))" }}
+              aria-hidden
+            />
           </div>
 
           {/* Quick benefits row */}
