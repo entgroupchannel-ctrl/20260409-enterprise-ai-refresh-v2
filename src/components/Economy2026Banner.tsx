@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Factory, Monitor, Droplets, Cpu, Tv2, Sparkles, TrendingDown, Zap } from "lucide-react";
-import economyMaster from "@/assets/ads/economy2026-hero-clean.jpg";
+import economyMaster from "@/assets/ads/economy2026-hero-v2.png";
 import imgFirewall from "@/assets/hero-firewall.jpg";
 import imgPanelPC from "@/assets/product-panel-pc.jpg";
 import imgVCloud from "@/assets/product-vcloudpoint.jpg";
