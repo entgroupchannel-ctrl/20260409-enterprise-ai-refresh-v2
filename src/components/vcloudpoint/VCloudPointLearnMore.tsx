@@ -633,19 +633,109 @@ const VCloudPointLearnMore = () => {
               </TabsContent>
 
               {/* Manufacturing sub-tab */}
-              <TabsContent value="mfg" className="mt-0">
-                <div className="card-surface p-6 md:p-8 rounded-2xl">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                      <Factory className="w-6 h-6 text-primary" />
-                    </div>
+              <TabsContent value="mfg" className="mt-0 space-y-6">
+                {/* Hero banner */}
+                <div className="relative overflow-hidden rounded-2xl card-surface bg-gradient-to-br from-primary/15 via-accent/10 to-transparent p-6 md:p-8">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="relative grid md:grid-cols-[1fr_auto] gap-4 items-center">
                     <div>
-                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Manufacturing</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        ดีไซน์กะทัดรัด ติดหลังจอได้ ทนสภาพแวดล้อมโรงงาน — ฝุ่น ความชื้น ความร้อน
-                        ข้อมูลการผลิตเก็บรวมศูนย์ปลอดภัย ไม่กระจายอยู่ที่เครื่องของพนักงาน
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <Factory className="w-3 h-3" /> Zero Client for Manufacturing
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-display font-black text-foreground mb-2">
+                        โรงงานยุคใหม่ — ทนทาน · ปลอดภัย · ดูแลรวมศูนย์
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        จากโรงงานเฟอร์นิเจอร์ระดับ Export ถึง Corporation ขนาดใหญ่ในเวียดนาม — vCloudPoint ถูกเลือกใช้
+                        บนสายการผลิตและสำนักงานโรงงาน เพราะ <strong className="text-foreground">ไม่มี HDD/พัดลม</strong>
+                        {" "}ทนฝุ่น ทนความชื้น ทนความร้อน ข้อมูลการผลิตเก็บรวมศูนย์ที่ Host ไม่กระจายอยู่ที่หน้างาน
                       </p>
                     </div>
+                    <div className="hidden md:flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-background/60 border border-primary/30">
+                      <span className="text-3xl font-black text-primary">5W</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">per terminal</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Case studies */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {[
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/QQ%E6%88%AA%E5%9B%BE20180725145711-320x180.png",
+                      title: "Wanek Furniture",
+                      type: "โรงงานเฟอร์นิเจอร์ Export · เวียดนาม",
+                      flag: "🇻🇳",
+                      story: "หนึ่งในโรงงานเฟอร์นิเจอร์ Export ใหญ่ในเวียดนาม — ติดตั้ง Zero Client ทั้งฝ่ายผลิตและสำนักงาน Workspace มาตรฐานเดียวกัน ทนฝุ่นในไลน์ผลิต ดูแลรวมศูนย์ทั้งโรงงาน",
+                      tag: "Furniture Mfg",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Sao-Viet-Corporation-in-Vietnam1-320x180.png",
+                      title: "Sao Viet Corporation",
+                      type: "Corporation อุตสาหกรรม · เวียดนาม",
+                      flag: "🇻🇳",
+                      story: "Corporation ขนาดใหญ่ในเวียดนาม ใช้ vCloudPoint หลายแผนก — ลดต้นทุน IT ทั้งกลุ่ม ข้อมูลการผลิต/การขายปลอดภัยบน Host ส่วนกลาง",
+                      tag: "Enterprise",
+                    },
+                  ].map((c) => (
+                    <a
+                      key={c.title}
+                      href="https://www.vcloudpoint.com/work-category/zero-client-for-manufacturing/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group card-surface rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex flex-col"
+                    >
+                      <div className="relative aspect-video overflow-hidden bg-secondary">
+                        <img
+                          src={c.img}
+                          alt={c.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                        <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold backdrop-blur">
+                          <Sparkles className="w-3 h-3" /> {c.tag}
+                        </div>
+                        <div className="absolute bottom-2 left-3 right-3 flex items-center gap-1.5 text-xs text-foreground">
+                          <span className="text-base">{c.flag}</span>
+                          <MapPin className="w-3 h-3 text-primary" />
+                          <span className="font-semibold truncate">{c.type}</span>
+                        </div>
+                      </div>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h4 className="font-display font-bold text-foreground text-sm mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                          {c.title}
+                        </h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{c.story}</p>
+                        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-primary group-hover:gap-2 transition-all">
+                          อ่านเรื่องเต็ม <ArrowRight className="w-3 h-3" />
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Why manufacturing */}
+                <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+                  <h4 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    ทำไมโรงงานเลือก vCloudPoint?
+                  </h4>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    {[
+                      { icon: ShieldCheck, t: "ทนฝุ่น/ความชื้น/ร้อน", d: "ไม่มี HDD/พัดลม — ไม่มีอะไรให้ฝุ่นเข้าไปสะสม" },
+                      { icon: Factory, t: "กะทัดรัด · ติดหลังจอ", d: "ประหยัดพื้นที่หน้างาน ไลน์ผลิตไม่รก" },
+                      { icon: ShieldCheck, t: "ข้อมูลปลอดภัยบน Host", d: "ไฟล์การผลิต/สูตรไม่กระจายอยู่ตามเครื่องหน้างาน" },
+                      { icon: DollarSign, t: "ลดค่าไฟ 80%+", d: "5W vs 200W × หลายสิบจุด × 24 ชม. = ประหยัดมหาศาล" },
+                    ].map((b) => (
+                      <div key={b.t} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+                          <b.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="font-bold text-foreground text-sm">{b.t}</div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </TabsContent>
