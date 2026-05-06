@@ -22,46 +22,54 @@ const Economy2026Banner = () => {
       </div>
 
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8 md:mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary">Economy 2026 Edition</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-tight">
-            6 โซลูชันรับ <span className="bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 bg-clip-text text-transparent">เศรษฐกิจไทย 2026</span>
-          </h2>
-          <p className="text-white/70 mt-3 text-sm md:text-base max-w-2xl mx-auto">
-            ลดต้นทุน • หยุดภัยไซเบอร์ • เพิ่ม Productivity — ครบในที่เดียวจาก ENT Group
-          </p>
+        {/* Header + Hero (กระชับ — 2 คอลัมน์) */}
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center mb-8 md:mb-10">
+          {/* ซ้าย: ข้อความ */}
+          <div className="lg:col-span-7 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary">Economy 2026 Edition</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-tight">
+              6 โซลูชันรับ <span className="bg-gradient-to-r from-primary via-emerald-400 to-cyan-400 bg-clip-text text-transparent">เศรษฐกิจไทย 2026</span>
+            </h2>
+            <p className="text-white/70 mt-3 text-sm md:text-base max-w-2xl mx-auto lg:mx-0">
+              ลดต้นทุน • หยุดภัยไซเบอร์ • เพิ่ม Productivity — ครบในที่เดียวจาก ENT Group
+            </p>
 
-          {/* benefit chips */}
-          <div className="flex flex-wrap justify-center gap-2 mt-5">
-            {[
-              { icon: TrendingDown, text: "ลดต้นทุน IT" },
-              { icon: ShieldCheck, text: "หยุด Ransomware" },
-              { icon: Zap, text: "เพิ่ม Productivity" },
-            ].map((c) => {
-              const Icon = c.icon;
-              return (
-                <div key={c.text} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs">
-                  <Icon className="w-3 h-3 text-primary" />
-                  {c.text}
-                </div>
-              );
-            })}
+            {/* benefit chips */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 mt-5">
+              {[
+                { icon: TrendingDown, text: "ลดต้นทุน IT" },
+                { icon: ShieldCheck, text: "หยุด Ransomware" },
+                { icon: Zap, text: "เพิ่ม Productivity" },
+              ].map((c) => {
+                const Icon = c.icon;
+                return (
+                  <div key={c.text} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs">
+                    <Icon className="w-3 h-3 text-primary" />
+                    {c.text}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {/* Hero Image */}
-        <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] mb-8 group">
-          <img
-            src={economyMaster}
-            alt="6 โซลูชันรับเศรษฐกิจไทย 2026 — ENT Group"
-            className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-transparent to-transparent pointer-events-none" />
+          {/* ขวา: ภาพย่อ */}
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] group max-w-md mx-auto lg:max-w-none lg:ml-auto">
+              <img
+                src={economyMaster}
+                alt="6 โซลูชันรับเศรษฐกิจไทย 2026 — ENT Group"
+                className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#05080f]/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/90 backdrop-blur-sm text-[10px] font-bold tracking-widest uppercase text-primary-foreground">
+                <Sparkles className="w-3 h-3" /> 2026
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Solutions Grid */}
