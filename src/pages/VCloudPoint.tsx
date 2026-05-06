@@ -18,6 +18,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import vcloudEolImg from "@/assets/ads/vcloud-ad-eol2025.jpg";
 
 /* ═══════ Key Benefits ═══════ */
 const benefits = [
@@ -239,6 +240,27 @@ const VCloudPoint = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
       <MiniNavbar />
 
+      {/* ── EOL Urgency Banner ── */}
+      <section className="bg-gradient-to-r from-destructive/10 via-orange-500/10 to-destructive/10 border-y border-destructive/20">
+        <div className="container max-w-7xl mx-auto px-6 py-3">
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
+            <div className="flex items-center gap-2 shrink-0">
+              <Clock className="w-5 h-5 text-destructive animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-wider text-destructive">นับถอยหลัง</span>
+            </div>
+            <p className="text-sm md:text-base font-semibold text-foreground text-center md:text-left flex-1">
+              <span className="text-destructive">Windows 10 หมดอายุ ตุลาคม 2025</span> — เปลี่ยน PC เก่าเป็น vCloudPoint <span className="text-primary">1 PC = 30 ผู้ใช้</span> ก่อน Microsoft หยุด Security Update
+            </p>
+            <a
+              href="#eol-detail"
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:bg-destructive/90 transition-colors"
+            >
+              ดูทางออก <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-sky-500/5" />
@@ -311,6 +333,57 @@ const VCloudPoint = () => {
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
                   loading="eager"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Win10 EOL Solution ── */}
+      <section id="eol-detail" className="py-14 bg-gradient-to-b from-destructive/5 to-transparent border-b border-border">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="order-2 md:order-1">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-4">
+                <Clock className="w-3.5 h-3.5" /> Deadline ตุลาคม 2025
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4 leading-tight">
+                Windows 10 หมดอายุแล้ว<br/>
+                <span className="text-destructive">PC เก่ากำลังจะใช้ไม่ได้</span>
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Microsoft หยุด Security Update — PC เก่าทั้งออฟฟิศเสี่ยงโดน Ransomware การซื้อเครื่องใหม่ทั้งบริษัทคือต้นทุนหลักล้าน
+              </p>
+              <div className="space-y-3 mb-6">
+                {[
+                  { icon: CheckCircle2, text: "ใช้ PC เก่า 1 เครื่อง รองรับได้ถึง 30 ผู้ใช้" },
+                  { icon: CheckCircle2, text: "ไม่ต้องซื้อ License Windows ทุกเครื่อง" },
+                  { icon: CheckCircle2, text: "ติดตั้งใน 1 วัน ใช้งานได้ทันที" },
+                  { icon: CheckCircle2, text: "ประหยัดงบประมาณ 60%+ เทียบกับซื้อ PC ใหม่ทั้งหมด" },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3">
+                    <item.icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm hover:bg-destructive/90 transition-colors">
+                  คำนวณค่าใช้จ่าย <ArrowRight size={14} />
+                </button>
+                <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
+                  ดูวิธีติดตั้ง
+                </a>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="card-surface overflow-hidden rounded-2xl">
+                <img
+                  src={vcloudEolImg}
+                  alt="Windows 10 EOL ตุลาคม 2025 — เปลี่ยนมาใช้ vCloudPoint"
+                  loading="lazy"
+                  className="w-full h-auto"
+                />
               </div>
             </div>
           </div>
