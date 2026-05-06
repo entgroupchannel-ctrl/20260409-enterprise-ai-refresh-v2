@@ -240,6 +240,27 @@ const VCloudPoint = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
       <MiniNavbar />
 
+      {/* ── EOL Urgency Banner ── */}
+      <section className="bg-gradient-to-r from-destructive/10 via-orange-500/10 to-destructive/10 border-y border-destructive/20">
+        <div className="container max-w-7xl mx-auto px-6 py-3">
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
+            <div className="flex items-center gap-2 shrink-0">
+              <Clock className="w-5 h-5 text-destructive animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-wider text-destructive">นับถอยหลัง</span>
+            </div>
+            <p className="text-sm md:text-base font-semibold text-foreground text-center md:text-left flex-1">
+              <span className="text-destructive">Windows 10 หมดอายุ ตุลาคม 2025</span> — เปลี่ยน PC เก่าเป็น vCloudPoint <span className="text-primary">1 PC = 30 ผู้ใช้</span> ก่อน Microsoft หยุด Security Update
+            </p>
+            <a
+              href="#eol-detail"
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:bg-destructive/90 transition-colors"
+            >
+              ดูทางออก <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-sky-500/5" />
