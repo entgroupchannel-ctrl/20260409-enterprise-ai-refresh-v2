@@ -86,15 +86,26 @@ const Economy2026Banner = () => {
               <Link
                 key={s.label}
                 to={s.to}
-                className="group relative rounded-2xl p-4 md:p-5 bg-white/[0.03] border border-white/10 hover:border-primary/50 hover:bg-white/[0.06] transition-all backdrop-blur-sm overflow-hidden"
+                className="group relative rounded-2xl bg-white/[0.03] border border-white/10 hover:border-primary/50 hover:bg-white/[0.06] transition-all backdrop-blur-sm overflow-hidden"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className="relative z-10">
-                  <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                    <Icon className="w-5 h-5 text-primary" />
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={s.img}
+                    alt={s.label}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/30 to-transparent" />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                  <div className="absolute top-2 left-2 w-9 h-9 rounded-xl bg-primary/90 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                    <Icon className="w-4.5 h-4.5 text-primary-foreground" />
                   </div>
+                </div>
+                {/* Text */}
+                <div className="relative z-10 p-3 md:p-4">
                   <div className="font-display font-bold text-white text-sm md:text-base mb-1">{s.label}</div>
-                  <div className="text-[11px] md:text-xs text-white/60 leading-snug mb-3">{s.desc}</div>
+                  <div className="text-[11px] md:text-xs text-white/60 leading-snug mb-2.5">{s.desc}</div>
                   <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary group-hover:gap-2 transition-all">
                     ดูรายละเอียด <ArrowRight className="w-3 h-3" />
                   </div>
