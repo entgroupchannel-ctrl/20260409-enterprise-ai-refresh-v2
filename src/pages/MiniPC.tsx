@@ -883,9 +883,6 @@ const MiniPC = () => {
         </div>
       </section>
 
-      {/* Why ENTGROUP */}
-      <div className="container max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
       {/* ── M4 Avengers Showcase ── */}
       <section className="relative bg-gradient-to-b from-background via-secondary/20 to-background py-16 border-y border-border">
         <div className="container max-w-7xl mx-auto px-4">
