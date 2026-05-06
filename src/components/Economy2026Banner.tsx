@@ -5,7 +5,7 @@ import imgFirewall from "@/assets/hero-firewall.jpg";
 import imgPanelPC from "@/assets/product-panel-pc.jpg";
 import imgVCloud from "@/assets/product-vcloudpoint.jpg";
 import imgWaterproof from "@/assets/waterproof-pc-banner.jpg";
-import imgJetson from "@/assets/jetson-hero-ai.jpg";
+import imgJetson from "@/assets/ads/jetson-privateai.jpg";
 import imgKiosk from "@/assets/kiosk-banner.jpg";
 
 const solutions = [
