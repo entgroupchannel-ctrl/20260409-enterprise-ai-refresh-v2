@@ -202,7 +202,7 @@ const trackRecord = [
 
 /* ═══════ Demo CTA Component ═══════ */
 const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" }) => (
-  <div className={`rounded-2xl p-8 md:p-10 text-center ${variant === "primary" ? "bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-2 border-primary/30" : "card-surface"}`}>
+  <div className={`rounded-2xl p-8 md:p-10 text-center ${variant === "primary" ? "bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-2 border-primary/30" : "card-surface bg-green-100"}`}>
 
     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
       <Play size={12} /> ทดลองใช้ฟรี 30 วัน
