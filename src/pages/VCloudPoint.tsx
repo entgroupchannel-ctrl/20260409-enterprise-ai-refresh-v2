@@ -66,12 +66,12 @@ const howItWorks = [
 
 /* ═══════ Use Cases ═══════ */
 const useCases = [
-  { icon: GraduationCap, title: "โรงเรียน & มหาวิทยาลัย", desc: "Computer Lab, ห้องสมุด, ห้องเรียนมัลติมีเดีย", stat: "320+ เครื่อง" },
-  { icon: Building2, title: "สำนักงาน & สาขา", desc: "Branch Office, ระบบงานเอกสาร, Data Entry", stat: "ปลอดภัย" },
-  { icon: Factory, title: "โรงงานอุตสาหกรรม", desc: "QC Station, Data Entry, ทนฝุ่นทนร้อน", stat: "340+ เครื่อง" },
-  { icon: HeadphonesIcon, title: "Call Center", desc: "ประสิทธิภาพสูง ค่าใช้จ่ายต่ำ 24/7", stat: "280+ seats" },
-  { icon: ShoppingCart, title: "ร้านค้าปลีก & POS", desc: "ติดตั้งง่าย บำรุงรักษาต่ำ", stat: "คืนทุนเร็ว" },
-  { icon: Stethoscope, title: "โรงพยาบาล", desc: "ข้อมูลผู้ป่วยปลอดภัย ไม่เก็บใน Local", stat: "180+ จุด" },
+  { icon: GraduationCap, title: "โรงเรียน & มหาวิทยาลัย", desc: "Computer Lab, ห้องสมุด, ห้องเรียนมัลติมีเดีย", stat: "320+ เครื่อง", image: usecaseSchool },
+  { icon: Building2, title: "สำนักงาน & สาขา", desc: "Branch Office, ระบบงานเอกสาร, Data Entry", stat: "ปลอดภัย", image: usecaseOffice },
+  { icon: Factory, title: "โรงงานอุตสาหกรรม", desc: "QC Station, Data Entry, ทนฝุ่นทนร้อน", stat: "340+ เครื่อง", image: usecaseFactory },
+  { icon: HeadphonesIcon, title: "Call Center", desc: "ประสิทธิภาพสูง ค่าใช้จ่ายต่ำ 24/7", stat: "280+ seats", image: usecaseCallcenter },
+  { icon: ShoppingCart, title: "ร้านค้าปลีก & POS", desc: "ติดตั้งง่าย บำรุงรักษาต่ำ", stat: "คืนทุนเร็ว", image: usecaseRetail },
+  { icon: Stethoscope, title: "โรงพยาบาล", desc: "ข้อมูลผู้ป่วยปลอดภัย ไม่เก็บใน Local", stat: "180+ จุด", image: usecaseHospital },
 ];
 
 /* ═══════ vMatrix Features ═══════ */
