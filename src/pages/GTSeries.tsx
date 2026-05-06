@@ -825,17 +825,15 @@ const GTSeries = () => {
             <span className="text-xs font-bold tracking-widest uppercase text-primary">Industrial PC Showcase</span>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2">ครบทุกรุ่น Industrial PC ในที่เดียว</h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            <div className="rounded-2xl overflow-hidden border border-border shadow-xl group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-xl group bg-card">
               <img src={ipcAdMaster} alt="Industrial PC Master" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
             </div>
-            <div className="grid grid-rows-2 gap-4">
-              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
-                <img src={ipcAdLineup3} alt="Industrial PC Lineup" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
-              </div>
-              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
-                <img src={ipcAdLineup4} alt="Industrial PC Lineup Extended" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
-              </div>
+            <div className="rounded-2xl overflow-hidden border border-border shadow-lg group bg-card">
+              <img src={ipcAdLineup3} alt="Industrial PC Lineup" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-border shadow-lg group bg-card">
+              <img src={ipcAdLineup4} alt="Industrial PC Lineup Extended" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
             </div>
           </div>
         </div>
