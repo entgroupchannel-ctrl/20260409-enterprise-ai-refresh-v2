@@ -841,26 +841,6 @@ const VCloudPoint = () => {
         </div>
       </section>
 
-      {/* ── Flood Relief Program ── */}
-      <section className="py-12 bg-secondary/30">
-        <div className="container max-w-4xl mx-auto px-6">
-          <div className="card-surface rounded-2xl p-8 border-2 bg-slate-200 border-zinc-500">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-sky-500/10 text-sky-400 border border-sky-500/30">
-                โครงการพิเศษ
-              </span>
-            </div>
-            <h3 className="text-xl md:text-2xl font-black text-foreground mb-3">
-              ร่วมฟื้นฟูการศึกษา สู้ภัยน้ำท่วม — ลด 30%
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              สำหรับทุกโรงเรียนที่ประสบภัย: ฟรีติดตั้ง + ฟรี Training + ฟรีซอฟต์แวร์ + รับประกัน 1 ปี + 10 โรงเรียนแรกรับอุปกรณ์เสริมมูลค่า 10,000 บาท
-            </p>
-            <QuoteRequestButton productModel="vCloudPoint" productName="vCloudPoint" className="inline-flex items-center gap-2 text-sm font-semibold hover:underline text-secondary" />
-          </div>
-        </div>
-      </section>
-
       {/* ── Certifications ── */}
       <section className="py-12">
         <div className="container max-w-4xl mx-auto px-6 text-center">
