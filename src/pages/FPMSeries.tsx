@@ -14,12 +14,11 @@ import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
-import fpmAdMaster from "@/assets/ads/fpm-ad-1-master.jpg";
-import fpmAdGT from "@/assets/ads/fpm-ad-2-gt.jpg";
-import fpmAdEPC from "@/assets/ads/fpm-ad-3-epc.jpg";
-import fpmAdUPC from "@/assets/ads/fpm-ad-4-upc.jpg";
-import fpmAdLineup from "@/assets/ads/fpm-ad-5-lineup.jpg";
-import entLogo from "@/assets/logo-entgroup-transparent.png";
+import fpmAdMaster from "@/assets/ads/fpm-ad-master-uploaded.png";
+import fpmAdGT from "@/assets/ads/fpm-ad-gt-uploaded.png";
+import fpmAdEPC from "@/assets/ads/fpm-ad-epc-uploaded.png";
+import fpmAdUPC from "@/assets/ads/fpm-ad-upc-uploaded.png";
+import fpmAdLineup from "@/assets/ads/fpm-ad-lineup-uploaded.png";
 
 /* ─── Data ─── */
 // Image map: รุ่น → ภาพ (ใช้ภาพจริงจาก cesipc.com)
