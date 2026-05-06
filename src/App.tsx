@@ -349,6 +349,7 @@ const App = () => (
                     <Route path="/platform" element={<Platform />} />
                     {/* NVIDIA Jetson / GPU pages */}
                     <Route path="/nvidia-jetson" element={<JetsonEdgeAI />} />
+                    <Route path="/jetson-edge-ai" element={<JetsonEdgeAI />} />
                     <Route path="/nvidia-jetson/solutions" element={<JetsonSolutions />} />
                     <Route path="/nvidia-jetson/ai-ready" element={<JetsonAIReady />} />
                     <Route path="/nvidia-jetson/recommend" element={<JetsonRecommend />} />
