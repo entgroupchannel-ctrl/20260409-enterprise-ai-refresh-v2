@@ -75,20 +75,38 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
           </p>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card max-w-3xl mx-auto">
-          <img
-            src={wallkioskMaster}
-            alt='Wall Mount Touch Kiosk ครบทุกขนาด 15.6" - 32"'
-            className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
-            loading="lazy"
-          />
-          <div
-            className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
-            style={{ background: "linear-gradient(135deg, rgba(180,180,180,0.55), rgba(140,140,140,0.35))" }}
-            aria-hidden
-          />
+        {/* Top: Master + Lineup ข้างกัน 2 ภาพ */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6 max-w-5xl mx-auto">
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+            <img
+              src={wallkioskMaster}
+              alt='Wall Mount Touch Kiosk ครบทุกขนาด 15.6" - 32"'
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              loading="lazy"
+            />
+            <div
+              className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
+              style={{ background: "linear-gradient(135deg, rgba(180,180,180,0.55), rgba(140,140,140,0.35))" }}
+              aria-hidden
+            />
+          </div>
+
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+            <img
+              src={wallkioskLineup}
+              alt='Wall Mount Touch Kiosk - PCAP 10-touch / Android POS Ready / Industrial 24/7'
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              loading="lazy"
+            />
+            <div
+              className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
+              style={{ background: "linear-gradient(135deg, rgba(120,90,60,0.55), rgba(80,60,40,0.4))" }}
+              aria-hidden
+            />
+          </div>
         </div>
 
+        {/* ด้านล่าง: 3 การ์ดขนาดอื่น (คงไว้) */}
         <div className="grid sm:grid-cols-3 gap-4 mb-6 max-w-5xl mx-auto">
           {others.map((s) => {
             const it = SIZE_MAP[s];
@@ -126,20 +144,6 @@ const WallKioskShowcase = ({ currentSize }: Props) => {
               </Link>
             );
           })}
-        </div>
-
-        <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card max-w-3xl mx-auto">
-          <img
-            src={wallkioskLineup}
-            alt='Wall Mount Touch Kiosk - PCAP 10-touch / Android POS Ready / Industrial 24/7'
-            className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
-            loading="lazy"
-          />
-          <div
-            className="absolute bottom-[3%] right-[2%] w-[14%] h-[10%] rounded-md backdrop-blur-md"
-            style={{ background: "linear-gradient(135deg, rgba(120,90,60,0.55), rgba(80,60,40,0.4))" }}
-            aria-hidden
-          />
         </div>
 
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
