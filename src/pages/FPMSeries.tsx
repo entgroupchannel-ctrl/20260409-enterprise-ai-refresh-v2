@@ -339,7 +339,7 @@ const FPMSeries = () => {
               <Link
                 key={s.size}
                 to={`/fpm-series/${s.slug}`}
-                className="group p-4 rounded-xl border border-border bg-card hover:border-primary hover:shadow-lg hover:-translate-y-0.5 transition-all text-center"
+                className="group p-4 rounded-xl border border-border hover:border-primary hover:shadow-lg hover:-translate-y-0.5 transition-all text-center bg-slate-300"
               >
                 <div className="text-3xl font-display font-black text-foreground group-hover:text-primary transition-colors">
                   {s.size}
