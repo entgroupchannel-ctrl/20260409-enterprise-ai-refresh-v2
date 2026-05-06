@@ -12,6 +12,7 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import PopularProductsSidebar from "@/components/PopularProductsSidebar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import Footer from "@/components/Footer";
+import GBSeriesLineupBanner from "@/components/GBSeriesLineupBanner";
 import IndustrialAvengersBanner from "@/components/IndustrialAvengersBanner";
 import Economy2026Banner from "@/components/Economy2026Banner";
 import SEOHead from "@/components/SEOHead";
@@ -61,6 +62,7 @@ const Index = () => {
       <div className="bg-white dark:bg-background"><SoftwareSection /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><CaseStudiesSection /></div>
       <div className="bg-white dark:bg-background"><PromoBanners /></div>
+      <GBSeriesLineupBanner />
       <Footer />
     </div>
   );
