@@ -818,6 +818,9 @@ const VCloudPoint = () => {
         </div>
       </section>
 
+      {/* ── Learn More Tabs (เนื้อหาเสริมจาก vcloudpoint.com) ── */}
+      <VCloudPointLearnMore />
+
       {/* ── Final CTA ── */}
       <section className="py-16 bg-secondary/30">
         <div className="container max-w-4xl mx-auto px-6">
