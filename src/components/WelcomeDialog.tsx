@@ -39,7 +39,7 @@ const BENEFITS = [
   { icon: FileText, title: "ขอใบเสนอราคาออนไลน์", desc: "สร้าง/ติดตามใบเสนอราคาได้ทันที" },
   { icon: ShieldCheck, title: "ราคาพิเศษสำหรับองค์กร", desc: "ส่วนลดและเครดิตเทอมสำหรับ B2B" },
   { icon: Truck, title: "ติดตามสถานะคำสั่งซื้อ", desc: "ตั้งแต่สั่ง จัดส่ง จนถึงรับประกัน" },
-  { icon: Headphones, title: "ทีมขายดูแลเฉพาะคุณ", desc: "ตอบกลับภายใน 2 ชั่วโมงทำการ" },
+  { icon: Headphones, title: "ทีมขายดูแลเฉพาะคุณ", desc: "ตอบกลับภายใน 4 ชั่วโมงทำการ" },
 ];
 
 /** Bypass dialog entirely on these route prefixes (internal/auth/admin) */
