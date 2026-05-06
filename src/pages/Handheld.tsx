@@ -30,6 +30,7 @@ import B2BCTABanner from "@/components/B2BCTABanner";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import ShareButtons from "@/components/ShareButtons";
 import { handheldProducts, type HandheldProduct } from "@/data/rugged-handheld-products";
+import HandheldShowcase from "@/components/handheld/HandheldShowcase";
 
 /* ───── Features ───── */
 const features = [
@@ -231,6 +232,8 @@ const Handheld = () => {
             ))}
           </div>
         </section>
+
+        <HandheldShowcase />
 
         {/* Products Grid */}
         <section>
