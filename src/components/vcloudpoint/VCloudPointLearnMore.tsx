@@ -68,7 +68,7 @@ const VCloudPointLearnMore = () => {
 
           {/* ── Tab: Case Studies (DEFAULT) ── */}
           <TabsContent value="cases" className="mt-0 space-y-6">
-            <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent">
+            <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent bg-green-100">
               <div className="flex items-center gap-2 text-primary text-xs font-bold tracking-widest uppercase mb-2">
                 <Quote className="w-4 h-4" /> Worldwide Success Stories
               </div>
