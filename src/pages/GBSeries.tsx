@@ -349,24 +349,53 @@ const GBSeries = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GB Series", path: "/gb-series" }]} />
       <MiniNavbar />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.08),transparent_70%)]" />
-        <div className="container max-w-7xl mx-auto px-6 py-16 relative">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">Industrial Grade Computer</span>
-            <h1 className="text-5xl md:text-7xl font-display font-black tracking-tight mb-4">
-              GB<span className="text-gradient"> SERIES</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-2">ซีรีส์คอมพิวเตอร์อุตสาหกรรมครบครัน ตอบโจทย์ทุกความต้องการ</p>
-            <p className="text-primary font-semibold">"5 รุ่น 5 สไตล์ — 1 มาตรฐานคุณภาพเดียวกัน"</p>
-          </div>
+      {/* Hero — Apple-style minimal lineup */}
+      <section className="relative bg-background">
+        <div className="container max-w-7xl mx-auto px-6 pt-16 pb-10">
+          <h1 className="text-5xl md:text-7xl font-display font-black tracking-tight text-foreground mb-2">
+            GB Series
+          </h1>
+          <p className="text-base md:text-lg text-muted-foreground mb-12">
+            Industrial Mini PC · 5 รุ่น 5 สไตล์ — มาตรฐานคุณภาพเดียวกัน
+          </p>
 
-          {/* Model Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
-            {models.map((m, i) => (
-              <ModelCard key={m.id} model={m} isActive={i === activeModel} onClick={() => setActiveModel(i)} />
-            ))}
+          {/* Apple-style thumbnail row */}
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 md:gap-6">
+            {models.map((m, i) => {
+              const isActive = i === activeModel;
+              return (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveModel(i);
+                    document.getElementById("model-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="group flex flex-col items-center text-center pt-3 pb-2 transition-all"
+                >
+                  <div className={`relative w-full flex items-center justify-center transition-transform duration-300 ${
+                    isActive ? "scale-110" : "group-hover:scale-105"
+                  }`}>
+                    <img
+                      src={m.image}
+                      alt={m.name}
+                      className="h-24 md:h-32 w-auto object-contain drop-shadow-md"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className={`mt-3 text-sm md:text-base font-semibold transition-colors ${
+                    isActive ? "text-foreground" : "text-foreground/80 group-hover:text-foreground"
+                  }`}>
+                    {m.name}
+                  </div>
+                  {m.badge && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary mt-0.5">
+                      {m.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
