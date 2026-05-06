@@ -512,7 +512,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             {product.highlights.map((h, i) => {
               const Icon = ICONS[h.icon] ?? Monitor;
               return (
-                <div key={i} className="rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow">
+                <div key={i} className="rounded-xl border border-border p-5 hover:shadow-md transition-shadow bg-slate-200">
                   <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                     <Icon className="h-5 w-5" />
                   </div>
