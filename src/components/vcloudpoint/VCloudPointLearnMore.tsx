@@ -238,8 +238,22 @@ const VCloudPointLearnMore = () => {
           </TabsContent>
 
           {/* ── Tab: RDS vs VDI ── */}
-          <TabsContent value="solutions" className="mt-0">
+          <TabsContent value="solutions" className="mt-0 space-y-6">
+            {/* ── Intro แบบช่างไทย ── */}
+            <div className="rounded-2xl card-surface p-5 md:p-6 bg-gradient-to-br from-primary/5 via-card to-card border border-primary/20">
+              <h3 className="font-display font-black text-foreground text-lg md:text-xl mb-2">
+                เลือก RDS หรือ VDI ดี? — อธิบายแบบช่างไทย
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                คิดง่าย ๆ — <strong className="text-foreground">RDS</strong> เหมือน "บ้านเช่ารวม" คนหลายคนอยู่ในบ้านเดียวกัน
+                ใช้ห้องครัว ห้องน้ำ เครื่องใช้ร่วมกัน ประหยัดสุด ติดตั้งง่ายสุด.
+                <strong className="text-foreground"> VDI</strong> เหมือน "คอนโดแยกห้อง" ทุกคนมีห้องของตัวเอง
+                แอร์ ตู้เย็น เฟอร์นิเจอร์แยก ใครจะลง Software อะไรก็ไม่กวนกัน — ปลอดภัย ยืดหยุ่นสูง แต่แพงและจัดการซับซ้อนกว่า
+              </p>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-5">
+              {/* ── RDS Card ── */}
               <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/5 via-card to-card border border-primary/20">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center">
@@ -250,21 +264,22 @@ const VCloudPointLearnMore = () => {
                     <h3 className="text-xl font-display font-bold text-foreground leading-tight">
                       Shared Computing (RDS)
                     </h3>
+                    <div className="text-[11px] text-muted-foreground mt-0.5">"บ้านเช่ารวม" — Host เดียว แชร์ได้หลายคน</div>
                   </div>
                 </div>
 
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  <strong className="text-foreground">vCloudPoint RDS Solution</strong> ให้ผู้ใช้หลายคน
-                  เชื่อมต่อ Host PC/Server เครื่องเดียวพร้อมกันผ่าน <em>Remote Desktop Session</em> —
-                  ใช้ OS · App · ทรัพยากรร่วมกัน แต่ทำงานอิสระในเซสชันของตัวเอง
+                  ลง <strong className="text-foreground">vMatrix Server Manager</strong> ที่ PC/Server <em>เครื่องเดียว</em>
+                  แล้วเสียบ Zero Client ตามจุดที่ใช้งาน — ทุกคน Login เข้ามาเป็น session ของตัวเอง
+                  ใช้ <strong className="text-foreground">OS · โปรแกรม · CPU/RAM</strong> ของ Host ร่วมกัน
+                  แต่หน้าจอ ไฟล์ และโปรไฟล์แยกกัน ไม่กวนกัน
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  ขับเคลื่อนด้วย <strong className="text-foreground">vMatrix Server Manager</strong> —
-                  ทำหน้าที่เป็น Broker จัดการการเชื่อมต่อจาก Zero Client พร้อม Graphic Acceleration,
-                  Virtual Audio และ USB Redirection ให้ใช้งานลื่นเหมือน PC จริง
+                  ช่างไอทีไม่ต้องวิ่งดูทีละเครื่อง — <strong className="text-foreground">อัปเดต Windows / ลง Office / Antivirus ครั้งเดียวที่ Host</strong>
+                  ทุก Zero Client ได้ใหม่หมดทันที. มี Graphic Acceleration, Virtual Audio และ USB Redirection
+                  เสียบ Flash Drive / Printer / Headset ที่ Zero Client ก็ใช้ได้เหมือน PC จริง
                 </p>
 
-                {/* Spec table */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
                     <div className="text-lg font-black text-primary leading-none">99</div>
@@ -286,11 +301,12 @@ const VCloudPointLearnMore = () => {
                   Client: <strong>S100, V1, A1 Zero Client</strong> และ Windows PC ที่ลง vMatrix Client
                 </p>
 
+                <div className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-2">เหมาะกับงานแบบไหน</div>
                 <ul className="space-y-2 text-sm">
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>ต้นทุนต่ำที่สุด</strong> — Host เดียวพอ ไม่ต้องลง Hypervisor</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>ติดตั้งและดูแลง่าย — อัปเดตที่ Host ครั้งเดียว มีผลทุกเครื่อง</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>เหมาะกับงาน Office, ห้อง Lab, ห้องสมุด, Call Center, POS</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>User ใช้แอปและ Desktop Configuration คล้าย ๆ กัน</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>ห้องคอมโรงเรียน · ห้องสมุด</strong> — นักเรียนใช้แอปเหมือนกัน ครูดูแลคนเดียว</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>ออฟฟิศโรงงาน · จุด QC · Data Entry</strong> — ทุกคนใช้ ERP/SAP/Excel ชุดเดียว</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>Call Center · POS · เคาน์เตอร์บริการ</strong> — แอปไม่กี่ตัว ใช้งาน 8 ชม./วัน</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>งบจำกัด</strong> — ลงทุน Host เครื่องเดียว ไม่ต้องซื้อ Server แพง ๆ</span></li>
                 </ul>
 
                 <a
@@ -303,24 +319,100 @@ const VCloudPointLearnMore = () => {
                 </a>
               </div>
 
-              <div className="card-surface p-6 md:p-8 rounded-2xl">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center mb-4">
-                  <Cpu className="w-6 h-6 text-primary" />
+              {/* ── VDI Card ── */}
+              <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-sky-500/5 via-card to-card border border-sky-500/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center">
+                    <Cpu className="w-6 h-6 text-sky-500" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-sky-500">JoinVDI + Virspire Desktop Agent</div>
+                    <h3 className="text-xl font-display font-bold text-foreground leading-tight">
+                      Virtual Desktop Infrastructure (VDI)
+                    </h3>
+                    <div className="text-[11px] text-muted-foreground mt-0.5">"คอนโดแยกห้อง" — ทุก User มี VM ของตัวเอง</div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-display font-bold text-foreground mb-2">
-                  Virtual Desktop Infrastructure (VDI)
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  VDI ให้ผู้ใช้ทำงานบน Virtual Desktop ที่รันใน VM ของตัวเอง —
-                  มี OS และแอปแยกอิสระ ประสบการณ์เหมือนใช้ PC ส่วนตัว
-                  เหมาะสำหรับงานที่ต้องการความเป็นส่วนตัวหรือ App ที่แยก License
+
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  ลง <strong className="text-foreground">JoinVDI Virtualization Manager</strong> ที่ Server (Bare-metal Linux + KVM)
+                  แล้วสร้าง <em>Virtual Machine</em> ให้ User แต่ละคน — แยก Windows, แยก CPU/RAM/Disk, แยก IP
+                  เหมือนได้ <strong className="text-foreground">PC ส่วนตัวคนละเครื่อง</strong> แต่ทุกอย่างรันอยู่บน Server เดียว
                 </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  ที่ VM ลง <strong className="text-foreground">Virspire Desktop Agent</strong> เพื่อให้ Zero Client ต่อเข้ามาด้วย
+                  <em> DDP Protocol</em> — จัดการทั้ง Cluster, Host, VM, Storage, Network ผ่านหน้าเว็บ
+                  จะ Snapshot · Clone · Migrate · เพิ่ม-ลด RAM ของ User คนไหนก็ทำได้จาก Browser
+                </p>
+
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-sky-500 leading-none">1:1</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">VM ต่อ<br/>User</div>
+                  </div>
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-sky-500 leading-none">KVM</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">Hypervisor<br/>built-in</div>
+                  </div>
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-sky-500 leading-none">Web</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">Console<br/>จัดการ</div>
+                  </div>
+                </div>
+
+                <div className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-2">รองรับระบบ</div>
+                <p className="text-xs text-muted-foreground mb-2">
+                  <strong>Guest VM:</strong> Windows 8 / 8.1 / 10 / Server 2012 / 2016 / 2019 ทุก Edition
+                </p>
+                <p className="text-xs text-muted-foreground mb-4">
+                  <strong>Hypervisor:</strong> ใช้ JoinVDI (KVM) ก็ได้ หรือทำงานร่วมกับ <strong>VMware ESXi, Citrix Hypervisor, Hyper-V, VirtualBox</strong>
+                  · Client: <strong>S100, V1 Zero Client</strong>
+                </p>
+
+                <div className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-2">เหมาะกับงานแบบไหน</div>
                 <ul className="space-y-2 text-sm">
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>แยก OS / App รายผู้ใช้</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>ความปลอดภัยสูง แยก Process</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>เหมาะกับองค์กรที่ต้องการ Compliance</span></li>
+                  <li className="flex gap-2"><span className="text-sky-500">✓</span><span><strong>องค์กรที่ User ใช้ App ต่างกัน</strong> — บัญชี, กราฟิก, วิศวะ, ขาย ใช้คนละชุด</span></li>
+                  <li className="flex gap-2"><span className="text-sky-500">✓</span><span><strong>โรงพยาบาล · ธนาคาร · ราชการ</strong> — ต้องการ Compliance, แยก Process, Audit ได้</span></li>
+                  <li className="flex gap-2"><span className="text-sky-500">✓</span><span><strong>App เก่าที่ชนกัน</strong> — โปรแกรมรุ่นเก่าลง Host เดียวกันไม่ได้ ก็แยก VM</span></li>
+                  <li className="flex gap-2"><span className="text-sky-500">✓</span><span><strong>มี Server แรง ๆ อยู่แล้ว</strong> — อยากแบ่งทรัพยากรให้ยืดหยุ่นต่อ User</span></li>
                 </ul>
+
+                <a
+                  href="https://www.vcloudpoint.com/virtual-desktop-infrastructure/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-bold text-sky-500 hover:underline"
+                >
+                  ดูรายละเอียด VDI Solution <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
+            </div>
+
+            {/* ── Quick Compare Table ── */}
+            <div className="rounded-2xl card-surface p-5 md:p-6 border border-border overflow-x-auto">
+              <h4 className="font-display font-bold text-foreground text-base mb-3">เทียบกันเร็ว ๆ — ช่างไทยเลือกตัวไหนดี?</h4>
+              <table className="w-full text-xs md:text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 pr-3 font-bold text-foreground">หัวข้อ</th>
+                    <th className="text-left py-2 px-3 font-bold text-primary">RDS (Shared)</th>
+                    <th className="text-left py-2 pl-3 font-bold text-sky-500">VDI (Virtual)</th>
+                  </tr>
+                </thead>
+                <tbody className="text-muted-foreground">
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">ลงทุนเริ่มต้น</td><td className="py-2 px-3">ต่ำสุด — PC แรง ๆ 1 เครื่อง</td><td className="py-2 pl-3">สูงกว่า — ต้องมี Server</td></tr>
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">ติดตั้งยาก-ง่าย</td><td className="py-2 px-3">ง่าย ลง Windows + vMatrix จบ</td><td className="py-2 pl-3">ปานกลาง ต้องเข้าใจ VM/Hypervisor</td></tr>
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">OS แยกกัน?</td><td className="py-2 px-3">ไม่ — ใช้ Windows เดียวกัน</td><td className="py-2 pl-3">ใช่ — VM ละ Windows</td></tr>
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">ลง Software แปลก ๆ</td><td className="py-2 px-3">เสี่ยงชนกัน</td><td className="py-2 pl-3">ปลอดภัย แยก VM</td></tr>
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">User ที่รองรับ</td><td className="py-2 px-3">5–30 ต่อ Host (สูงสุด 99)</td><td className="py-2 pl-3">ตาม Server — สิบถึงหลายร้อย</td></tr>
+                  <tr className="border-b border-border/50"><td className="py-2 pr-3 font-semibold text-foreground">เหมาะกับ</td><td className="py-2 px-3">ห้อง Lab, Office, POS, Call Center</td><td className="py-2 pl-3">รพ., ธนาคาร, องค์กรใหญ่, Compliance</td></tr>
+                  <tr><td className="py-2 pr-3 font-semibold text-foreground">Zero Client</td><td className="py-2 px-3">S100 · V1 · A1 + vMatrix Client</td><td className="py-2 pl-3">S100 · V1</td></tr>
+                </tbody>
+              </table>
+              <p className="text-xs text-muted-foreground mt-3 italic">
+                💡 <strong>ช่างแนะนำ:</strong> เริ่มจาก RDS ก่อน 90% ของลูกค้าเรา (โรงเรียน-โรงงาน-ออฟฟิศ) ใช้ RDS แล้วจบ —
+                ถ้าโตขึ้นค่อยขยับเป็น VDI เมื่อ User เริ่มต้องการ Software แยกกันจริง ๆ
+              </p>
             </div>
           </TabsContent>
 
