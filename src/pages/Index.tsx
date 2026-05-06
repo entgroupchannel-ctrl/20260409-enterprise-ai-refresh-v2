@@ -12,6 +12,7 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import PopularProductsSidebar from "@/components/PopularProductsSidebar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import Footer from "@/components/Footer";
+import IndustrialAvengersBanner from "@/components/IndustrialAvengersBanner";
 import SEOHead from "@/components/SEOHead";
 import GEOMeta from "@/components/GEOMeta";
 
