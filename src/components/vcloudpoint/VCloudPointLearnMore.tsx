@@ -3,7 +3,7 @@ import {
   BookOpen, Layers, Globe2, Award, Sparkles, MapPin, Quote, ArrowRight,
   Monitor, Volume2, Usb, MousePointerClick, Settings2, Zap,
   Server, Cpu, GraduationCap, Building2, Factory, HeadphonesIcon,
-  DollarSign, Gauge, Smile, ShieldCheck, Library,
+  DollarSign, Gauge, Smile, ShieldCheck, Library, ExternalLink,
 } from "lucide-react";
 
 /**
@@ -240,23 +240,67 @@ const VCloudPointLearnMore = () => {
           {/* ── Tab: RDS vs VDI ── */}
           <TabsContent value="solutions" className="mt-0">
             <div className="grid md:grid-cols-2 gap-5">
-              <div className="card-surface p-6 md:p-8 rounded-2xl">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center mb-4">
-                  <Server className="w-6 h-6 text-primary" />
+              <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/5 via-card to-card border border-primary/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center">
+                    <Server className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-primary">vMatrix Server Manager</div>
+                    <h3 className="text-xl font-display font-bold text-foreground leading-tight">
+                      Shared Computing (RDS)
+                    </h3>
+                  </div>
                 </div>
-                <h3 className="text-xl font-display font-bold text-foreground mb-2">
-                  Shared Computing (RDS)
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  RDS (Remote Desktop Services) ให้ผู้ใช้หลายคนแชร์ทรัพยากรของ Host PC
-                  หรือ Server เครื่องเดียว ผู้ใช้ทำงานอิสระแต่ใช้ OS และแอปชุดเดียวกัน
-                  เหมาะสำหรับงานออฟฟิศทั่วไป โรงเรียน และห้อง Lab
+
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  <strong className="text-foreground">vCloudPoint RDS Solution</strong> ให้ผู้ใช้หลายคน
+                  เชื่อมต่อ Host PC/Server เครื่องเดียวพร้อมกันผ่าน <em>Remote Desktop Session</em> —
+                  ใช้ OS · App · ทรัพยากรร่วมกัน แต่ทำงานอิสระในเซสชันของตัวเอง
                 </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  ขับเคลื่อนด้วย <strong className="text-foreground">vMatrix Server Manager</strong> —
+                  ทำหน้าที่เป็น Broker จัดการการเชื่อมต่อจาก Zero Client พร้อม Graphic Acceleration,
+                  Virtual Audio และ USB Redirection ให้ใช้งานลื่นเหมือน PC จริง
+                </p>
+
+                {/* Spec table */}
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-primary leading-none">99</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">Max users<br/>ต่อ Host</div>
+                  </div>
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-primary leading-none">5–30</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">User แนะนำ<br/>ต่อ Host</div>
+                  </div>
+                  <div className="rounded-lg bg-background/60 border border-border p-2.5 text-center">
+                    <div className="text-lg font-black text-primary leading-none">1×</div>
+                    <div className="text-[10px] text-muted-foreground mt-1 leading-tight">License<br/>Windows</div>
+                  </div>
+                </div>
+
+                <div className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-2">รองรับระบบ</div>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Windows Client / Server ทุกรุ่น (ยกเว้น Home Basic, Starter) ·
+                  Client: <strong>S100, V1, A1 Zero Client</strong> และ Windows PC ที่ลง vMatrix Client
+                </p>
+
                 <ul className="space-y-2 text-sm">
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>ต้นทุนต่ำที่สุด — Host เดียวพอ</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>ติดตั้งและดูแลง่าย</span></li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span><span>เหมาะกับ User 5–30 คนต่อ Host</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span><strong>ต้นทุนต่ำที่สุด</strong> — Host เดียวพอ ไม่ต้องลง Hypervisor</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span>ติดตั้งและดูแลง่าย — อัปเดตที่ Host ครั้งเดียว มีผลทุกเครื่อง</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span>เหมาะกับงาน Office, ห้อง Lab, ห้องสมุด, Call Center, POS</span></li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span><span>User ใช้แอปและ Desktop Configuration คล้าย ๆ กัน</span></li>
                 </ul>
+
+                <a
+                  href="https://www.vcloudpoint.com/remote-desktop-services/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-bold text-primary hover:underline"
+                >
+                  ดูรายละเอียด RDS Solution <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
 
               <div className="card-surface p-6 md:p-8 rounded-2xl">
