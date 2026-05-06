@@ -650,19 +650,117 @@ const VCloudPointLearnMore = () => {
               </TabsContent>
 
               {/* Call Center sub-tab */}
-              <TabsContent value="cc" className="mt-0">
-                <div className="card-surface p-6 md:p-8 rounded-2xl">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                      <HeadphonesIcon className="w-6 h-6 text-primary" />
-                    </div>
+              <TabsContent value="cc" className="mt-0 space-y-6">
+                {/* Hero banner */}
+                <div className="relative overflow-hidden rounded-2xl card-surface bg-gradient-to-br from-primary/15 via-accent/10 to-transparent p-6 md:p-8">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="relative grid md:grid-cols-[1fr_auto] gap-4 items-center">
                     <div>
-                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Call Center</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Workspace มาตรฐานเดียวกันทุก Agent — Audio คุณภาพสูงรองรับ VoIP
-                        IT จัดเตรียมเครื่องใหม่ใน 5 นาที (vs 1 ชั่วโมงสำหรับ PC ทั่วไป) ลด Downtime ของ Agent
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <HeadphonesIcon className="w-3 h-3" /> Zero Client in Call Center
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-display font-black text-foreground mb-2">
+                        Call Center มาตรฐานเดียวกันทุก Agent
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        จาก Mobifone (เวียดนาม) ถึง Publika (มาเลเซีย) — Call Center เลือก vCloudPoint เพราะ
+                        <strong className="text-foreground"> Audio คุณภาพสูงรองรับ VoIP</strong>
+                        {" "}จัดเตรียมเครื่อง Agent ใหม่ใน 5 นาที และลดค่าไฟลง 80% เมื่อมี Agent หลายร้อยที่นั่ง
                       </p>
                     </div>
+                    <div className="hidden md:flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-background/60 border border-primary/30">
+                      <span className="text-3xl font-black text-primary">100s</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Agent seats per site</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Case studies */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Mobifone-Service-in-Vietnam1-320x180.png",
+                      title: "Mobifone Service",
+                      type: "ผู้ให้บริการมือถือระดับชาติ · เวียดนาม",
+                      flag: "🇻🇳",
+                      story: "Mobifone หนึ่งในผู้ให้บริการเครือข่ายมือถือรายใหญ่ของเวียดนาม — ติดตั้ง Zero Client หลายร้อยที่นั่งใน Call Center ลดทั้งค่าไฟและเวลา Provision",
+                      tag: "Telco",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Kenya-240x180.jpg",
+                      title: "Call Center in Kenya",
+                      type: "Call Center · เคนยา",
+                      flag: "🇰🇪",
+                      story: "Outsourcing Call Center ในแอฟริกา — ต้องการต้นทุนต่อที่นั่งต่ำสุด เพื่อแข่งขันด้านราคาบริการ vCloudPoint ตอบโจทย์ทั้งราคาและความทนทาน",
+                      tag: "BPO",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Publika-Call-Center-in-Malaysia-3-320x180.jpg",
+                      title: "Publika Call Center",
+                      type: "Call Center · มาเลเซีย",
+                      flag: "🇲🇾",
+                      story: "Call Center มาเลเซีย — ทุก Agent ใช้ Workspace มาตรฐานเดียวกัน Login จากที่นั่งไหนก็ได้ ระบบเสียง VoIP คมชัดสองทิศทาง",
+                      tag: "Hot-desking",
+                    },
+                  ].map((c) => (
+                    <a
+                      key={c.title}
+                      href="https://www.vcloudpoint.com/work-category/zero-client-in-call-center/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group card-surface rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex flex-col"
+                    >
+                      <div className="relative aspect-video overflow-hidden bg-secondary">
+                        <img
+                          src={c.img}
+                          alt={c.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                        <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold backdrop-blur">
+                          <Sparkles className="w-3 h-3" /> {c.tag}
+                        </div>
+                        <div className="absolute bottom-2 left-3 right-3 flex items-center gap-1.5 text-xs text-foreground">
+                          <span className="text-base">{c.flag}</span>
+                          <MapPin className="w-3 h-3 text-primary" />
+                          <span className="font-semibold truncate">{c.type}</span>
+                        </div>
+                      </div>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h4 className="font-display font-bold text-foreground text-sm mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                          {c.title}
+                        </h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{c.story}</p>
+                        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-primary group-hover:gap-2 transition-all">
+                          อ่านเรื่องเต็ม <ArrowRight className="w-3 h-3" />
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Why call center */}
+                <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+                  <h4 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    ทำไม Call Center ทั่วโลกเลือก vCloudPoint?
+                  </h4>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    {[
+                      { icon: Volume2, t: "VoIP เสียงคมสองทาง", d: "DDP รองรับ Audio คุณภาพสูง USB Headset Plug-and-Play" },
+                      { icon: Smile, t: "Hot-desk ทุกกะ", d: "Agent กะเช้า–กะดึก ใช้ที่นั่งร่วมกันได้ Login แล้ว Desktop ตามมา" },
+                      { icon: Zap, t: "Provision 5 นาที", d: "เพิ่ม Agent ใหม่ — เสียบเครื่องล็อกอินใช้ได้ทันที ไม่ต้องลง OS/แอป" },
+                      { icon: DollarSign, t: "ค่าไฟลด 80%", d: "5W/เครื่อง × หลายร้อยที่นั่ง = ประหยัดมหาศาลต่อเดือน" },
+                    ].map((b) => (
+                      <div key={b.t} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+                          <b.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="font-bold text-foreground text-sm">{b.t}</div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </TabsContent>
