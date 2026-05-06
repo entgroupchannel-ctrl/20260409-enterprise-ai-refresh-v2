@@ -323,25 +323,25 @@ const Handheld = () => {
 
         {/* Row 1: Featured (1 ใหญ่ + 2 เล็ก) */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-          <div className="md:col-span-2 card-surface overflow-hidden group">
-            <div className="aspect-[16/9] md:aspect-auto md:h-full overflow-hidden">
+          <div className="md:col-span-2 card-surface overflow-hidden group bg-secondary/30">
+            <div className="aspect-[16/9] overflow-hidden flex items-center justify-center">
               <img src={handheldLineup} alt="Handheld Series Lineup ครบทุกขนาด"
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500" />
             </div>
           </div>
-          <div className="card-surface overflow-hidden group">
-            <div className="aspect-square md:aspect-[4/5] overflow-hidden">
+          <div className="card-surface overflow-hidden group bg-secondary/30">
+            <div className="aspect-square md:aspect-[4/5] overflow-hidden flex items-center justify-center">
               <img src={handheldW65G} alt="W65G เรือธง"
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500" />
             </div>
           </div>
-          <div className="card-surface overflow-hidden group">
-            <div className="aspect-square md:aspect-[4/5] overflow-hidden">
+          <div className="card-surface overflow-hidden group bg-secondary/30">
+            <div className="aspect-square md:aspect-[4/5] overflow-hidden flex items-center justify-center">
               <img src={handheldA55GT} alt="A55GT รุ่นคุ้มค่า"
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500" />
             </div>
           </div>
         </div>
@@ -354,11 +354,11 @@ const Handheld = () => {
             { src: handheldSquare, alt: "Handheld Highlight" },
             { src: handheldHero, alt: "Handheld Master Showcase" },
           ].map((g, i) => (
-            <div key={i} className="card-surface overflow-hidden group">
-              <div className="aspect-square overflow-hidden">
+            <div key={i} className="card-surface overflow-hidden group bg-secondary/30">
+              <div className="aspect-square overflow-hidden flex items-center justify-center">
                 <img src={g.src} alt={g.alt}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500" />
               </div>
             </div>
           ))}
