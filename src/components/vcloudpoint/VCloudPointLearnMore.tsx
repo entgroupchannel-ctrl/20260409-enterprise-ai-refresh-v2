@@ -1,49 +1,186 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
-  BookOpen, Layers, Globe2, Award,
+  BookOpen, Layers, Globe2, Award, Sparkles, MapPin, Quote, ArrowRight,
   Monitor, Volume2, Usb, MousePointerClick, Settings2, Zap,
   Server, Cpu, GraduationCap, Building2, Factory, HeadphonesIcon,
   DollarSign, Gauge, Smile, ShieldCheck,
 } from "lucide-react";
 
 /**
- * VCloudPointLearnMore — Tabs ความรู้เสริม (อ้างอิงโครงสร้าง vcloudpoint.com)
- * วางต่อท้ายเนื้อหาเดิม ก่อน Final CTA — ไม่แทนที่ของเดิม
+ * VCloudPointLearnMore — Tabs ความรู้เสริม + Case Studies
+ * วางต่อท้าย Hero ก่อน Benefits — ไม่แทนที่ของเดิม
  */
 const VCloudPointLearnMore = () => {
   return (
-    <section className="py-16 bg-background border-t border-border">
-      <div className="container max-w-6xl mx-auto px-6">
+    <section className="relative py-16 md:py-20 bg-gradient-to-br from-primary/10 via-background to-accent/10 border-y-2 border-primary/20 overflow-hidden">
+      {/* decorative blobs */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-accent/20 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container max-w-6xl mx-auto px-6 relative">
+        {/* Header — ทำให้รู้ว่าเป็นเมนูคลิกได้ */}
         <div className="text-center mb-10">
-          <span className="text-xs font-semibold tracking-widest uppercase text-primary">
-            Learn More · ทำความรู้จัก vCloudPoint เชิงลึก
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold tracking-widest uppercase shadow-lg shadow-primary/30">
+            <Sparkles className="w-3.5 h-3.5" />
+            Interactive · คลิกแท็บเพื่อดูเนื้อหา
           </span>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mt-2">
-            เข้าใจเทคโนโลยี Zero Client ใน 4 หัวข้อ
+          <h2 className="text-3xl md:text-4xl font-display font-black text-foreground mt-4">
+            เข้าใจ <span className="text-primary">vCloudPoint</span> ใน <span className="text-primary">5 มุมมอง</span>
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-            อ้างอิงเนื้อหาทางเทคนิคจาก vCloudPoint โดยตรง — เพื่อช่วยให้ทีม IT
-            และผู้ตัดสินใจเข้าใจภาพรวมก่อนเลือกใช้งาน
+            แตะแท็บด้านล่างเพื่ออ่านเนื้อหาเชิงลึก พร้อมเรื่องราวความสำเร็จจากลูกค้าจริงทั่วโลก
           </p>
         </div>
 
-        <Tabs defaultValue="shared" className="w-full">
-          <TabsList className="h-auto flex-wrap gap-1 bg-secondary/40 mb-6 justify-center w-full">
-            <TabsTrigger value="shared" className="text-xs md:text-sm gap-1.5">
+        <Tabs defaultValue="cases" className="w-full">
+          <TabsList className="h-auto flex-wrap gap-2 bg-card/80 backdrop-blur p-2 mb-8 justify-center w-full border-2 border-primary/30 shadow-xl shadow-primary/10 rounded-2xl">
+            <TabsTrigger
+              value="cases"
+              className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
+            >
+              <Globe2 className="w-4 h-4" /> Case Studies จริง
+            </TabsTrigger>
+            <TabsTrigger
+              value="shared"
+              className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
+            >
               <BookOpen className="w-4 h-4" /> Shared Computing คืออะไร?
             </TabsTrigger>
-            <TabsTrigger value="solutions" className="text-xs md:text-sm gap-1.5">
+            <TabsTrigger
+              value="solutions"
+              className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
+            >
               <Layers className="w-4 h-4" /> RDS vs VDI
             </TabsTrigger>
-            <TabsTrigger value="cases" className="text-xs md:text-sm gap-1.5">
-              <Globe2 className="w-4 h-4" /> Use Cases ทั่วโลก
+            <TabsTrigger
+              value="industries"
+              className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
+            >
+              <Building2 className="w-4 h-4" /> 4 อุตสาหกรรมเด่น
             </TabsTrigger>
-            <TabsTrigger value="why" className="text-xs md:text-sm gap-1.5">
-              <Award className="w-4 h-4" /> Why vCloudPoint
+            <TabsTrigger
+              value="why"
+              className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
+            >
+              <Award className="w-4 h-4" /> ทำไมต้อง vCloudPoint
             </TabsTrigger>
           </TabsList>
 
-          {/* ── Tab 1: Shared Computing ── */}
+          {/* ── Tab: Case Studies (DEFAULT) ── */}
+          <TabsContent value="cases" className="mt-0 space-y-6">
+            <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent">
+              <div className="flex items-center gap-2 text-primary text-xs font-bold tracking-widest uppercase mb-2">
+                <Quote className="w-4 h-4" /> Worldwide Success Stories
+              </div>
+              <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
+                ทำไมโรงเรียนและมหาวิทยาลัยทั่วโลกถึงเลือก vCloudPoint?
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                vCloudPoint ถูกใช้งานจริงในโรงเรียน มหาวิทยาลัย และองค์กรกว่า{" "}
+                <strong className="text-foreground">100 ประเทศทั่วโลก</strong> โดยเฉพาะใน
+                ยุโรปตะวันออก (โปแลนด์), เอเชีย, แอฟริกา และอเมริกาใต้ — ที่ต้องการ
+                ห้องคอมพิวเตอร์ราคาประหยัด ดูแลง่าย และทนการใช้งานหนัก
+              </p>
+            </div>
+
+            {/* Case studies cards */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {[
+                {
+                  flag: "🇵🇱",
+                  location: "Lubin, Poland",
+                  title: "MKS Zagłębie — โรงเรียนแชมป์แฮนด์บอลแห่งชาติ",
+                  story:
+                    "ห้อง Lab ภาษาที่นักกีฬาเยาวชนใช้เรียนภาษาต่างประเทศ ระหว่างฝึกซ้อม — ติดตั้งบน Host เครื่องเดียว รองรับนักเรียนทั้งห้องพร้อมกัน ครูควบคุมหน้าจอนักเรียนได้จากศูนย์กลาง",
+                  outcome: "ลดค่า PC ลง 60% · ดูแลโดยครู IT คนเดียว",
+                },
+                {
+                  flag: "🇵🇱",
+                  location: "Płock, Poland",
+                  title: "Karol Szymanowski State School of Music",
+                  story:
+                    "โรงเรียนดนตรีของรัฐที่ต้องการห้อง Lab สำหรับเรียน Music Production และทฤษฎีดนตรี — เลือก vCloudPoint เพราะเงียบ (ไม่มีพัดลม) ไม่รบกวนการฝึกซ้อมและการอัดเสียง",
+                  outcome: "เครื่องเงียบสนิท · ประหยัดไฟ 80%",
+                },
+                {
+                  flag: "🇵🇱",
+                  location: "Częstochowa, Poland",
+                  title: "Częstochowa University of Technology",
+                  story:
+                    "มหาวิทยาลัยเทคโนโลยีระดับประเทศ ติดตั้ง vCloudPoint หลายห้อง Lab สำหรับวิชา Programming, CAD เบื้องต้น และวิชาทั่วไป — ทีม IT บริหารจัดการรวมศูนย์ ติดตั้ง Software ครั้งเดียวใช้ได้ทุกเครื่อง",
+                  outcome: "หลาย Lab รวมศูนย์ · Update ครั้งเดียวจบ",
+                },
+                {
+                  flag: "🇵🇱",
+                  location: "Gołuchów, Poland",
+                  title: "โรงเรียนอนุบาลและประถม Gołuchów",
+                  story:
+                    "โรงเรียนขนาดเล็กในชนบทที่งบประมาณจำกัด แต่ต้องการห้องคอมพิวเตอร์มาตรฐานเดียวกับเมืองใหญ่ — vCloudPoint ทำให้สามารถมี 20 ที่นั่งด้วยงบเท่ากับซื้อ PC ใหม่ 5–6 เครื่อง",
+                  outcome: "20 ที่นั่งในงบเท่า 5 เครื่อง PC",
+                },
+                {
+                  flag: "🇵🇱",
+                  location: "Marki, Poland",
+                  title: "Primary School No. 2 — Home Army Soldiers",
+                  story:
+                    "โรงเรียนประถมที่ต้องการห้อง Lab รองรับเด็กประถม — ทนทานต่อการใช้งานหนัก ไม่กลัวเด็กถอด-เสียบสาย เพราะ Zero Client ไม่มีฮาร์ดดิสก์ ไม่มีอะไรให้พัง",
+                  outcome: "เด็กใช้ได้ ทนทาน · ไม่ต้อง Reset เครื่อง",
+                },
+                {
+                  flag: "🇵🇱",
+                  location: "Lenartowice, Poland",
+                  title: "Maria Konopnicka Primary School",
+                  story:
+                    "โรงเรียนประถมในชุมชน ติดตั้งห้องคอม 24 ที่นั่งด้วย Host PC เพียง 1 เครื่อง ครู IT (ที่จริงเป็นครูภาษาโปแลนด์) สามารถดูแลได้เอง โดยไม่ต้องจ้างผู้เชี่ยวชาญ",
+                  outcome: "1 Host รองรับ 24 ที่นั่ง · ครูดูแลเอง",
+                },
+              ].map((c) => (
+                <div
+                  key={c.title}
+                  className="card-surface rounded-2xl p-5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group"
+                >
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                    <span className="text-base">{c.flag}</span>
+                    <MapPin className="w-3 h-3" />
+                    <span className="font-semibold">{c.location}</span>
+                  </div>
+                  <h4 className="font-display font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {c.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                    {c.story}
+                  </p>
+                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+                    <Sparkles className="w-3 h-3" /> {c.outcome}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pattern callout */}
+            <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+              <h4 className="font-display font-bold text-foreground text-lg mb-3 flex items-center gap-2">
+                <Award className="w-5 h-5 text-primary" />
+                สังเกตเห็น Pattern เดียวกันไหม?
+              </h4>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="flex gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <span><strong>โรงเรียน</strong> ทุกระดับ ตั้งแต่อนุบาลถึงมหาวิทยาลัย เลือกใช้เพราะ <strong>งบจำกัด</strong> แต่ต้องการคุณภาพมาตรฐาน</span>
+                </div>
+                <div className="flex gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <span><strong>ครู IT คนเดียว</strong> ดูแลห้อง Lab ทั้งห้องได้ — ไม่ต้องจ้างผู้เชี่ยวชาญเพิ่ม</span>
+                </div>
+                <div className="flex gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <span><strong>ใช้งานต่อเนื่อง 5–10 ปี</strong> โดยไม่ต้องเปลี่ยนเครื่อง — Update Host ทีเดียวพอ</span>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* ── Tab: Shared Computing ── */}
           <TabsContent value="shared" className="mt-0 space-y-8">
             <div className="card-surface p-6 md:p-8 rounded-2xl">
               <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
@@ -100,7 +237,7 @@ const VCloudPointLearnMore = () => {
             </div>
           </TabsContent>
 
-          {/* ── Tab 2: RDS vs VDI ── */}
+          {/* ── Tab: RDS vs VDI ── */}
           <TabsContent value="solutions" className="mt-0">
             <div className="grid md:grid-cols-2 gap-5">
               <div className="card-surface p-6 md:p-8 rounded-2xl">
@@ -143,8 +280,8 @@ const VCloudPointLearnMore = () => {
             </div>
           </TabsContent>
 
-          {/* ── Tab 3: Use Cases ทั่วโลก ── */}
-          <TabsContent value="cases" className="mt-0">
+          {/* ── Tab: Industries ── */}
+          <TabsContent value="industries" className="mt-0">
             <p className="text-sm text-muted-foreground text-center mb-6">
               vCloudPoint ให้บริการลูกค้าทั่วโลกในหลากหลายอุตสาหกรรม
               ตั้งแต่องค์กรขนาดเล็กไปจนถึงองค์กรขนาดใหญ่
@@ -167,7 +304,7 @@ const VCloudPointLearnMore = () => {
             </div>
           </TabsContent>
 
-          {/* ── Tab 4: Why vCloudPoint ── */}
+          {/* ── Tab: Why vCloudPoint ── */}
           <TabsContent value="why" className="mt-0">
             <div className="grid md:grid-cols-2 gap-4">
               {[
