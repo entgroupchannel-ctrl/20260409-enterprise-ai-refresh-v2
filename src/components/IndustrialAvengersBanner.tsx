@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Cpu, Droplets, Monitor, Boxes, Box } from "lucide-react";
 import heroStones from "@/assets/m4-avengers-hero-stones.jpg";
+import imgCaptainGTG from "@/assets/ads/m4-avengers-1-captain-gtg.jpg";
+import imgGuardianWP from "@/assets/ads/m4-avengers-4-guardian-outdoor.jpg";
+import imgDefenderGK from "@/assets/ads/m4-avengers-2-defender-gk.jpg";
+import imgStrategistUPC from "@/assets/ads/m4-avengers-5-strategist-epc.jpg";
+import imgScoutEPC from "@/assets/ads/m4-avengers-3-scout-touchwork.jpg";
 
 /**
  * Industrial Avengers — Homepage banner
