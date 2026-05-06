@@ -239,28 +239,47 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
 const VCloudPoint = () => {
   const [showVmatrix, setShowVmatrix] = useState(false);
   const [calcOpen, setCalcOpen] = useState(false);
-  const [calcUsers, setCalcUsers] = useState(20);
+  const [calcUsers, setCalcUsers] = useState(10);
+  const [calcModel, setCalcModel] = useState<"A1" | "S100" | "S100-v1">("S100");
   const [calcPcPrice, setCalcPcPrice] = useState(18000);
   const [calcLicense, setCalcLicense] = useState(5500);
-  // vCloudPoint: ราคาประมาณ — Host PC + V-series terminals
+  const [calcHours, setCalcHours] = useState(8);
+  const [calcDays, setCalcDays] = useState(250);
+  const [calcElecRate, setCalcElecRate] = useState(4.5);
+
+  // ราคา Zero Client ตามรุ่น (อัปเดตจริง)
+  const ZC_PRICE: Record<"A1" | "S100" | "S100-v1", number> = {
+    "A1": 5900,
+    "S100": 6900,
+    "S100-v1": 7900,
+  };
+  // Host PC: ช่วงราคาแนะนำตามจำนวนผู้ใช้ — สเปกแล้วแต่จัด (แบรนด์/ประกอบ)
+  const hostRange = (users: number): { low: number; high: number; label: string; blocks: number } => {
+    if (users <= 10) return { low: 35000, high: 45000, label: "Host PC 1 เครื่อง (รองรับ ~10 ผู้ใช้)", blocks: 1 };
+    if (users <= 15) return { low: 55000, high: 85000, label: "Host PC 1 เครื่อง (รองรับ ~15 ผู้ใช้)", blocks: 1 };
+    const blocks = Math.ceil(users / 15);
+    return { low: 55000 * blocks, high: 85000 * blocks, label: `Host PC ${blocks} เครื่อง (รองรับ ~${users} ผู้ใช้)`, blocks };
+  };
+
   const calc = (() => {
     const users = Math.max(1, calcUsers);
+    const zcUnit = ZC_PRICE[calcModel];
     // แนวเดิม: ซื้อ PC ใหม่ทุกเครื่อง + License Windows
     const traditional = users * (calcPcPrice + calcLicense);
-    // แนวใหม่ (vCloudPoint): 1 Host PC แรง + V-series ~5,500 บ./จุด
-    const hostCost = Math.ceil(users / 30) * 35000; // 1 host รองรับ ~30 ผู้ใช้
-    const terminalCost = users * 5500;
-    const vcloud = hostCost + terminalCost;
-    const save = traditional - vcloud;
+    // แนวใหม่: Host PC + Zero Client ตามรุ่น
+    const host = hostRange(users);
+    const terminalCost = users * zcUnit;
+    const vcloudLow = host.low + terminalCost;
+    const vcloudHigh = host.high + terminalCost;
+    const vcloudMid = Math.round((vcloudLow + vcloudHigh) / 2);
+    const save = traditional - vcloudMid;
     const savePct = traditional > 0 ? Math.round((save / traditional) * 100) : 0;
-    // ค่าไฟต่อปี: PC ~150W vs V-series ~5W, 8ชม./วัน 250วัน
-    const kwhPerYear = 8 * 250 / 1000;
-    const elecOld = users * 150 * kwhPerYear * 4.5;
-    const elecNew = users * 5 * kwhPerYear * 4.5 + Math.ceil(users / 30) * 200 * kwhPerYear * 4.5;
+    // ค่าไฟต่อปี: PC ~150W vs Zero Client ~5W + Host ~200W ต่อเครื่อง
+    const kwhPerYear = (calcHours * calcDays) / 1000;
+    const elecOld = users * 150 * kwhPerYear * calcElecRate;
+    const elecNew = users * 5 * kwhPerYear * calcElecRate + host.blocks * 200 * kwhPerYear * calcElecRate;
     const elecSave = Math.round(elecOld - elecNew);
-    return { traditional, vcloud, save, savePct, elecSave };
-  })();
-  const fmt = (n: number) => n.toLocaleString("th-TH", { maximumFractionDigits: 0 });
+    const elecSavePct = elecOld > 0 ? Math.round((elecSave / elecOld)
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
