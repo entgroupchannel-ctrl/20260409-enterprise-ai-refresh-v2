@@ -951,8 +951,8 @@ const MiniPC = () => {
                     href={h.anchor}
                     className="group relative rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col"
                   >
-                    <div className="w-20 sm:w-full sm:aspect-[4/3] shrink-0 overflow-hidden bg-muted">
-                      <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                    <div className="w-20 sm:w-full sm:aspect-[4/3] shrink-0 overflow-hidden bg-muted flex items-center justify-center">
+                      <img src={h.img} alt={`${h.hero} — ${h.title}`} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
                     <div className="p-3 flex-1 min-w-0">
                       <div className="text-[9px] font-bold tracking-widest text-primary mb-0.5 truncate">{h.code}</div>
