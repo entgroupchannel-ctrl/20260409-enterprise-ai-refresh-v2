@@ -3,6 +3,12 @@ import { ArrowRight, Monitor, Maximize2, ShoppingBag, Tag, Frame } from "lucide-
 import kioskBanner from "@/assets/banners/home-kiosk-banner.jpg";
 import largeDisplayBanner from "@/assets/banners/home-largedisplay-banner.jpg";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
+import wallKioskHero from "@/assets/ads/wallkiosk-hero.jpg";
+import wallKiosk156 from "@/assets/ads/wallkiosk-156.jpg";
+import wallKiosk215 from "@/assets/ads/wallkiosk-215.jpg";
+import wallKiosk238 from "@/assets/ads/wallkiosk-238.jpg";
+import wallKiosk32 from "@/assets/ads/wallkiosk-32.jpg";
+import wallKioskAndroid from "@/assets/ads/wallkiosk-android.jpg";
 
 // สินค้าใน /shop ที่ตรงกับหัวข้อ (Touch Kiosk + Indoor Display ขนาดใหญ่)
 const SHOP_MATCHED_SLUGS = [
