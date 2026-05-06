@@ -564,17 +564,17 @@ const IBoxSeries = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div className="md:col-span-2 card-surface overflow-hidden group">
-            <div className="relative aspect-[16/9] overflow-hidden">
-              <img src={firewallSecurityImg} alt="SME ไทยโดนแฮก 70% ในปี 2025" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+              <img src={firewallSecurityImg} alt="SME ไทยโดนแฮก 70% ในปี 2025" loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-5">
               <h3 className="font-display font-bold text-foreground mb-1">เริ่มจาก Pain Point ที่ลูกค้าเข้าใจทันที</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">วางภาพนี้ก่อน เพื่อทำให้ลูกค้าเห็นต้นทุนของการ “ยังไม่มี Firewall” แล้วค่อยพาไปดูรุ่นที่เหมาะกับงบ</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">วางภาพนี้ก่อน เพื่อทำให้ลูกค้าเห็นต้นทุนของการ "ยังไม่มี Firewall" แล้วค่อยพาไปดูรุ่นที่เหมาะกับงบ</p>
             </div>
           </div>
           <div className="card-surface overflow-hidden group">
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <img src={firewallMiniPcImg} alt="Mini PC Firewall ประหยัดกว่า Fortinet 80%" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+              <img src={firewallMiniPcImg} alt="Mini PC Firewall ประหยัดกว่า Fortinet 80%" loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-5">
               <h3 className="font-display font-bold text-foreground mb-1">Hero รุ่นขายง่าย</h3>
@@ -591,8 +591,8 @@ const IBoxSeries = () => {
             { src: firewallIPC090Img, title: "IPC090", desc: "10Gbps SFP+ x10 พอร์ต ระดับ Enterprise / Datacenter" },
           ].map((item) => (
             <div key={item.title} className="card-surface overflow-hidden group">
-              <div className="relative aspect-square overflow-hidden">
-                <img src={item.src} alt={item.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="relative aspect-square overflow-hidden bg-muted">
+                <img src={item.src} alt={item.title} loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-4">
                 <h3 className="font-display font-bold text-foreground text-sm mb-1">{item.title}</h3>
