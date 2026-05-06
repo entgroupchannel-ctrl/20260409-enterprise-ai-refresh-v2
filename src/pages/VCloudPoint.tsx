@@ -20,6 +20,12 @@ import FooterCompact from "@/components/FooterCompact";
 import VCloudPointLearnMore from "@/components/vcloudpoint/VCloudPointLearnMore";
 import MiniNavbar from "@/components/MiniNavbar";
 import vcloudEolImg from "@/assets/ads/vcloud-ad-eol2025.jpg";
+import usecaseSchool from "@/assets/vcloud/usecase-school.jpg";
+import usecaseOffice from "@/assets/vcloud/usecase-office.jpg";
+import usecaseFactory from "@/assets/vcloud/usecase-factory.jpg";
+import usecaseCallcenter from "@/assets/vcloud/usecase-callcenter.jpg";
+import usecaseRetail from "@/assets/vcloud/usecase-retail.jpg";
+import usecaseHospital from "@/assets/vcloud/usecase-hospital.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 /* ═══════ Key Benefits ═══════ */
