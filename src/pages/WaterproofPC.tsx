@@ -272,6 +272,53 @@ const WaterproofPC = () => {
           </div>
         </section>
 
+        {/* Real Use Case Gallery */}
+        <section>
+          <div className="text-center mb-6">
+            <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">Real Use Cases</Badge>
+            <h2 className="text-2xl font-display font-bold text-foreground mb-2">
+              ใช้งานจริงใน <span className="text-gradient">โรงงานอาหาร & ครัวมืออาชีพ</span>
+            </h2>
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+              ทนน้ำ ทนไอมัน ทนการล้างทำความสะอาดทุกกะ — ออกแบบมาเพื่อสภาพแวดล้อมที่คอมทั่วไปอยู่ไม่ได้
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="card-surface overflow-hidden group">
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={waterproofChickenImg}
+                  alt="Waterproof PC ใช้งานในไลน์แปรรูปไก่ / อาหารสด"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display font-bold text-foreground mb-1">ไลน์แปรรูปอาหาร / ไก่สด / Seafood</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  ฉีดน้ำแรงดันสูงล้างไลน์ทุกกะได้ — SUS304 เกรดอาหาร ผ่าน GMP/HACCP อายุใช้งาน 5+ ปี
+                </p>
+              </div>
+            </div>
+            <div className="card-surface overflow-hidden group">
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={waterproofKitchenImg}
+                  alt="Waterproof PC ใช้ในครัวร้านอาหาร / Cloud Kitchen / POS"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display font-bold text-foreground mb-1">ครัวมืออาชีพ / Cloud Kitchen / POS</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  ทัชสกรีนใช้ได้แม้มือเปียก ใส่ถุงมือยาง — ทนไอน้ำ ไอมัน ความร้อน เช็ดล้างน้ำยาฆ่าเชื้อได้
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Product Lineup */}
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-6">
