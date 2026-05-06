@@ -19,6 +19,7 @@ import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import vcloudEolImg from "@/assets/ads/vcloud-ad-eol2025.jpg";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 /* ═══════ Key Benefits ═══════ */
 const benefits = [
