@@ -233,6 +233,8 @@ const Handheld = () => {
           </div>
         </section>
 
+        <HandheldShowcase />
+
         {/* Products Grid */}
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-6">
