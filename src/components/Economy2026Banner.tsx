@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Factory, Monitor, Droplets, Cpu, Tv2, Sparkles, TrendingDown, Zap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Factory, Monitor, Droplets, Cpu, Tv2, Sparkles, TrendingDown, Zap, MessageCircle } from "lucide-react";
+import LineQRButton from "./LineQRButton";
 import economyMaster from "@/assets/ads/economy2026-hero-v2.png";
 import imgFirewall from "@/assets/hero-firewall.jpg";
 import imgPanelPC from "@/assets/product-panel-pc.jpg";
@@ -129,12 +130,9 @@ const Economy2026Banner = () => {
             >
               ติดต่อทีมงาน <ArrowRight className="w-4 h-4" />
             </Link>
-            <a
-              href="tel:020456104"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 text-white border border-white/20 font-bold text-sm hover:bg-white/15 transition-colors"
-            >
-              02-045-6104
-            </a>
+            <LineQRButton className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#06C755] text-white font-bold text-sm hover:bg-[#05b34c] transition-colors shadow-lg shadow-[#06C755]/30">
+              <MessageCircle className="w-4 h-4" /> แชต LINE @entgroup
+            </LineQRButton>
           </div>
         </div>
       </div>
