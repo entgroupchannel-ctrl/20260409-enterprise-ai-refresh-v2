@@ -3,7 +3,7 @@ import {
   BookOpen, Layers, Globe2, Award, Sparkles, MapPin, Quote, ArrowRight,
   Monitor, Volume2, Usb, MousePointerClick, Settings2, Zap,
   Server, Cpu, GraduationCap, Building2, Factory, HeadphonesIcon,
-  DollarSign, Gauge, Smile, ShieldCheck, Library,
+  DollarSign, Gauge, Smile, ShieldCheck, Library, ExternalLink,
 } from "lucide-react";
 
 /**
