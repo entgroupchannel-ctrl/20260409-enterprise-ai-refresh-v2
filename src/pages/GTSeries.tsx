@@ -818,6 +818,32 @@ const GTSeries = () => {
         </div>
       </section>
 
+      {/* Industrial PC Showcase — Master + Lineup banners */}
+      <section className="py-10 bg-background">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <span className="text-xs font-bold tracking-widest uppercase text-primary">Industrial PC Showcase</span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2">ครบทุกรุ่น Industrial PC ในที่เดียว</h2>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-xl group">
+              <img src={ipcAdMaster} alt="Industrial PC Master" className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+            </div>
+            <div className="grid grid-rows-2 gap-4">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
+                <img src={ipcAdLineup3} alt="Industrial PC Lineup" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+              </div>
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg group">
+                <img src={ipcAdLineup4} alt="Industrial PC Lineup Extended" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Warranty block */}
+      <IndustrialPCWarranty />
+
       {/* Models Section with Tabs */}
       <section className="section-padding" id="models">
         <div className="container max-w-7xl mx-auto">
