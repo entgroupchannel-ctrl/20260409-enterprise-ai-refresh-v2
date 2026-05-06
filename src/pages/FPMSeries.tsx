@@ -14,6 +14,12 @@ import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
+import fpmAdMaster from "@/assets/ads/fpm-ad-1-master.jpg";
+import fpmAdGT from "@/assets/ads/fpm-ad-2-gt.jpg";
+import fpmAdEPC from "@/assets/ads/fpm-ad-3-epc.jpg";
+import fpmAdUPC from "@/assets/ads/fpm-ad-4-upc.jpg";
+import fpmAdLineup from "@/assets/ads/fpm-ad-5-lineup.jpg";
+import entLogo from "@/assets/logo-entgroup-transparent.png";
 
 /* ─── Data ─── */
 // Image map: รุ่น → ภาพ (ใช้ภาพจริงจาก cesipc.com)
@@ -209,6 +215,103 @@ const FPMSeries = () => {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ FPM × Industrial PC Bundle Showcase ═══ */}
+      <section className="relative py-16 bg-gradient-to-b from-background via-primary/5 to-background border-b border-border overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px]" />
+          <div className="absolute -bottom-24 -right-24 w-[400px] h-[400px] rounded-full bg-amber-500/10 blur-[100px]" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+              <Sparkles className="w-3 h-3" /> FPM × Industrial PC Bundles
+            </span>
+            <h2 className="text-2xl md:text-4xl font-display font-black text-foreground leading-tight">
+              จับคู่ FPM กับ <span className="text-primary">Industrial PC</span> ได้ทุกรุ่น
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm md:text-base">
+              พอร์ต HDMI / VGA / USB มาตรฐานเดียว เชื่อมต่อกับ GT / EPC / UPC ได้ทันที —
+              ออกแบบ HMI ของคุณได้แบบ Plug & Play
+            </p>
+          </div>
+
+          {/* Master banner */}
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl mb-6 group bg-card">
+            <img
+              src={fpmAdMaster}
+              alt="FPM Series เชื่อมต่อ Industrial PC ได้ทุกรุ่น"
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              loading="lazy"
+            />
+            {/* Logo overlay — แทนที่ placeholder ในภาพ มุมซ้ายล่าง */}
+            <div className="absolute bottom-3 md:bottom-5 left-3 md:left-5 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 md:px-4 md:py-2.5 shadow-lg border border-white/60">
+              <img src={entLogo} alt="ENT Group" className="h-6 md:h-8 w-auto" />
+            </div>
+          </div>
+
+          {/* 3 Bundle types */}
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            {[
+              { src: fpmAdGT, alt: "FPM + GT Series — HMI สายการผลิต Fanless 24/7", to: "/gt-series", label: "FPM + GT Series", tag: "BEST MATCH" },
+              { src: fpmAdEPC, alt: "FPM + EPC Box — Edge AI / Machine Vision", to: "/epc-box-series", label: "FPM + EPC Box", tag: "HIGH PERFORMANCE" },
+              { src: fpmAdUPC, alt: "FPM + UPC Series — VESA ประหยัดพื้นที่", to: "/upc-series", label: "FPM + UPC Series", tag: "SPACE SAVING" },
+            ].map((b) => (
+              <Link
+                key={b.label}
+                to={b.to}
+                className="group relative rounded-2xl overflow-hidden border border-border shadow-lg hover:shadow-2xl hover:border-primary/50 transition-all bg-card"
+              >
+                <div className="overflow-hidden">
+                  <img src={b.src} alt={b.alt} className="w-full h-auto group-hover:scale-[1.05] transition-transform duration-700" loading="lazy" />
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-background via-background/85 to-transparent">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[10px] font-bold tracking-widest text-primary">{b.tag}</div>
+                      <div className="font-display font-bold text-foreground text-sm md:text-base">{b.label}</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Lineup banner */}
+          <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl group bg-card">
+            <img
+              src={fpmAdLineup}
+              alt='FPM Series เลือกได้ตั้งแต่ 8" ถึง 24" — HDMI / VGA / USB'
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-700"
+              loading="lazy"
+            />
+            {/* Logo overlay — มุมซ้ายล่างทับ [LOGO PLACEHOLDER] ในภาพ */}
+            <div className="absolute bottom-[6%] left-[3%] md:bottom-[7%] md:left-[4%] bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 md:px-4 md:py-2.5 shadow-xl border border-white/60">
+              <img src={entLogo} alt="ENT Group" className="h-6 md:h-9 w-auto" />
+            </div>
+          </div>
+
+          {/* Quick benefits row */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { icon: Monitor, text: '8" – 24" ครบทุกขนาด' },
+              { icon: Layers, text: "HDMI / VGA / USB มาตรฐาน" },
+              { icon: Shield, text: "IP65 หน้า / รับประกัน 3 ปี" },
+              { icon: Zap, text: "Plug & Play กับ Industrial PC" },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.text} className="flex items-center gap-2 p-3 rounded-xl bg-card border border-border">
+                  <Icon className="w-4 h-4 text-primary shrink-0" />
+                  <span className="text-xs md:text-sm font-medium text-foreground">{item.text}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
