@@ -1174,36 +1174,40 @@ const EPCBoxSeries = () => {
       {/* Partners */}
       <PartnerLogos />
 
-      {/* Application Showcase */}
+      {/* Application Showcase — ใช้ภาพ usecase จริงที่มีอยู่ */}
       <section className="py-12 bg-background">
         <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-6 items-center">
-            <div className="rounded-3xl overflow-hidden border border-border shadow-2xl group">
-              <img src={ipcAdApplication} alt="EPC Box ใช้งานจริงในอุตสาหกรรม" className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-700" loading="lazy" />
-            </div>
-            <div>
-              <span className="text-xs font-bold tracking-widest uppercase text-primary">Real-World Applications</span>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2 mb-3">
-                ใช้งานจริงในทุกอุตสาหกรรม
-              </h2>
-              <p className="text-muted-foreground mb-5 leading-relaxed">
-                EPC Box Series ติดตั้งใช้งานจริงในโรงงานผลิต, ระบบควบคุมเครื่องจักร, สถานีตรวจวัด,
-                ป้ายโฆษณาดิจิทัล และระบบ Smart Building ทั่วประเทศ
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  "Smart Factory & Automation",
-                  "Machine Vision & AI",
-                  "Digital Signage & Kiosk",
-                  "Building Management",
-                ].map((u) => (
-                  <div key={u} className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border">
-                    <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
-                    <span className="text-sm font-medium text-foreground">{u}</span>
-                  </div>
-                ))}
+          <div className="text-center mb-6">
+            <span className="text-xs font-bold tracking-widest uppercase text-primary">Real-World Applications</span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-2 mb-2">
+              ใช้งานจริงในทุกอุตสาหกรรม
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm">
+              EPC Box Series ติดตั้งใช้งานจริงในโรงงานผลิต, ระบบควบคุมเครื่องจักร, สถานีตรวจวัด,
+              ป้ายโฆษณาดิจิทัล และระบบ Smart Building ทั่วประเทศ
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {[
+              { src: epcUsecaseFactory, label: "Smart Factory & Automation" },
+              { src: epcUsecaseAutomotive, label: "Automotive Production" },
+              { src: epcUsecaseColdstorage, label: "Cold Storage Monitoring" },
+              { src: epcUsecaseFood, label: "Food Processing" },
+              { src: epcUsecaseWarehouse, label: "Warehouse & Logistics" },
+              { src: epcUsecaseConstruction, label: "Construction & Site" },
+              { src: epcXaMachineVision, label: "Machine Vision & AI" },
+              { src: epcXaRetail, label: "Digital Signage & Kiosk" },
+            ].map((u) => (
+              <div key={u.label} className="group rounded-xl overflow-hidden border border-border bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <div className="aspect-[4/3] overflow-hidden bg-muted">
+                  <img src={u.src} alt={u.label} className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500" loading="lazy" />
+                </div>
+                <div className="p-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                  <span className="text-xs font-medium text-foreground leading-tight">{u.label}</span>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
