@@ -226,6 +226,29 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
 /* ═══════ MAIN PAGE ═══════ */
 const VCloudPoint = () => {
   const [showVmatrix, setShowVmatrix] = useState(false);
+  const [calcOpen, setCalcOpen] = useState(false);
+  const [calcUsers, setCalcUsers] = useState(20);
+  const [calcPcPrice, setCalcPcPrice] = useState(18000);
+  const [calcLicense, setCalcLicense] = useState(5500);
+  // vCloudPoint: ราคาประมาณ — Host PC + V-series terminals
+  const calc = (() => {
+    const users = Math.max(1, calcUsers);
+    // แนวเดิม: ซื้อ PC ใหม่ทุกเครื่อง + License Windows
+    const traditional = users * (calcPcPrice + calcLicense);
+    // แนวใหม่ (vCloudPoint): 1 Host PC แรง + V-series ~5,500 บ./จุด
+    const hostCost = Math.ceil(users / 30) * 35000; // 1 host รองรับ ~30 ผู้ใช้
+    const terminalCost = users * 5500;
+    const vcloud = hostCost + terminalCost;
+    const save = traditional - vcloud;
+    const savePct = traditional > 0 ? Math.round((save / traditional) * 100) : 0;
+    // ค่าไฟต่อปี: PC ~150W vs V-series ~5W, 8ชม./วัน 250วัน
+    const kwhPerYear = 8 * 250 / 1000;
+    const elecOld = users * 150 * kwhPerYear * 4.5;
+    const elecNew = users * 5 * kwhPerYear * 4.5 + Math.ceil(users / 30) * 200 * kwhPerYear * 4.5;
+    const elecSave = Math.round(elecOld - elecNew);
+    return { traditional, vcloud, save, savePct, elecSave };
+  })();
+  const fmt = (n: number) => n.toLocaleString("th-TH", { maximumFractionDigits: 0 });
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
