@@ -153,10 +153,6 @@ const Handheld = () => {
           <div className="absolute inset-0 bg-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white transition-colors mb-4">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
-
           <Badge className="bg-primary/20 text-primary border-primary/30 mb-3">Rugged Handheld & PDA</Badge>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-3">
             Rugged <span className="text-gradient">Handheld & PDA</span>
