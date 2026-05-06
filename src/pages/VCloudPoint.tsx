@@ -276,6 +276,36 @@ const VCloudPoint = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
       <MiniNavbar />
 
+      {/* ── Authorized Distributor Banner ── */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-sky-600 text-primary-foreground border-b border-primary/30">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute -top-10 -left-10 w-48 h-48 rounded-full bg-white/20 blur-3xl" />
+          <div className="absolute -bottom-10 right-1/4 w-56 h-56 rounded-full bg-sky-300/30 blur-3xl" />
+        </div>
+        <div className="container max-w-7xl mx-auto px-6 py-4 md:py-5 relative">
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-[10px] font-black uppercase tracking-wider">
+                <Award className="w-3.5 h-3.5" /> Official Distributor
+              </span>
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-sm md:text-base font-black leading-snug">
+                ENT GROUP — ตัวแทนจำหน่าย vCloudPoint เจ้าเดียวอย่างเป็นทางการในประเทศไทย
+              </p>
+              <p className="text-xs md:text-sm text-primary-foreground/85 mt-1 font-medium">
+                ซื้อจากเรา ได้ของแท้ 100% · บริการตลอดอายุการใช้งาน · จำหน่ายต่อเนื่องตั้งแต่ปี <span className="font-black underline underline-offset-2">2558</span>
+              </p>
+            </div>
+            <div className="hidden md:flex items-center gap-3 shrink-0 text-[11px] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> ของแท้</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> รับประกัน</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Support ไทย</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── EOL Urgency Banner ── */}
       <section className="bg-gradient-to-r from-destructive/10 via-orange-500/10 to-destructive/10 border-y border-destructive/20">
         <div className="container max-w-7xl mx-auto px-6 py-3">
