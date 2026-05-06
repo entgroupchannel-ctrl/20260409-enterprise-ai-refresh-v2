@@ -224,7 +224,7 @@ const Handheld = () => {
           <p className="text-muted-foreground text-center mb-8 text-sm">ทนทาน พกพาง่าย สแกนเร็ว พร้อมลุยทุกสถานการณ์</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((f, i) => (
-              <div key={i} className="card-surface p-5">
+              <div key={i} className="card-surface p-5 bg-slate-300">
                 <f.icon className="w-8 h-8 text-primary mb-3" />
                 <h3 className="font-semibold text-foreground text-sm mb-1">{f.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
