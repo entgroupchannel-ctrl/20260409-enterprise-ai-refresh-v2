@@ -9,6 +9,7 @@ import {
   ShoppingBag, PhoneCall,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Footer from "@/components/Footer";
 import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
@@ -259,7 +260,7 @@ const JetsonEdgeAI = () => {
             </span>
             {[
               { label: "แคตตาล็อกสินค้า", icon: Package, href: "/nvidia-jetson/products", primary: true },
-              { label: "Shop NVIDIA Jetson", icon: ShoppingBag, href: "/shop?series=Jetson%20Series" },
+              { type: "shop-dropdown" as const, label: "Shop NVIDIA Jetson", icon: ShoppingBag },
               { label: "ตัวช่วยเลือกรุ่น", icon: Sparkles, href: "/nvidia-jetson/recommend" },
               { label: "AI Models (NGC)", icon: BrainCircuit, href: "/nvidia-jetson/ai-ready" },
               { label: "GPU Server", icon: Server, href: "/nvidia-jetson/gpu-server" },
@@ -268,15 +269,49 @@ const JetsonEdgeAI = () => {
               { label: "Case Studies", icon: Award, href: "/nvidia-jetson/case-studies" },
             ].map((link) => {
               const Icon = link.icon;
+              const baseCls = "group shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5";
+              const primaryCls = "bg-[#76B900] text-[#0a0e27] hover:bg-[#8ad400] shadow-md shadow-[#76B900]/30 hover:shadow-lg hover:shadow-[#76B900]/50";
+              const ghostCls = "bg-white/5 text-white/85 hover:bg-[#76B900]/15 hover:text-[#76B900] border border-white/10 hover:border-[#76B900]/40";
+
+              if ("type" in link && link.type === "shop-dropdown") {
+                const shopCats = [
+                  { label: "ทั้งหมด (Jetson Series)", to: "/shop?series=Jetson%20Series" },
+                  { label: "ชุดพัฒนา Developer Kit", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("ชุดพัฒนา Developer Kit")}` },
+                  { label: "คอมพิวเตอร์อุตสาหกรรม (IPC)", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("คอมพิวเตอร์อุตสาหกรรม (IPC)")}` },
+                  { label: "โมดูล Jetson", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("โมดูล Jetson")}` },
+                  { label: "บอร์ดพื้นฐาน Carrier Board", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("บอร์ดพื้นฐาน Carrier Board")}` },
+                  { label: "ระบบพัฒนา AI (Dev System)", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("ระบบพัฒนา AI")}` },
+                  { label: "เครื่อง AI สำเร็จรูป (Edge)", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("เครื่อง AI สำเร็จรูป")}` },
+                  { label: "คอมพิวเตอร์อุตสาหกรรมไต้หวัน", to: `/shop?series=Jetson%20Series&cats=${encodeURIComponent("คอมพิวเตอร์อุตสาหกรรมไต้หวัน")}` },
+                ];
+                return (
+                  <DropdownMenu key="shop-dropdown">
+                    <DropdownMenuTrigger className={`${baseCls} ${ghostCls}`}>
+                      <Icon size={14} className="transition-transform group-hover:scale-110" />
+                      <span>{link.label}</span>
+                      <ChevronRight size={12} className="rotate-90 opacity-70" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="w-72 bg-[#0d1230] border-[#76B900]/30 text-white">
+                      <DropdownMenuLabel className="text-[#76B900] text-[11px] tracking-wider">เลือกหมวดสินค้า Jetson</DropdownMenuLabel>
+                      <DropdownMenuSeparator className="bg-white/10" />
+                      {shopCats.map((c) => (
+                        <DropdownMenuItem key={c.label} asChild className="focus:bg-[#76B900]/15 focus:text-[#76B900] cursor-pointer">
+                          <Link to={c.to} className="flex items-center gap-2 text-xs">
+                            <Package size={12} className="opacity-60" />
+                            <span>{c.label}</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                );
+              }
+
               return (
                 <Link
                   key={link.href}
-                  to={link.href}
-                  className={`group shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5 ${
-                    link.primary
-                      ? "bg-[#76B900] text-[#0a0e27] hover:bg-[#8ad400] shadow-md shadow-[#76B900]/30 hover:shadow-lg hover:shadow-[#76B900]/50"
-                      : "bg-white/5 text-white/85 hover:bg-[#76B900]/15 hover:text-[#76B900] border border-white/10 hover:border-[#76B900]/40"
-                  }`}
+                  to={link.href!}
+                  className={`${baseCls} ${link.primary ? primaryCls : ghostCls}`}
                 >
                   <Icon size={14} className="transition-transform group-hover:scale-110" />
                   <span>{link.label}</span>

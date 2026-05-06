@@ -110,11 +110,18 @@ const ShopStorefront = () => {
     return raw.split(',').map(s => s.trim()).filter(Boolean);
   })();
 
+  // Optional URL ?cats=... → categoryFilter (comma-separated category names)
+  const initialCategoriesFromUrl = (() => {
+    const raw = searchParams.get('cats');
+    if (!raw) return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+  })();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(searchParams.get('q') || '');
   const [seriesFilter, setSeriesFilter] = useState<string[]>(initialSeriesFromUrl);
-  const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string[]>(initialCategoriesFromUrl);
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'featured');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
@@ -133,11 +140,12 @@ const ShopStorefront = () => {
   useEffect(() => {
     const params = new URLSearchParams();
     if (seriesFilter.length > 0) params.set('series', seriesFilter.join(','));
+    if (categoryFilter.length > 0) params.set('cats', categoryFilter.join(','));
     if (search.trim()) params.set('q', search.trim());
     if (sortBy && sortBy !== 'featured') params.set('sort', sortBy);
     setSearchParams(params, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seriesFilter, search, sortBy]);
+  }, [seriesFilter, categoryFilter, search, sortBy]);
 
   // Persist recent search terms (debounced) for the activity panel
   useEffect(() => {
